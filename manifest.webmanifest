@@ -1,0 +1,17 @@
+{
+  "name": "Atlas",
+  "short_name": "Atlas",
+  "description": "Personal world-map quiz game",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f2e8d5",
+  "theme_color": "#f2e8d5",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

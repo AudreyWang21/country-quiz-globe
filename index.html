@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas</title>
+  <meta name="theme-color" content="#f2e8d5">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="vendor/d3.v7.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <header class="chrome-header">
+    <div class="title-cartouche">
+      <svg class="compass-icon" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="3"/>
+        <circle cx="50" cy="50" r="36" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <g transform="rotate(45 50 50)" fill="currentColor" opacity="0.55">
+          <path d="M50 20 L54 46 L50 50 L46 46 Z"/>
+          <path d="M80 50 L54 54 L50 50 L54 46 Z"/>
+          <path d="M50 80 L46 54 L50 50 L54 54 Z"/>
+          <path d="M20 50 L46 46 L50 50 L46 54 Z"/>
+        </g>
+        <g fill="currentColor">
+          <path d="M50 4 L56 44 L50 50 L44 44 Z"/>
+          <path d="M96 50 L56 56 L50 50 L56 44 Z"/>
+          <path d="M50 96 L44 56 L50 50 L56 56 Z"/>
+          <path d="M4 50 L44 44 L50 50 L44 56 Z"/>
+        </g>
+        <circle cx="50" cy="50" r="5" fill="currentColor"/>
+      </svg>
+      <h1 class="app-title">Atlas</h1>
+    </div>
+
+    <nav class="mode-tabs" aria-label="Game mode">
+      <button class="mode-tab" type="button" data-mode="find" aria-pressed="false"></button>
+      <button class="mode-tab" type="button" data-mode="type" aria-pressed="false"></button>
+      <button class="mode-tab" type="button" data-mode="review" aria-pressed="false"></button>
+      <button class="mode-tab" type="button" data-mode="browse" aria-pressed="false"></button>
+    </nav>
+
+    <div class="header-controls">
+      <div class="segmented-control" id="view-toggle" role="group" aria-label="Map view">
+        <svg class="view-toggle-compass" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="6"/>
+          <path d="M50 8 L58 50 L50 92 L42 50 Z" fill="currentColor"/>
+          <path d="M8 50 L50 42 L92 50 L50 58 Z" fill="currentColor" opacity="0.55"/>
+        </svg>
+        <button class="segment" type="button" data-view="flat" aria-pressed="false"></button>
+        <button class="segment" type="button" data-view="globe" aria-pressed="false"></button>
+      </div>
+      <div class="segmented-control">
+        <button class="segment segment-microstates" type="button" id="microstate-toggle" aria-pressed="false"></button>
+      </div>
+      <div class="segmented-control">
+        <button class="segment segment-auto-pronounce" type="button" id="auto-pronounce-toggle" aria-pressed="false"></button>
+      </div>
+      <select id="continent-filter" class="continent-filter" aria-label="Continent"></select>
+    </div>
+  </header>
+
+  <main class="app-layout">
+    <section class="map-area">
+      <svg id="world-map" class="world-map"></svg>
+      <div class="map-legend">
+        <span class="legend-item legend-track" id="legend-track-label"></span>
+        <span class="legend-item"><span class="legend-swatch legend-swatch-untouched"></span><span data-legend="untouched"></span></span>
+        <span class="legend-item"><span class="legend-swatch legend-swatch-wrong"></span><span data-legend="wrong"></span></span>
+        <span class="legend-item"><span class="legend-swatch legend-swatch-almost"></span><span data-legend="almost"></span></span>
+        <span class="legend-item"><span class="legend-swatch legend-swatch-mastered"></span><span data-legend="mastered"></span></span>
+        <span class="legend-item"><span class="legend-swatch legend-swatch-microstate"></span><span data-legend="microstate"></span></span>
+        <span class="legend-item"><span class="legend-swatch legend-swatch-capital"></span><span data-legend="capital"></span></span>
+      </div>
+    </section>
+
+    <aside class="side-panel">
+      <div class="panel-content" id="panel-content"></div>
+      <section class="panel-data-controls">
+        <a id="data-page-link" class="action-button action-button-quiet" href="data.html" target="_blank" rel="noopener"></a>
+        <a id="settings-page-link" class="action-button action-button-quiet" href="settings.html" target="_blank" rel="noopener"></a>
+      </section>
+    </aside>
+  </main>
+</body>
+</html>

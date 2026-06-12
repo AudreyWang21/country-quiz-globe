@@ -1,0 +1,1036 @@
+/* Atlas — "Antique Atlas, modern hand."
+   Parchment plate, ink-brown engraving, muted cartographic tints. */
+
+/* ---------- vendored type ---------- */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("vendor/fonts/fraunces-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("vendor/fonts/fraunces-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("vendor/fonts/fraunces-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- palette and shared tokens ---------- */
+
+:root {
+  color-scheme: light;
+
+  --color-page: #e7dabd;            /* the desk around the plate */
+  --color-parchment: #f2e8d5;       /* chrome, panels */
+  --color-parchment-bright: #faf4e6;
+  --color-ocean: #f4ecd9;           /* the sea inside the plate */
+  --color-land-untouched: #ece0c3;
+  --color-land-hatch: rgba(91, 70, 54, 0.16);
+  --color-coastline: #5b4636;
+  --color-ink: #3c2f23;
+  --color-ink-strong: #271d14;
+  --color-ink-soft: rgba(60, 47, 35, 0.62);
+  --color-rule: #7a6450;            /* cartouche rules */
+  --color-gold: #a8895a;
+
+  --color-status-mastered: #84a98c; /* verdigris */
+  --color-status-almost: #d6ad6b;   /* faded amber */
+  --color-status-wrong: #b4604e;    /* madder */
+  --color-verdict-mastered: #44704e;
+  --color-verdict-almost: #8a6c28;
+  --color-verdict-wrong: #8f3f2c;
+
+  --font-display: "Fraunces", Georgia, "Microsoft YaHei", "PingFang SC", serif;
+  --font-body: Georgia, "Times New Roman", "Microsoft YaHei", "PingFang SC", serif;
+
+  --rule-double: 3px double var(--color-rule);
+  --rule-hairline: 1px solid rgba(122, 100, 80, 0.45);
+}
+
+/* ---------- page scaffold ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* paper grain over everything — pure CSS, no image assets */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 90;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.357 0 0 0 0 0.275 0 0 0 0 0.212 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-parchment);
+}
+
+.small-caps,
+.panel-kicker,
+.panel-section-title,
+.mode-tab,
+.segment,
+.action-button,
+.map-legend,
+.verdict-hint,
+.region-browse-only,
+.region-facts dt {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- header chrome ---------- */
+
+.chrome-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px 26px;
+  padding: 10px 20px;
+  background: var(--color-parchment);
+  border-bottom: var(--rule-double);
+}
+
+.title-cartouche {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.compass-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--color-coastline);
+}
+
+.app-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-ink-strong);
+}
+
+.mode-tabs {
+  display: flex;
+  border: 1px solid var(--color-rule);
+  box-shadow: 0 0 0 3px var(--color-parchment), 0 0 0 4px rgba(122, 100, 80, 0.5);
+}
+
+.mode-tab {
+  min-width: 86px;
+  padding: 8px 14px;
+  border: none;
+  border-left: 1px solid rgba(122, 100, 80, 0.4);
+  background: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+}
+.mode-tab:first-child {
+  border-left: none;
+}
+.mode-tab:hover {
+  background: rgba(122, 100, 80, 0.1);
+}
+.mode-tab[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-parchment);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.segmented-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-rule);
+}
+
+.view-toggle-compass {
+  width: 15px;
+  height: 15px;
+  margin: 0 4px 0 8px;
+  color: var(--color-coastline);
+  flex: none;
+}
+
+.segment {
+  min-width: 54px;
+  padding: 6px 10px;
+  border: none;
+  border-left: 1px solid rgba(122, 100, 80, 0.4);
+  background: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+}
+.segmented-control .segment:first-of-type {
+  border-left: none;
+}
+#view-toggle .segment:first-of-type {
+  border-left: 1px solid rgba(122, 100, 80, 0.4);
+}
+.segment:hover {
+  background: rgba(122, 100, 80, 0.1);
+}
+.segment[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-parchment);
+}
+
+/* wide enough for both "Microstates" and "微型地区" — no width jump on language switch */
+.segment-microstates {
+  min-width: 118px;
+}
+
+.continent-filter {
+  min-width: 150px;
+  padding: 6px 10px;
+  border: 1px solid var(--color-rule);
+  background: var(--color-parchment-bright);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* shared button affordances */
+.mode-tab:active,
+.segment:active,
+.action-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* ---------- layout ---------- */
+
+.app-layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.map-area {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+  background: var(--color-page);
+}
+
+.world-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.world-map.map-loaded {
+  opacity: 1;
+}
+.world-map:active {
+  cursor: grabbing;
+}
+
+/* ---------- map: sphere, graticule, countries ---------- */
+
+.sphere-fill {
+  fill: var(--color-ocean);
+  stroke: none;
+}
+
+.graticule {
+  fill: none;
+  stroke: rgba(91, 70, 54, 0.18);
+  stroke-width: 0.5px;
+  pointer-events: none;
+}
+
+.sphere-outline {
+  fill: none;
+  stroke: var(--color-coastline);
+  stroke-width: 1.1px;
+  pointer-events: none;
+}
+
+.country {
+  stroke: var(--color-coastline);
+  stroke-width: 0.6px;
+  stroke-linejoin: round;
+  cursor: pointer;
+  /* fill-opacity eases the moment the sustained pulse is paused mid-blink —
+     without it, removing the animation snaps the fill back instantly */
+  transition: fill 550ms ease, opacity 400ms ease, fill-opacity 350ms ease;
+}
+
+.country.status-untouched {
+  fill: url(#untouched-hatch);
+}
+/* While the map is dragged, spun, or zoomed, frames are drawn on the canvas
+   overlay and the SVG content is hidden; release restores the engraved look. */
+.interaction-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  pointer-events: none;
+}
+.world-map.map-interacting .zoom-layer {
+  display: none;
+}
+.country.status-wrong {
+  fill: var(--color-status-wrong);
+}
+.country.status-almost {
+  fill: var(--color-status-almost);
+}
+.country.status-mastered {
+  fill: var(--color-status-mastered);
+}
+
+.country.out-of-scope {
+  opacity: 0.3;
+}
+.country.hovered {
+  stroke-width: 1.5px;
+  stroke: var(--color-ink-strong);
+}
+.country.selected {
+  stroke-width: 2.2px;
+  stroke: var(--color-ink-strong);
+}
+.country.review-target {
+  stroke-width: 2.2px;
+  stroke: var(--color-ink-strong);
+  stroke-dasharray: 5 3;
+}
+.country.pulsing {
+  animation: region-pulse 600ms ease-in-out 3;
+}
+.country.flashing {
+  animation: region-flash 650ms ease-in-out 1;
+}
+.country.status-just-changed {
+  animation: ink-fill 750ms ease-out;
+}
+/* pulses always land together with a status change (new mastery, find
+   success/reveal) — play both animations instead of letting ink-fill win */
+.country.pulsing.status-just-changed {
+  animation: ink-fill 750ms ease-out, region-pulse 600ms ease-in-out 3;
+}
+/* sustained variant — Find outcomes keep pulsing until the round advances,
+   so looking away during a 3-blink pulse can't hide the result. Clicking the
+   pulsing region pauses/resumes the animation (app.js). */
+.country.pulsing-sustained {
+  animation: region-pulse 600ms ease-in-out infinite;
+}
+.country.pulsing-sustained.status-just-changed {
+  animation: ink-fill 750ms ease-out, region-pulse 600ms ease-in-out infinite;
+}
+.country.first-reveal {
+  animation: country-appear 650ms ease-out both;
+}
+
+/* ---------- microstate markers ---------- */
+
+.microstate-marker {
+  cursor: pointer;
+}
+.marker-halo {
+  fill: transparent;
+  pointer-events: all;
+}
+.marker-dot {
+  fill: var(--color-land-untouched);
+  stroke: var(--color-coastline);
+  stroke-width: 1px;
+  transition: fill 550ms ease, fill-opacity 350ms ease;
+}
+.microstate-marker.status-wrong .marker-dot {
+  fill: var(--color-status-wrong);
+}
+.microstate-marker.status-almost .marker-dot {
+  fill: var(--color-status-almost);
+}
+.microstate-marker.status-mastered .marker-dot {
+  fill: var(--color-status-mastered);
+}
+.microstate-marker.out-of-scope {
+  opacity: 0.3;
+}
+.microstate-marker.hovered .marker-dot {
+  stroke-width: 2px;
+  stroke: var(--color-ink-strong);
+}
+.microstate-marker.selected .marker-dot,
+.microstate-marker.review-target .marker-dot {
+  stroke-width: 2.2px;
+  stroke: var(--color-ink-strong);
+}
+/* capital dots — tiny solid ink dots, zoom-gated (map.js shows the layer only
+   past CAPITAL_ZOOM_THRESHOLD). Never interactive: a dot must not steal the
+   hover/click of the country it sits on. */
+.capital-dot {
+  fill: var(--color-coastline); /* the map's own line-work brown, not foreign black */
+  stroke: var(--color-parchment-bright);
+  stroke-width: 0.55px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+.capital-dot.out-of-scope {
+  opacity: 0.18;
+}
+
+.microstate-marker.pulsing .marker-dot {
+  animation: marker-pulse 600ms ease-in-out 3;
+}
+.microstate-marker.pulsing-sustained .marker-dot {
+  animation: marker-pulse 600ms ease-in-out infinite;
+}
+.microstate-marker.flashing .marker-dot {
+  animation: marker-pulse 650ms ease-in-out 1;
+}
+
+/* ---------- legend ---------- */
+
+.map-legend {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 14px;
+  background: rgba(242, 232, 213, 0.93);
+  border: var(--rule-double);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* which progress track the map colors show (Find vs Type & Review) */
+.legend-track {
+  font-weight: 600;
+  padding-right: 14px;
+  border-right: 1px solid var(--color-coastline);
+}
+
+.legend-swatch {
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--color-coastline);
+  flex: none;
+}
+.legend-swatch-untouched {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-land-hatch) 0 1px,
+    var(--color-land-untouched) 1px 5px
+  );
+}
+.legend-swatch-wrong {
+  background: var(--color-status-wrong);
+}
+.legend-swatch-almost {
+  background: var(--color-status-almost);
+}
+.legend-swatch-mastered {
+  background: var(--color-status-mastered);
+}
+.legend-swatch-microstate {
+  width: 7px;
+  height: 7px;
+  margin: 3px;
+  border-radius: 50%;
+  background: var(--color-land-untouched);
+}
+.legend-swatch-capital {
+  width: 4px;
+  height: 4px;
+  margin: 4.5px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-coastline);
+  opacity: 0.7;
+}
+
+/* ---------- side panel ---------- */
+
+.side-panel {
+  width: 372px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--color-parchment);
+  border-left: var(--rule-double);
+}
+
+.panel-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 20px;
+}
+.panel-content::-webkit-scrollbar {
+  width: 8px;
+}
+.panel-content::-webkit-scrollbar-thumb {
+  background: rgba(122, 100, 80, 0.35);
+}
+
+.panel-data-controls {
+  flex: none;
+  border-top: var(--rule-hairline);
+  padding: 12px 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.panel-section-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-ink-soft);
+}
+
+.stats-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 20px;
+  font-size: 13px;
+}
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 1px 4px;
+}
+.stats-row-active {
+  background: rgba(168, 137, 90, 0.2);
+  box-shadow: 0 0 0 1px rgba(168, 137, 90, 0.45);
+}
+.stats-row-world {
+  grid-column: 1 / -1;
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: var(--rule-hairline);
+}
+.stats-count {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink-soft);
+}
+.stats-row-world .stats-count {
+  color: var(--color-ink);
+}
+
+/* ---------- panel cards ---------- */
+
+.panel-idle-title {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+}
+.panel-idle-body {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-ink-soft);
+}
+
+.panel-kicker {
+  margin: 0 0 14px;
+  padding-bottom: 7px;
+  border-bottom: var(--rule-hairline);
+  font-size: 13px;
+  color: var(--color-ink-soft);
+}
+
+/* kicker + in-card quiz-language toggle on one line (Type/Review cards) */
+.panel-kicker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding-bottom: 7px;
+  border-bottom: var(--rule-hairline);
+}
+.panel-kicker-row .panel-kicker {
+  margin: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.card-language-toggle {
+  flex: none;
+  background: var(--color-parchment);
+}
+.card-language-toggle .segment {
+  min-width: 42px;
+  padding: 3px 8px;
+  font-size: 12px;
+}
+
+.region-card-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.region-flag {
+  font-size: 27px;
+  line-height: 1.25;
+  min-width: 34px;
+}
+/* Vendored flag-icons SVGs (4x3). The hairline border keeps flags with
+   white panels (Japan, Cyprus…) visible against the parchment. */
+.flag-image {
+  display: inline-block;
+  width: 34px;
+  height: auto;
+  box-sizing: border-box;
+  border: 1px solid var(--color-rule);
+  background: var(--color-parchment-bright);
+  vertical-align: middle;
+}
+.answer-reveal .flag-image {
+  width: 28px;
+}
+.region-card-names {
+  min-width: 0;
+}
+.region-primary-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 1.2;
+  color: var(--color-ink-strong);
+}
+.region-secondary-name {
+  margin: 3px 0 0;
+  font-size: 14px;
+  color: var(--color-ink-soft);
+}
+/* endonym — the region's name in its own language, when it adds anything
+   beyond the EN/ZH names above it */
+.region-local-name {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--color-ink-soft);
+}
+
+/* speaker button beside a name — pronounces it via the browser's TTS */
+.speak-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  padding: 2px;
+  border: none;
+  background: none;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  vertical-align: baseline;
+}
+.speak-button:hover {
+  color: var(--color-ink-strong);
+}
+.speak-button.speaking {
+  color: var(--color-gold);
+}
+.speak-button.speaking svg {
+  animation: speak-pulse 0.9s ease-in-out infinite;
+}
+@keyframes speak-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.region-facts {
+  margin: 16px 0 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 14px;
+  font-size: 13.5px;
+}
+.region-facts dt {
+  color: var(--color-ink-soft);
+}
+.region-facts dd {
+  margin: 0;
+}
+
+.region-note {
+  margin: 14px 0 0;
+  padding-left: 10px;
+  border-left: 2px solid rgba(168, 137, 90, 0.55);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-ink-soft);
+}
+
+.region-browse-only {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  color: var(--color-ink-soft);
+}
+
+/* ---------- quiz cards ---------- */
+
+.answer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+/* the input owns the first line; Check / Show answer split the line below */
+.answer-row .action-button {
+  flex: 1;
+}
+.answer-input {
+  flex: 1 1 100%;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--color-rule);
+  background: var(--color-parchment-bright);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+.answer-input:focus {
+  border-color: var(--color-ink-strong);
+}
+
+.action-button {
+  padding: 8px 14px;
+  border: 1px solid var(--color-rule);
+  background: var(--color-parchment);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  cursor: pointer;
+}
+.action-button:hover:not(:disabled) {
+  background: rgba(122, 100, 80, 0.1);
+}
+.action-button-quiet {
+  flex: 1;
+  font-size: 12px;
+  padding: 6px 10px;
+}
+/* the side panel's Data/Settings links wear the same clothes as the buttons */
+a.action-button {
+  text-decoration: none;
+  text-align: center;
+}
+
+.verdict-area {
+  min-height: 118px;
+  margin-top: 14px;
+}
+
+.verdict {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+}
+.verdict-exact {
+  color: var(--color-verdict-mastered);
+}
+.verdict-almost {
+  color: var(--color-verdict-almost);
+}
+.verdict-wrong {
+  color: var(--color-verdict-wrong);
+}
+.verdict-hint {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--color-ink-soft);
+}
+
+.mastered-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 9px 2px;
+  background: var(--color-status-mastered);
+  color: var(--color-parchment-bright);
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  animation: badge-pop 350ms ease-out;
+}
+
+.answer-reveal {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: var(--rule-hairline);
+  background: rgba(250, 244, 230, 0.65);
+}
+.answer-reveal .region-flag {
+  font-size: 23px;
+  min-width: 28px;
+}
+.answer-reveal-text {
+  min-width: 0;
+}
+.answer-names {
+  margin: 0;
+  font-size: 15px;
+}
+.answer-names strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+}
+.answer-capital {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--color-ink-soft);
+}
+
+.shake {
+  animation: gentle-shake 380ms ease-in-out;
+}
+
+/* ---------- find card ---------- */
+
+.find-miss-list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  min-height: 75px;
+  font-size: 13.5px;
+}
+.find-miss {
+  padding: 2px 0;
+  color: var(--color-verdict-wrong);
+}
+.find-miss-empty {
+  color: rgba(60, 47, 35, 0.25);
+}
+
+.find-outcome {
+  min-height: 38px;
+  margin: 10px 0 4px;
+}
+.find-outcome .verdict {
+  margin: 0;
+}
+
+.round-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+.round-actions .action-button {
+  flex: 1;
+}
+
+/* ---------- animation ---------- */
+
+@keyframes region-pulse {
+  0%,
+  100% {
+    fill-opacity: 1;
+  }
+  50% {
+    fill-opacity: 0.22;
+    stroke-width: 2.4px;
+  }
+}
+
+@keyframes marker-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(2.1);
+    opacity: 0.55;
+  }
+}
+
+@keyframes region-flash {
+  0%,
+  100% {
+    filter: none;
+  }
+  40% {
+    filter: brightness(0.74) saturate(1.6);
+  }
+}
+
+@keyframes ink-fill {
+  from {
+    fill-opacity: 0.15;
+  }
+  to {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes country-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gentle-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes badge-pop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- standalone pages (data.html, settings.html) ---------- */
+
+/* the app body is a no-scroll flex shell; documents scroll normally */
+.doc-page {
+  display: block;
+  overflow: auto;
+}
+
+.doc-main {
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 24px 24px 48px;
+}
+
+.doc-ledger-note {
+  margin: 0 0 20px;
+  font-size: 12.5px;
+  color: var(--color-ink-soft);
+}
+
+.doc-section {
+  margin-bottom: 28px;
+}
+
+/* progress-track heading on the data page (Find vs Type & Review) */
+.doc-track-title {
+  margin: 0 0 14px;
+  padding-bottom: 6px;
+  font-size: 17px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-coastline);
+}
+
+.doc-section .panel-section-title {
+  margin-top: 18px;
+}
+
+/* trouble spots read top-to-bottom, not in the side panel's two columns */
+.trouble-list {
+  grid-template-columns: 1fr;
+}
+
+.doc-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 260px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

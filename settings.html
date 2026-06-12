@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlas — Settings</title>
+  <meta name="theme-color" content="#f2e8d5">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/settings-page.js"></script>
+</head>
+<body class="doc-page">
+  <header class="chrome-header">
+    <div class="title-cartouche">
+      <h1 class="app-title" id="page-title"></h1>
+    </div>
+  </header>
+  <main class="doc-main">
+    <p class="doc-ledger-note" id="backup-hint"></p>
+    <section class="doc-section doc-controls">
+      <button id="export-button" class="action-button action-button-quiet" type="button"></button>
+      <button id="import-button" class="action-button action-button-quiet" type="button"></button>
+      <button id="stash-button" class="action-button action-button-quiet" type="button"></button>
+      <input type="file" id="import-file-input" accept="application/json,.json" hidden>
+    </section>
+  </main>
+</body>
+</html>

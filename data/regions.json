@@ -1,0 +1,6145 @@
+[
+ {
+  "id": "abkhazia",
+  "neName": "Abkhazia",
+  "nameEn": "Abkhazia",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "阿布哈兹",
+  "nameLocal": "Аԥсны",
+  "aliasesZh": [],
+  "capitalEn": "Sukhumi",
+  "capitalZh": "苏呼米",
+  "iso2": null,
+  "continent": "Asia",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "Georgia",
+  "note": "De facto independent, claimed by Georgia",
+  "noteZh": "事实独立，格鲁吉亚声索其主权"
+ },
+ {
+  "id": "afghanistan",
+  "neName": "Afghanistan",
+  "nameEn": "Afghanistan",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "阿富汗",
+  "nameLocal": "افغانستان",
+  "aliasesZh": [],
+  "capitalEn": "Kabul",
+  "capitalZh": "喀布尔",
+  "iso2": "AF",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "akrotiri",
+  "neName": "Akrotiri",
+  "nameEn": "Akrotiri",
+  "exactAliasesEn": [
+   "Akrotiri Sovereign Base Area"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "阿克罗蒂里",
+  "nameLocal": "Ακρωτήρι",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "Asia",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "cyprus",
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Sovereign Base Area on the island of Cyprus",
+  "noteZh": "英国在塞浦路斯岛上的主权基地区"
+ },
+ {
+  "id": "aland-islands",
+  "neName": "Åland",
+  "nameEn": "Åland Islands",
+  "exactAliasesEn": [
+   "Åland",
+   "Aland Islands",
+   "Aland"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "奥兰群岛",
+  "nameLocal": "Åland",
+  "aliasesZh": [
+   "奥兰"
+  ],
+  "capitalEn": "Mariehamn",
+  "capitalZh": "玛丽港",
+  "iso2": "AX",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Finland",
+  "note": "Autonomous region of Finland",
+  "noteZh": "芬兰自治区域"
+ },
+ {
+  "id": "albania",
+  "neName": "Albania",
+  "nameEn": "Albania",
+  "exactAliasesEn": [
+   "Republic of Albania"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "阿尔巴尼亚",
+  "nameLocal": "Shqipëria",
+  "aliasesZh": [
+   "阿尔巴尼亚共和国"
+  ],
+  "capitalEn": "Tirana",
+  "capitalZh": "地拉那",
+  "iso2": "AL",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "algeria",
+  "neName": "Algeria",
+  "nameEn": "Algeria",
+  "exactAliasesEn": [
+   "People's Democratic Republic of Algeria"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "阿尔及利亚",
+  "nameLocal": "الجزائر",
+  "aliasesZh": [
+   "阿尔及利亚民主人民共和国"
+  ],
+  "capitalEn": "Algiers",
+  "capitalZh": "阿尔及尔",
+  "iso2": "DZ",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "american-samoa",
+  "neName": "American Samoa",
+  "nameEn": "American Samoa",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "美属萨摩亚",
+  "nameLocal": "Amerika Sāmoa",
+  "aliasesZh": [],
+  "capitalEn": "Pago Pago",
+  "capitalZh": "帕果帕果",
+  "iso2": "AS",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United States",
+  "note": "Unincorporated territory of the United States",
+  "noteZh": "美国非建制领土"
+ },
+ {
+  "id": "andorra",
+  "neName": "Andorra",
+  "nameEn": "Andorra",
+  "exactAliasesEn": [
+   "Principality of Andorra"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "安道尔",
+  "nameLocal": "Andorra",
+  "aliasesZh": [
+   "安道尔公国"
+  ],
+  "capitalEn": "Andorra la Vella",
+  "capitalZh": "安道尔城",
+  "iso2": "AD",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "angola",
+  "neName": "Angola",
+  "nameEn": "Angola",
+  "exactAliasesEn": [
+   "Republic of Angola"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "安哥拉",
+  "nameLocal": "Angola",
+  "aliasesZh": [
+   "安哥拉共和国"
+  ],
+  "capitalEn": "Luanda",
+  "capitalZh": "罗安达",
+  "iso2": "AO",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "anguilla",
+  "neName": "Anguilla",
+  "nameEn": "Anguilla",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "安圭拉",
+  "nameLocal": "Anguilla",
+  "aliasesZh": [],
+  "capitalEn": "The Valley",
+  "capitalZh": "瓦利",
+  "iso2": "AI",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "antarctica",
+  "neName": "Antarctica",
+  "nameEn": "Antarctica",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "南极洲",
+  "nameLocal": "Antarctica",
+  "aliasesZh": [
+   "南极"
+  ],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": "AQ",
+  "continent": "Antarctica",
+  "microstate": false,
+  "status": "browse",
+  "foldInto": null,
+  "category": "special",
+  "parent": null,
+  "note": "Governed by the Antarctic Treaty; no permanent population, no sovereign owner",
+  "noteZh": "由《南极条约》管辖；无常住人口，不属于任何主权国家"
+ },
+ {
+  "id": "antigua-and-barbuda",
+  "neName": "Antigua and Barb.",
+  "nameEn": "Antigua and Barbuda",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "Antigua"
+  ],
+  "nameZh": "安提瓜和巴布达",
+  "nameLocal": "Antigua and Barbuda",
+  "aliasesZh": [
+   "安巴"
+  ],
+  "capitalEn": "St. John's",
+  "capitalZh": "圣约翰",
+  "iso2": "AG",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "argentina",
+  "neName": "Argentina",
+  "nameEn": "Argentina",
+  "exactAliasesEn": [
+   "Argentine Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "阿根廷",
+  "nameLocal": "Argentina",
+  "aliasesZh": [
+   "阿根廷共和国"
+  ],
+  "capitalEn": "Buenos Aires",
+  "capitalZh": "布宜诺斯艾利斯",
+  "iso2": "AR",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "armenia",
+  "neName": "Armenia",
+  "nameEn": "Armenia",
+  "exactAliasesEn": [
+   "Republic of Armenia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "亚美尼亚",
+  "nameLocal": "Հայաստան",
+  "aliasesZh": [
+   "亚美尼亚共和国"
+  ],
+  "capitalEn": "Yerevan",
+  "capitalZh": "埃里温",
+  "iso2": "AM",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "aruba",
+  "neName": "Aruba",
+  "nameEn": "Aruba",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "阿鲁巴",
+  "nameLocal": "Aruba",
+  "aliasesZh": [],
+  "capitalEn": "Oranjestad",
+  "capitalZh": "奥拉涅斯塔德",
+  "iso2": "AW",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Netherlands",
+  "note": "Constituent country of the Kingdom of the Netherlands",
+  "noteZh": "荷兰王国构成国"
+ },
+ {
+  "id": "ashmore-and-cartier-islands",
+  "neName": "Ashmore and Cartier Is.",
+  "nameEn": "Ashmore and Cartier Islands",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "阿什莫尔和卡捷群岛",
+  "nameLocal": "Ashmore and Cartier Islands",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "australia",
+  "category": "dependency",
+  "parent": "Australia",
+  "note": "Uninhabited Australian external territory",
+  "noteZh": "澳大利亚无人居住的海外领地"
+ },
+ {
+  "id": "australia",
+  "neName": "Australia",
+  "nameEn": "Australia",
+  "exactAliasesEn": [
+   "Commonwealth of Australia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "澳大利亚",
+  "nameLocal": "Australia",
+  "aliasesZh": [
+   "澳大利亚联邦",
+   "澳洲"
+  ],
+  "capitalEn": "Canberra",
+  "capitalZh": "堪培拉",
+  "iso2": "AU",
+  "continent": "Oceania",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "australian-indian-ocean-territories",
+  "neName": "Indian Ocean Ter.",
+  "nameEn": "Australian Indian Ocean Territories",
+  "exactAliasesEn": [
+   "Indian Ocean Territories",
+   "Christmas Island and Cocos (Keeling) Islands"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "澳属印度洋领地",
+  "nameLocal": "Australian Indian Ocean Territories",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "Asia",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Australia",
+  "note": "Australian external territories: Christmas Island and the Cocos (Keeling) Islands",
+  "noteZh": "澳大利亚海外领地：圣诞岛与科科斯（基林）群岛"
+ },
+ {
+  "id": "austria",
+  "neName": "Austria",
+  "nameEn": "Austria",
+  "exactAliasesEn": [
+   "Republic of Austria"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "奥地利",
+  "nameLocal": "Österreich",
+  "aliasesZh": [
+   "奥地利共和国"
+  ],
+  "capitalEn": "Vienna",
+  "capitalZh": "维也纳",
+  "iso2": "AT",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "azerbaijan",
+  "neName": "Azerbaijan",
+  "nameEn": "Azerbaijan",
+  "exactAliasesEn": [
+   "Republic of Azerbaijan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "阿塞拜疆",
+  "nameLocal": "Azərbaycan",
+  "aliasesZh": [
+   "阿塞拜疆共和国"
+  ],
+  "capitalEn": "Baku",
+  "capitalZh": "巴库",
+  "iso2": "AZ",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "bahamas",
+  "neName": "Bahamas",
+  "nameEn": "The Bahamas",
+  "exactAliasesEn": [
+   "Bahamas",
+   "Commonwealth of The Bahamas"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴哈马",
+  "nameLocal": "The Bahamas",
+  "aliasesZh": [
+   "巴哈马国"
+  ],
+  "capitalEn": "Nassau",
+  "capitalZh": "拿骚",
+  "iso2": "BS",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "bahrain",
+  "neName": "Bahrain",
+  "nameEn": "Bahrain",
+  "exactAliasesEn": [
+   "Kingdom of Bahrain"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴林",
+  "nameLocal": "البحرين",
+  "aliasesZh": [
+   "巴林王国"
+  ],
+  "capitalEn": "Manama",
+  "capitalZh": "麦纳麦",
+  "iso2": "BH",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "bangladesh",
+  "neName": "Bangladesh",
+  "nameEn": "Bangladesh",
+  "exactAliasesEn": [
+   "People's Republic of Bangladesh"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "孟加拉国",
+  "nameLocal": "বাংলাদেশ",
+  "aliasesZh": [
+   "孟加拉",
+   "孟加拉人民共和国"
+  ],
+  "capitalEn": "Dhaka",
+  "capitalZh": "达卡",
+  "iso2": "BD",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "barbados",
+  "neName": "Barbados",
+  "nameEn": "Barbados",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "巴巴多斯",
+  "nameLocal": "Barbados",
+  "aliasesZh": [],
+  "capitalEn": "Bridgetown",
+  "capitalZh": "布里奇敦",
+  "iso2": "BB",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "belarus",
+  "neName": "Belarus",
+  "nameEn": "Belarus",
+  "exactAliasesEn": [
+   "Republic of Belarus"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "白俄罗斯",
+  "nameLocal": "Беларусь",
+  "aliasesZh": [
+   "白俄罗斯共和国",
+   "白罗斯"
+  ],
+  "capitalEn": "Minsk",
+  "capitalZh": "明斯克",
+  "iso2": "BY",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "belgium",
+  "neName": "Belgium",
+  "nameEn": "Belgium",
+  "exactAliasesEn": [
+   "Kingdom of Belgium"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "比利时",
+  "nameLocal": "België / Belgique",
+  "aliasesZh": [
+   "比利时王国"
+  ],
+  "capitalEn": "Brussels",
+  "capitalZh": "布鲁塞尔",
+  "iso2": "BE",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "belize",
+  "neName": "Belize",
+  "nameEn": "Belize",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "伯利兹",
+  "nameLocal": "Belize",
+  "aliasesZh": [],
+  "capitalEn": "Belmopan",
+  "capitalZh": "贝尔莫潘",
+  "iso2": "BZ",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "benin",
+  "neName": "Benin",
+  "nameEn": "Benin",
+  "exactAliasesEn": [
+   "Republic of Benin"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "贝宁",
+  "nameLocal": "Bénin",
+  "aliasesZh": [
+   "贝宁共和国"
+  ],
+  "capitalEn": "Porto-Novo (official) / Cotonou (seat of government)",
+  "capitalZh": "波多诺伏（法定）/ 科托努（政府所在地）",
+  "iso2": "BJ",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "bermuda",
+  "neName": "Bermuda",
+  "nameEn": "Bermuda",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "百慕大",
+  "nameLocal": "Bermuda",
+  "aliasesZh": [
+   "百慕大群岛"
+  ],
+  "capitalEn": "Hamilton",
+  "capitalZh": "哈密尔顿",
+  "iso2": "BM",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "bhutan",
+  "neName": "Bhutan",
+  "nameEn": "Bhutan",
+  "exactAliasesEn": [
+   "Kingdom of Bhutan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "不丹",
+  "nameLocal": "འབྲུག་ཡུལ་",
+  "aliasesZh": [
+   "不丹王国"
+  ],
+  "capitalEn": "Thimphu",
+  "capitalZh": "廷布",
+  "iso2": "BT",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "bir-tawil",
+  "neName": "Bir Tawil",
+  "nameEn": "Bir Tawil",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "比尔泰维勒",
+  "nameLocal": "بير طويل",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "Africa",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "egypt",
+  "category": "special",
+  "parent": null,
+  "note": "unclaimed land (terra nullius) between Egypt and Sudan, de facto administered by Egypt",
+  "noteZh": "埃及与苏丹之间的无主地，事实上由埃及管理"
+ },
+ {
+  "id": "bolivia",
+  "neName": "Bolivia",
+  "nameEn": "Bolivia",
+  "exactAliasesEn": [
+   "Plurinational State of Bolivia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "玻利维亚",
+  "nameLocal": "Bolivia",
+  "aliasesZh": [
+   "多民族玻利维亚国"
+  ],
+  "capitalEn": "Sucre (constitutional) / La Paz (seat of government)",
+  "capitalZh": "苏克雷（宪法首都）/ 拉巴斯（政府所在地）",
+  "iso2": "BO",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "bosnia-and-herzegovina",
+  "neName": "Bosnia and Herz.",
+  "nameEn": "Bosnia and Herzegovina",
+  "exactAliasesEn": [
+   "Bosnia-Herzegovina"
+  ],
+  "almostAliasesEn": [
+   "Bosnia",
+   "BiH"
+  ],
+  "nameZh": "波斯尼亚和黑塞哥维那",
+  "nameLocal": "Bosna i Hercegovina",
+  "aliasesZh": [
+   "波黑"
+  ],
+  "capitalEn": "Sarajevo",
+  "capitalZh": "萨拉热窝",
+  "iso2": "BA",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "botswana",
+  "neName": "Botswana",
+  "nameEn": "Botswana",
+  "exactAliasesEn": [
+   "Republic of Botswana"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "博茨瓦纳",
+  "nameLocal": "Botswana",
+  "aliasesZh": [
+   "博茨瓦纳共和国"
+  ],
+  "capitalEn": "Gaborone",
+  "capitalZh": "哈博罗内",
+  "iso2": "BW",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "brazil",
+  "neName": "Brazil",
+  "nameEn": "Brazil",
+  "exactAliasesEn": [
+   "Federative Republic of Brazil"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴西",
+  "nameLocal": "Brasil",
+  "aliasesZh": [
+   "巴西联邦共和国"
+  ],
+  "capitalEn": "Brasília",
+  "capitalZh": "巴西利亚",
+  "iso2": "BR",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "brazilian-island",
+  "neName": "Brazilian Island",
+  "nameEn": "Brazilian Island",
+  "exactAliasesEn": [
+   "Ilha Brasileira",
+   "Isla Brasilera"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴西岛",
+  "nameLocal": "Ilha Brasileira",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "South America",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "brazil",
+  "category": "special",
+  "parent": null,
+  "note": "Uninhabited river island controlled by Brazil, disputed with Uruguay",
+  "noteZh": "巴西控制的无人居住河岛，乌拉圭对其存在争议"
+ },
+ {
+  "id": "british-indian-ocean-territory",
+  "neName": "Br. Indian Ocean Ter.",
+  "nameEn": "British Indian Ocean Territory",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "BIOT",
+   "Chagos Islands",
+   "Chagos Archipelago"
+  ],
+  "nameZh": "英属印度洋领地",
+  "nameLocal": "British Indian Ocean Territory",
+  "aliasesZh": [
+   "查戈斯群岛"
+  ],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": "IO",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory (Chagos Archipelago); sovereignty being transferred to Mauritius, UK retains Diego Garcia base",
+  "noteZh": "英国海外领土（查戈斯群岛）；主权正移交毛里求斯，英国保留迪戈加西亚基地"
+ },
+ {
+  "id": "british-virgin-islands",
+  "neName": "British Virgin Is.",
+  "nameEn": "British Virgin Islands",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "BVI"
+  ],
+  "nameZh": "英属维尔京群岛",
+  "nameLocal": "British Virgin Islands",
+  "aliasesZh": [
+   "英属维京群岛"
+  ],
+  "capitalEn": "Road Town",
+  "capitalZh": "罗德城",
+  "iso2": "VG",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "brunei",
+  "neName": "Brunei",
+  "nameEn": "Brunei",
+  "exactAliasesEn": [
+   "Brunei Darussalam"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "文莱",
+  "nameLocal": "Brunei",
+  "aliasesZh": [
+   "文莱达鲁萨兰国"
+  ],
+  "capitalEn": "Bandar Seri Begawan",
+  "capitalZh": "斯里巴加湾市",
+  "iso2": "BN",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "bulgaria",
+  "neName": "Bulgaria",
+  "nameEn": "Bulgaria",
+  "exactAliasesEn": [
+   "Republic of Bulgaria"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "保加利亚",
+  "nameLocal": "България",
+  "aliasesZh": [
+   "保加利亚共和国"
+  ],
+  "capitalEn": "Sofia",
+  "capitalZh": "索非亚",
+  "iso2": "BG",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "burkina-faso",
+  "neName": "Burkina Faso",
+  "nameEn": "Burkina Faso",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "Burkina"
+  ],
+  "nameZh": "布基纳法索",
+  "nameLocal": "Burkina Faso",
+  "aliasesZh": [],
+  "capitalEn": "Ouagadougou",
+  "capitalZh": "瓦加杜古",
+  "iso2": "BF",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "burundi",
+  "neName": "Burundi",
+  "nameEn": "Burundi",
+  "exactAliasesEn": [
+   "Republic of Burundi"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "布隆迪",
+  "nameLocal": "Uburundi",
+  "aliasesZh": [
+   "布隆迪共和国"
+  ],
+  "capitalEn": "Gitega (political) / Bujumbura (economic)",
+  "capitalZh": "基特加（政治）/ 布琼布拉（经济）",
+  "iso2": "BI",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "cambodia",
+  "neName": "Cambodia",
+  "nameEn": "Cambodia",
+  "exactAliasesEn": [
+   "Kingdom of Cambodia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "柬埔寨",
+  "nameLocal": "កម្ពុជា",
+  "aliasesZh": [
+   "柬埔寨王国"
+  ],
+  "capitalEn": "Phnom Penh",
+  "capitalZh": "金边",
+  "iso2": "KH",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "cameroon",
+  "neName": "Cameroon",
+  "nameEn": "Cameroon",
+  "exactAliasesEn": [
+   "Republic of Cameroon"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "喀麦隆",
+  "nameLocal": "Cameroun",
+  "aliasesZh": [
+   "喀麦隆共和国"
+  ],
+  "capitalEn": "Yaoundé",
+  "capitalZh": "雅温得",
+  "iso2": "CM",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "canada",
+  "neName": "Canada",
+  "nameEn": "Canada",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "加拿大",
+  "nameLocal": "Canada",
+  "aliasesZh": [],
+  "capitalEn": "Ottawa",
+  "capitalZh": "渥太华",
+  "iso2": "CA",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "cape-verde",
+  "neName": "Cabo Verde",
+  "nameEn": "Cape Verde",
+  "exactAliasesEn": [
+   "Cabo Verde",
+   "Republic of Cabo Verde",
+   "Republic of Cape Verde"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "佛得角",
+  "nameLocal": "Cabo Verde",
+  "aliasesZh": [
+   "佛得角共和国"
+  ],
+  "capitalEn": "Praia",
+  "capitalZh": "普拉亚",
+  "iso2": "CV",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "cayman-islands",
+  "neName": "Cayman Is.",
+  "nameEn": "Cayman Islands",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "Caymans"
+  ],
+  "nameZh": "开曼群岛",
+  "nameLocal": "Cayman Islands",
+  "aliasesZh": [
+   "开曼"
+  ],
+  "capitalEn": "George Town",
+  "capitalZh": "乔治敦",
+  "iso2": "KY",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "central-african-republic",
+  "neName": "Central African Rep.",
+  "nameEn": "Central African Republic",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "CAR"
+  ],
+  "nameZh": "中非共和国",
+  "nameLocal": "Centrafrique / Bêafrîka",
+  "aliasesZh": [
+   "中非"
+  ],
+  "capitalEn": "Bangui",
+  "capitalZh": "班吉",
+  "iso2": "CF",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "chad",
+  "neName": "Chad",
+  "nameEn": "Chad",
+  "exactAliasesEn": [
+   "Republic of Chad"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "乍得",
+  "nameLocal": "Tchad",
+  "aliasesZh": [
+   "乍得共和国"
+  ],
+  "capitalEn": "N'Djamena",
+  "capitalZh": "恩贾梅纳",
+  "iso2": "TD",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "chile",
+  "neName": "Chile",
+  "nameEn": "Chile",
+  "exactAliasesEn": [
+   "Republic of Chile"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "智利",
+  "nameLocal": "Chile",
+  "aliasesZh": [
+   "智利共和国"
+  ],
+  "capitalEn": "Santiago",
+  "capitalZh": "圣地亚哥",
+  "iso2": "CL",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "china",
+  "neName": "China",
+  "nameEn": "China",
+  "exactAliasesEn": [
+   "People's Republic of China"
+  ],
+  "almostAliasesEn": [
+   "PRC"
+  ],
+  "nameZh": "中国",
+  "nameLocal": "中国",
+  "aliasesZh": [
+   "中华人民共和国"
+  ],
+  "capitalEn": "Beijing",
+  "capitalZh": "北京",
+  "iso2": "CN",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "clipperton-island",
+  "neName": "Clipperton I.",
+  "nameEn": "Clipperton Island",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "Clipperton"
+  ],
+  "nameZh": "克利珀顿岛",
+  "nameLocal": "Île Clipperton",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "North America",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "france",
+  "category": "dependency",
+  "parent": "France",
+  "note": "Uninhabited French atoll in the eastern Pacific; answers as France",
+  "noteZh": "法国在东太平洋的无人环礁；作答时算作法国"
+ },
+ {
+  "id": "colombia",
+  "neName": "Colombia",
+  "nameEn": "Colombia",
+  "exactAliasesEn": [
+   "Republic of Colombia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "哥伦比亚",
+  "nameLocal": "Colombia",
+  "aliasesZh": [
+   "哥伦比亚共和国"
+  ],
+  "capitalEn": "Bogotá",
+  "capitalZh": "波哥大",
+  "iso2": "CO",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "comoros",
+  "neName": "Comoros",
+  "nameEn": "Comoros",
+  "exactAliasesEn": [
+   "Union of the Comoros",
+   "The Comoros"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "科摩罗",
+  "nameLocal": "Komori",
+  "aliasesZh": [
+   "科摩罗联盟"
+  ],
+  "capitalEn": "Moroni",
+  "capitalZh": "莫罗尼",
+  "iso2": "KM",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "cook-islands",
+  "neName": "Cook Is.",
+  "nameEn": "Cook Islands",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "库克群岛",
+  "nameLocal": "Kūki 'Āirani",
+  "aliasesZh": [],
+  "capitalEn": "Avarua",
+  "capitalZh": "阿瓦鲁阿",
+  "iso2": "CK",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "New Zealand",
+  "note": "Self-governing in free association with New Zealand",
+  "noteZh": "与新西兰自由联合的自治政体"
+ },
+ {
+  "id": "coral-sea-islands",
+  "neName": "Coral Sea Is.",
+  "nameEn": "Coral Sea Islands",
+  "exactAliasesEn": [
+   "Coral Sea Islands Territory"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "珊瑚海群岛",
+  "nameLocal": "Coral Sea Islands",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "australia",
+  "category": "dependency",
+  "parent": "Australia",
+  "note": "Uninhabited Australian external territory",
+  "noteZh": "澳大利亚无人居住的海外领地"
+ },
+ {
+  "id": "costa-rica",
+  "neName": "Costa Rica",
+  "nameEn": "Costa Rica",
+  "exactAliasesEn": [
+   "Republic of Costa Rica"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "哥斯达黎加",
+  "nameLocal": "Costa Rica",
+  "aliasesZh": [
+   "哥斯达黎加共和国"
+  ],
+  "capitalEn": "San José",
+  "capitalZh": "圣何塞",
+  "iso2": "CR",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "croatia",
+  "neName": "Croatia",
+  "nameEn": "Croatia",
+  "exactAliasesEn": [
+   "Republic of Croatia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "克罗地亚",
+  "nameLocal": "Hrvatska",
+  "aliasesZh": [
+   "克罗地亚共和国"
+  ],
+  "capitalEn": "Zagreb",
+  "capitalZh": "萨格勒布",
+  "iso2": "HR",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "cuba",
+  "neName": "Cuba",
+  "nameEn": "Cuba",
+  "exactAliasesEn": [
+   "Republic of Cuba"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "古巴",
+  "nameLocal": "Cuba",
+  "aliasesZh": [
+   "古巴共和国"
+  ],
+  "capitalEn": "Havana",
+  "capitalZh": "哈瓦那",
+  "iso2": "CU",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "curacao",
+  "neName": "Curaçao",
+  "nameEn": "Curaçao",
+  "exactAliasesEn": [
+   "Curacao"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "库拉索",
+  "nameLocal": "Kòrsou",
+  "aliasesZh": [
+   "库拉索岛"
+  ],
+  "capitalEn": "Willemstad",
+  "capitalZh": "威廉斯塔德",
+  "iso2": "CW",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Netherlands",
+  "note": "Constituent country of the Kingdom of the Netherlands",
+  "noteZh": "荷兰王国构成国"
+ },
+ {
+  "id": "cyprus",
+  "neName": "Cyprus",
+  "nameEn": "Cyprus",
+  "exactAliasesEn": [
+   "Republic of Cyprus"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "塞浦路斯",
+  "nameLocal": "Κύπρος",
+  "aliasesZh": [
+   "塞浦路斯共和国"
+  ],
+  "capitalEn": "Nicosia",
+  "capitalZh": "尼科西亚",
+  "iso2": "CY",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "czechia",
+  "neName": "Czechia",
+  "nameEn": "Czechia",
+  "exactAliasesEn": [
+   "Czech Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "捷克",
+  "nameLocal": "Česko",
+  "aliasesZh": [
+   "捷克共和国"
+  ],
+  "capitalEn": "Prague",
+  "capitalZh": "布拉格",
+  "iso2": "CZ",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "democratic-republic-of-the-congo",
+  "neName": "Democratic Republic of the Congo",
+  "nameEn": "Democratic Republic of the Congo",
+  "exactAliasesEn": [
+   "DR Congo",
+   "Democratic Republic of Congo",
+   "Congo-Kinshasa"
+  ],
+  "almostAliasesEn": [
+   "DRC",
+   "Congo"
+  ],
+  "nameZh": "刚果（金）",
+  "nameLocal": "RD Congo",
+  "aliasesZh": [
+   "刚果民主共和国",
+   "刚果金",
+   "刚果(金)",
+   "民主刚果"
+  ],
+  "capitalEn": "Kinshasa",
+  "capitalZh": "金沙萨",
+  "iso2": "CD",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "denmark",
+  "neName": "Denmark",
+  "nameEn": "Denmark",
+  "exactAliasesEn": [
+   "Kingdom of Denmark"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "丹麦",
+  "nameLocal": "Danmark",
+  "aliasesZh": [
+   "丹麦王国"
+  ],
+  "capitalEn": "Copenhagen",
+  "capitalZh": "哥本哈根",
+  "iso2": "DK",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "dhekelia",
+  "neName": "Dhekelia",
+  "nameEn": "Dhekelia",
+  "exactAliasesEn": [
+   "Dhekelia Sovereign Base Area",
+   "Dhekelia Cantonment"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "泽凯利亚",
+  "nameLocal": "Δεκέλεια",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "Asia",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "cyprus",
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Sovereign Base Area on the island of Cyprus",
+  "noteZh": "英国在塞浦路斯岛上的主权基地区"
+ },
+ {
+  "id": "djibouti",
+  "neName": "Djibouti",
+  "nameEn": "Djibouti",
+  "exactAliasesEn": [
+   "Republic of Djibouti"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "吉布提",
+  "nameLocal": "Djibouti",
+  "aliasesZh": [
+   "吉布提共和国"
+  ],
+  "capitalEn": "Djibouti City",
+  "capitalZh": "吉布提市",
+  "iso2": "DJ",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "dominica",
+  "neName": "Dominica",
+  "nameEn": "Dominica",
+  "exactAliasesEn": [
+   "Commonwealth of Dominica"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "多米尼克",
+  "nameLocal": "Dominica",
+  "aliasesZh": [
+   "多米尼克国"
+  ],
+  "capitalEn": "Roseau",
+  "capitalZh": "罗索",
+  "iso2": "DM",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "dominican-republic",
+  "neName": "Dominican Rep.",
+  "nameEn": "Dominican Republic",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "DR"
+  ],
+  "nameZh": "多米尼加",
+  "nameLocal": "República Dominicana",
+  "aliasesZh": [
+   "多米尼加共和国"
+  ],
+  "capitalEn": "Santo Domingo",
+  "capitalZh": "圣多明各",
+  "iso2": "DO",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "east-timor",
+  "neName": "Timor-Leste",
+  "nameEn": "East Timor",
+  "exactAliasesEn": [
+   "Timor-Leste",
+   "Democratic Republic of Timor-Leste"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "东帝汶",
+  "nameLocal": "Timor-Leste / Timór Lorosa'e",
+  "aliasesZh": [
+   "东帝汶民主共和国"
+  ],
+  "capitalEn": "Dili",
+  "capitalZh": "帝力",
+  "iso2": "TL",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "ecuador",
+  "neName": "Ecuador",
+  "nameEn": "Ecuador",
+  "exactAliasesEn": [
+   "Republic of Ecuador"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "厄瓜多尔",
+  "nameLocal": "Ecuador",
+  "aliasesZh": [
+   "厄瓜多尔共和国"
+  ],
+  "capitalEn": "Quito",
+  "capitalZh": "基多",
+  "iso2": "EC",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "egypt",
+  "neName": "Egypt",
+  "nameEn": "Egypt",
+  "exactAliasesEn": [
+   "Arab Republic of Egypt"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "埃及",
+  "nameLocal": "مصر",
+  "aliasesZh": [
+   "阿拉伯埃及共和国"
+  ],
+  "capitalEn": "Cairo",
+  "capitalZh": "开罗",
+  "iso2": "EG",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "el-salvador",
+  "neName": "El Salvador",
+  "nameEn": "El Salvador",
+  "exactAliasesEn": [
+   "Republic of El Salvador"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "萨尔瓦多",
+  "nameLocal": "El Salvador",
+  "aliasesZh": [
+   "萨尔瓦多共和国"
+  ],
+  "capitalEn": "San Salvador",
+  "capitalZh": "圣萨尔瓦多",
+  "iso2": "SV",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "equatorial-guinea",
+  "neName": "Eq. Guinea",
+  "nameEn": "Equatorial Guinea",
+  "exactAliasesEn": [
+   "Republic of Equatorial Guinea"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "赤道几内亚",
+  "nameLocal": "Guinea Ecuatorial",
+  "aliasesZh": [
+   "赤道几内亚共和国",
+   "赤几"
+  ],
+  "capitalEn": "Malabo",
+  "capitalZh": "马拉博",
+  "iso2": "GQ",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "eritrea",
+  "neName": "Eritrea",
+  "nameEn": "Eritrea",
+  "exactAliasesEn": [
+   "State of Eritrea"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "厄立特里亚",
+  "nameLocal": "ኤርትራ",
+  "aliasesZh": [
+   "厄立特里亚国"
+  ],
+  "capitalEn": "Asmara",
+  "capitalZh": "阿斯马拉",
+  "iso2": "ER",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "estonia",
+  "neName": "Estonia",
+  "nameEn": "Estonia",
+  "exactAliasesEn": [
+   "Republic of Estonia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "爱沙尼亚",
+  "nameLocal": "Eesti",
+  "aliasesZh": [
+   "爱沙尼亚共和国"
+  ],
+  "capitalEn": "Tallinn",
+  "capitalZh": "塔林",
+  "iso2": "EE",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "eswatini",
+  "neName": "eSwatini",
+  "nameEn": "Eswatini",
+  "exactAliasesEn": [
+   "Swaziland",
+   "Kingdom of Eswatini"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "斯威士兰",
+  "nameLocal": "eSwatini",
+  "aliasesZh": [
+   "斯威士兰王国"
+  ],
+  "capitalEn": "Mbabane (administrative) / Lobamba (royal and legislative)",
+  "capitalZh": "姆巴巴内（行政）/ 洛班巴（王室和立法）",
+  "iso2": "SZ",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "ethiopia",
+  "neName": "Ethiopia",
+  "nameEn": "Ethiopia",
+  "exactAliasesEn": [
+   "Federal Democratic Republic of Ethiopia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "埃塞俄比亚",
+  "nameLocal": "ኢትዮጵያ",
+  "aliasesZh": [
+   "埃塞俄比亚联邦民主共和国",
+   "埃塞"
+  ],
+  "capitalEn": "Addis Ababa",
+  "capitalZh": "亚的斯亚贝巴",
+  "iso2": "ET",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "falkland-islands",
+  "neName": "Falkland Is.",
+  "nameEn": "Falkland Islands",
+  "exactAliasesEn": [
+   "Malvinas",
+   "Islas Malvinas"
+  ],
+  "almostAliasesEn": [
+   "Falklands"
+  ],
+  "nameZh": "马尔维纳斯群岛",
+  "nameLocal": "Falkland Islands",
+  "aliasesZh": [
+   "福克兰群岛",
+   "马岛"
+  ],
+  "capitalEn": "Stanley",
+  "capitalZh": "斯坦利",
+  "iso2": "FK",
+  "continent": "South America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory, claimed by Argentina",
+  "noteZh": "英国海外领土，阿根廷声索其主权"
+ },
+ {
+  "id": "faroe-islands",
+  "neName": "Faeroe Islands",
+  "nameEn": "Faroe Islands",
+  "exactAliasesEn": [
+   "Faeroe Islands"
+  ],
+  "almostAliasesEn": [
+   "Faroes"
+  ],
+  "nameZh": "法罗群岛",
+  "nameLocal": "Føroyar",
+  "aliasesZh": [],
+  "capitalEn": "Tórshavn",
+  "capitalZh": "托尔斯港",
+  "iso2": "FO",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Denmark",
+  "note": "Autonomous territory of Denmark",
+  "noteZh": "丹麦自治领地"
+ },
+ {
+  "id": "fiji",
+  "neName": "Fiji",
+  "nameEn": "Fiji",
+  "exactAliasesEn": [
+   "Republic of Fiji"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "斐济",
+  "nameLocal": "Viti / Fiji",
+  "aliasesZh": [
+   "斐济共和国"
+  ],
+  "capitalEn": "Suva",
+  "capitalZh": "苏瓦",
+  "iso2": "FJ",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "finland",
+  "neName": "Finland",
+  "nameEn": "Finland",
+  "exactAliasesEn": [
+   "Republic of Finland"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "芬兰",
+  "nameLocal": "Suomi",
+  "aliasesZh": [
+   "芬兰共和国"
+  ],
+  "capitalEn": "Helsinki",
+  "capitalZh": "赫尔辛基",
+  "iso2": "FI",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "france",
+  "neName": "France",
+  "nameEn": "France",
+  "exactAliasesEn": [
+   "French Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "法国",
+  "nameLocal": "France",
+  "aliasesZh": [
+   "法兰西共和国",
+   "法兰西"
+  ],
+  "capitalEn": "Paris",
+  "capitalZh": "巴黎",
+  "iso2": "FR",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "french-polynesia",
+  "neName": "Fr. Polynesia",
+  "nameEn": "French Polynesia",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "Tahiti"
+  ],
+  "nameZh": "法属波利尼西亚",
+  "nameLocal": "Polynésie française",
+  "aliasesZh": [],
+  "capitalEn": "Papeete",
+  "capitalZh": "帕皮提",
+  "iso2": "PF",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "France",
+  "note": "Overseas collectivity of France",
+  "noteZh": "法国海外集体"
+ },
+ {
+  "id": "french-southern-and-antarctic-lands",
+  "neName": "Fr. S. and Antarctic Lands",
+  "nameEn": "French Southern and Antarctic Lands",
+  "exactAliasesEn": [
+   "French Southern Territories",
+   "French Southern Lands"
+  ],
+  "almostAliasesEn": [
+   "TAAF"
+  ],
+  "nameZh": "法属南部和南极领地",
+  "nameLocal": "Terres australes et antarctiques françaises",
+  "aliasesZh": [
+   "法属南方和南极领地",
+   "法属南部领地"
+  ],
+  "capitalEn": "Saint-Pierre (Réunion)",
+  "capitalZh": "圣皮埃尔（留尼汪）",
+  "iso2": "TF",
+  "continent": "Other",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "France",
+  "note": "Overseas territory of France (Kerguelen, Crozet and other subantarctic islands)",
+  "noteZh": "法国海外领地（凯尔盖朗、克罗泽等亚南极岛屿）"
+ },
+ {
+  "id": "gabon",
+  "neName": "Gabon",
+  "nameEn": "Gabon",
+  "exactAliasesEn": [
+   "Gabonese Republic",
+   "Republic of Gabon"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "加蓬",
+  "nameLocal": "Gabon",
+  "aliasesZh": [
+   "加蓬共和国"
+  ],
+  "capitalEn": "Libreville",
+  "capitalZh": "利伯维尔",
+  "iso2": "GA",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "gambia",
+  "neName": "Gambia",
+  "nameEn": "The Gambia",
+  "exactAliasesEn": [
+   "Gambia",
+   "Republic of The Gambia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "冈比亚",
+  "nameLocal": "The Gambia",
+  "aliasesZh": [
+   "冈比亚共和国"
+  ],
+  "capitalEn": "Banjul",
+  "capitalZh": "班珠尔",
+  "iso2": "GM",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "georgia",
+  "neName": "Georgia",
+  "nameEn": "Georgia",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "格鲁吉亚",
+  "nameLocal": "საქართველო",
+  "aliasesZh": [],
+  "capitalEn": "Tbilisi",
+  "capitalZh": "第比利斯",
+  "iso2": "GE",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "germany",
+  "neName": "Germany",
+  "nameEn": "Germany",
+  "exactAliasesEn": [
+   "Federal Republic of Germany"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "德国",
+  "nameLocal": "Deutschland",
+  "aliasesZh": [
+   "德意志联邦共和国"
+  ],
+  "capitalEn": "Berlin",
+  "capitalZh": "柏林",
+  "iso2": "DE",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "ghana",
+  "neName": "Ghana",
+  "nameEn": "Ghana",
+  "exactAliasesEn": [
+   "Republic of Ghana"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "加纳",
+  "nameLocal": "Ghana",
+  "aliasesZh": [
+   "加纳共和国"
+  ],
+  "capitalEn": "Accra",
+  "capitalZh": "阿克拉",
+  "iso2": "GH",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "gibraltar",
+  "neName": "Gibraltar",
+  "nameEn": "Gibraltar",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "直布罗陀",
+  "nameLocal": "Gibraltar",
+  "aliasesZh": [],
+  "capitalEn": "Gibraltar",
+  "capitalZh": "直布罗陀",
+  "iso2": "GI",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory, claimed by Spain",
+  "noteZh": "英国海外领土，西班牙声索其主权"
+ },
+ {
+  "id": "greece",
+  "neName": "Greece",
+  "nameEn": "Greece",
+  "exactAliasesEn": [
+   "Hellenic Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "希腊",
+  "nameLocal": "Ελλάδα",
+  "aliasesZh": [
+   "希腊共和国"
+  ],
+  "capitalEn": "Athens",
+  "capitalZh": "雅典",
+  "iso2": "GR",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "greenland",
+  "neName": "Greenland",
+  "nameEn": "Greenland",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "格陵兰",
+  "nameLocal": "Kalaallit Nunaat",
+  "aliasesZh": [
+   "格陵兰岛"
+  ],
+  "capitalEn": "Nuuk",
+  "capitalZh": "努克",
+  "iso2": "GL",
+  "continent": "North America",
+  "microstate": false,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Denmark",
+  "note": "Autonomous territory of Denmark",
+  "noteZh": "丹麦自治领地"
+ },
+ {
+  "id": "grenada",
+  "neName": "Grenada",
+  "nameEn": "Grenada",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "格林纳达",
+  "nameLocal": "Grenada",
+  "aliasesZh": [],
+  "capitalEn": "St. George's",
+  "capitalZh": "圣乔治",
+  "iso2": "GD",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "guam",
+  "neName": "Guam",
+  "nameEn": "Guam",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "关岛",
+  "nameLocal": "Guåhan",
+  "aliasesZh": [],
+  "capitalEn": "Hagåtña",
+  "capitalZh": "阿加尼亚",
+  "iso2": "GU",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United States",
+  "note": "Unincorporated territory of the United States",
+  "noteZh": "美国非建制领土"
+ },
+ {
+  "id": "guatemala",
+  "neName": "Guatemala",
+  "nameEn": "Guatemala",
+  "exactAliasesEn": [
+   "Republic of Guatemala"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "危地马拉",
+  "nameLocal": "Guatemala",
+  "aliasesZh": [
+   "危地马拉共和国"
+  ],
+  "capitalEn": "Guatemala City",
+  "capitalZh": "危地马拉城",
+  "iso2": "GT",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "guernsey",
+  "neName": "Guernsey",
+  "nameEn": "Guernsey",
+  "exactAliasesEn": [
+   "Bailiwick of Guernsey"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "根西岛",
+  "nameLocal": "Guernsey",
+  "aliasesZh": [
+   "根西",
+   "格恩西岛"
+  ],
+  "capitalEn": "Saint Peter Port",
+  "capitalZh": "圣彼得港",
+  "iso2": "GG",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Crown Dependency",
+  "noteZh": "英国王室属地"
+ },
+ {
+  "id": "guinea",
+  "neName": "Guinea",
+  "nameEn": "Guinea",
+  "exactAliasesEn": [
+   "Republic of Guinea"
+  ],
+  "almostAliasesEn": [
+   "Guinea-Conakry"
+  ],
+  "nameZh": "几内亚",
+  "nameLocal": "Guinée",
+  "aliasesZh": [
+   "几内亚共和国"
+  ],
+  "capitalEn": "Conakry",
+  "capitalZh": "科纳克里",
+  "iso2": "GN",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "guinea-bissau",
+  "neName": "Guinea-Bissau",
+  "nameEn": "Guinea-Bissau",
+  "exactAliasesEn": [
+   "Republic of Guinea-Bissau"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "几内亚比绍",
+  "nameLocal": "Guiné-Bissau",
+  "aliasesZh": [
+   "几内亚比绍共和国",
+   "几比"
+  ],
+  "capitalEn": "Bissau",
+  "capitalZh": "比绍",
+  "iso2": "GW",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "guyana",
+  "neName": "Guyana",
+  "nameEn": "Guyana",
+  "exactAliasesEn": [
+   "Co-operative Republic of Guyana"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "圭亚那",
+  "nameLocal": "Guyana",
+  "aliasesZh": [
+   "圭亚那合作共和国"
+  ],
+  "capitalEn": "Georgetown",
+  "capitalZh": "乔治敦",
+  "iso2": "GY",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "haiti",
+  "neName": "Haiti",
+  "nameEn": "Haiti",
+  "exactAliasesEn": [
+   "Republic of Haiti"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "海地",
+  "nameLocal": "Haïti / Ayiti",
+  "aliasesZh": [
+   "海地共和国"
+  ],
+  "capitalEn": "Port-au-Prince",
+  "capitalZh": "太子港",
+  "iso2": "HT",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "heard-island-and-mcdonald-islands",
+  "neName": "Heard I. and McDonald Is.",
+  "nameEn": "Heard Island and McDonald Islands",
+  "exactAliasesEn": [
+   "Heard and McDonald Islands"
+  ],
+  "almostAliasesEn": [
+   "Heard Island",
+   "HIMI"
+  ],
+  "nameZh": "赫德岛和麦克唐纳群岛",
+  "nameLocal": "Heard Island and McDonald Islands",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": "HM",
+  "continent": "Other",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Australia",
+  "note": "Uninhabited external territory of Australia in the subantarctic Indian Ocean",
+  "noteZh": "澳大利亚在亚南极印度洋的无人居住海外领地"
+ },
+ {
+  "id": "honduras",
+  "neName": "Honduras",
+  "nameEn": "Honduras",
+  "exactAliasesEn": [
+   "Republic of Honduras"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "洪都拉斯",
+  "nameLocal": "Honduras",
+  "aliasesZh": [
+   "洪都拉斯共和国"
+  ],
+  "capitalEn": "Tegucigalpa",
+  "capitalZh": "特古西加尔巴",
+  "iso2": "HN",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "hong-kong",
+  "neName": "Hong Kong",
+  "nameEn": "Hong Kong",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "HK"
+  ],
+  "nameZh": "香港",
+  "nameLocal": "香港",
+  "aliasesZh": [
+   "中国香港",
+   "香港特别行政区"
+  ],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": "HK",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "special",
+  "parent": "China",
+  "note": "Special Administrative Region of China",
+  "noteZh": "中国特别行政区"
+ },
+ {
+  "id": "hungary",
+  "neName": "Hungary",
+  "nameEn": "Hungary",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "匈牙利",
+  "nameLocal": "Magyarország",
+  "aliasesZh": [],
+  "capitalEn": "Budapest",
+  "capitalZh": "布达佩斯",
+  "iso2": "HU",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "iceland",
+  "neName": "Iceland",
+  "nameEn": "Iceland",
+  "exactAliasesEn": [
+   "Republic of Iceland"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "冰岛",
+  "nameLocal": "Ísland",
+  "aliasesZh": [
+   "冰岛共和国"
+  ],
+  "capitalEn": "Reykjavik",
+  "capitalZh": "雷克雅未克",
+  "iso2": "IS",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "india",
+  "neName": "India",
+  "nameEn": "India",
+  "exactAliasesEn": [
+   "Republic of India"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "印度",
+  "nameLocal": "भारत",
+  "aliasesZh": [
+   "印度共和国"
+  ],
+  "capitalEn": "New Delhi",
+  "capitalZh": "新德里",
+  "iso2": "IN",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "indonesia",
+  "neName": "Indonesia",
+  "nameEn": "Indonesia",
+  "exactAliasesEn": [
+   "Republic of Indonesia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "印度尼西亚",
+  "nameLocal": "Indonesia",
+  "aliasesZh": [
+   "印尼",
+   "印度尼西亚共和国"
+  ],
+  "capitalEn": "Jakarta",
+  "capitalZh": "雅加达",
+  "iso2": "ID",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "iran",
+  "neName": "Iran",
+  "nameEn": "Iran",
+  "exactAliasesEn": [
+   "Islamic Republic of Iran"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "伊朗",
+  "nameLocal": "ایران",
+  "aliasesZh": [
+   "伊朗伊斯兰共和国"
+  ],
+  "capitalEn": "Tehran",
+  "capitalZh": "德黑兰",
+  "iso2": "IR",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "iraq",
+  "neName": "Iraq",
+  "nameEn": "Iraq",
+  "exactAliasesEn": [
+   "Republic of Iraq"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "伊拉克",
+  "nameLocal": "العراق",
+  "aliasesZh": [
+   "伊拉克共和国"
+  ],
+  "capitalEn": "Baghdad",
+  "capitalZh": "巴格达",
+  "iso2": "IQ",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "ireland",
+  "neName": "Ireland",
+  "nameEn": "Ireland",
+  "exactAliasesEn": [
+   "Republic of Ireland"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "爱尔兰",
+  "nameLocal": "Éire",
+  "aliasesZh": [
+   "爱尔兰共和国"
+  ],
+  "capitalEn": "Dublin",
+  "capitalZh": "都柏林",
+  "iso2": "IE",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "isle-of-man",
+  "neName": "Isle of Man",
+  "nameEn": "Isle of Man",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "Man"
+  ],
+  "nameZh": "马恩岛",
+  "nameLocal": "Isle of Man",
+  "aliasesZh": [
+   "曼岛"
+  ],
+  "capitalEn": "Douglas",
+  "capitalZh": "道格拉斯",
+  "iso2": "IM",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Crown Dependency",
+  "noteZh": "英国王室属地"
+ },
+ {
+  "id": "israel",
+  "neName": "Israel",
+  "nameEn": "Israel",
+  "exactAliasesEn": [
+   "State of Israel"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "以色列",
+  "nameLocal": "ישראל",
+  "aliasesZh": [
+   "以色列国"
+  ],
+  "capitalEn": "Jerusalem",
+  "capitalZh": "耶路撒冷",
+  "iso2": "IL",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "italy",
+  "neName": "Italy",
+  "nameEn": "Italy",
+  "exactAliasesEn": [
+   "Italian Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "意大利",
+  "nameLocal": "Italia",
+  "aliasesZh": [
+   "意大利共和国"
+  ],
+  "capitalEn": "Rome",
+  "capitalZh": "罗马",
+  "iso2": "IT",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "ivory-coast",
+  "neName": "Côte d'Ivoire",
+  "nameEn": "Ivory Coast",
+  "exactAliasesEn": [
+   "Côte d'Ivoire",
+   "Cote d'Ivoire",
+   "Republic of Côte d'Ivoire"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "科特迪瓦",
+  "nameLocal": "Côte d'Ivoire",
+  "aliasesZh": [
+   "科特迪瓦共和国",
+   "象牙海岸"
+  ],
+  "capitalEn": "Yamoussoukro (official) / Abidjan (de facto)",
+  "capitalZh": "亚穆苏克罗（法定）/ 阿比让（实际）",
+  "iso2": "CI",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "jamaica",
+  "neName": "Jamaica",
+  "nameEn": "Jamaica",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "牙买加",
+  "nameLocal": "Jamaica",
+  "aliasesZh": [],
+  "capitalEn": "Kingston",
+  "capitalZh": "金斯敦",
+  "iso2": "JM",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "japan",
+  "neName": "Japan",
+  "nameEn": "Japan",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "日本",
+  "nameLocal": "日本",
+  "aliasesZh": [
+   "日本国"
+  ],
+  "capitalEn": "Tokyo",
+  "capitalZh": "东京",
+  "iso2": "JP",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "jersey",
+  "neName": "Jersey",
+  "nameEn": "Jersey",
+  "exactAliasesEn": [
+   "Bailiwick of Jersey"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "泽西岛",
+  "nameLocal": "Jersey",
+  "aliasesZh": [
+   "泽西"
+  ],
+  "capitalEn": "Saint Helier",
+  "capitalZh": "圣赫利尔",
+  "iso2": "JE",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Crown Dependency",
+  "noteZh": "英国王室属地"
+ },
+ {
+  "id": "jordan",
+  "neName": "Jordan",
+  "nameEn": "Jordan",
+  "exactAliasesEn": [
+   "Hashemite Kingdom of Jordan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "约旦",
+  "nameLocal": "الأردن",
+  "aliasesZh": [
+   "约旦哈希姆王国"
+  ],
+  "capitalEn": "Amman",
+  "capitalZh": "安曼",
+  "iso2": "JO",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "kazakhstan",
+  "neName": "Kazakhstan",
+  "nameEn": "Kazakhstan",
+  "exactAliasesEn": [
+   "Republic of Kazakhstan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "哈萨克斯坦",
+  "nameLocal": "Қазақстан",
+  "aliasesZh": [
+   "哈萨克斯坦共和国"
+  ],
+  "capitalEn": "Astana",
+  "capitalZh": "阿斯塔纳",
+  "iso2": "KZ",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "kenya",
+  "neName": "Kenya",
+  "nameEn": "Kenya",
+  "exactAliasesEn": [
+   "Republic of Kenya"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "肯尼亚",
+  "nameLocal": "Kenya",
+  "aliasesZh": [
+   "肯尼亚共和国"
+  ],
+  "capitalEn": "Nairobi",
+  "capitalZh": "内罗毕",
+  "iso2": "KE",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "kiribati",
+  "neName": "Kiribati",
+  "nameEn": "Kiribati",
+  "exactAliasesEn": [
+   "Republic of Kiribati"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "基里巴斯",
+  "nameLocal": "Kiribati",
+  "aliasesZh": [
+   "基里巴斯共和国"
+  ],
+  "capitalEn": "South Tarawa",
+  "capitalZh": "南塔拉瓦",
+  "iso2": "KI",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "kosovo",
+  "neName": "Kosovo",
+  "nameEn": "Kosovo",
+  "exactAliasesEn": [
+   "Republic of Kosovo"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "科索沃",
+  "nameLocal": "Kosova",
+  "aliasesZh": [
+   "科索沃共和国"
+  ],
+  "capitalEn": "Pristina",
+  "capitalZh": "普里什蒂纳",
+  "iso2": "XK",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "Serbia",
+  "note": "Partially recognized; claimed by Serbia",
+  "noteZh": "部分国家承认；塞尔维亚声索其主权"
+ },
+ {
+  "id": "kuwait",
+  "neName": "Kuwait",
+  "nameEn": "Kuwait",
+  "exactAliasesEn": [
+   "State of Kuwait"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "科威特",
+  "nameLocal": "الكويت",
+  "aliasesZh": [
+   "科威特国"
+  ],
+  "capitalEn": "Kuwait City",
+  "capitalZh": "科威特城",
+  "iso2": "KW",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "kyrgyzstan",
+  "neName": "Kyrgyzstan",
+  "nameEn": "Kyrgyzstan",
+  "exactAliasesEn": [
+   "Kyrgyz Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "吉尔吉斯斯坦",
+  "nameLocal": "Кыргызстан",
+  "aliasesZh": [
+   "吉尔吉斯共和国",
+   "吉尔吉斯"
+  ],
+  "capitalEn": "Bishkek",
+  "capitalZh": "比什凯克",
+  "iso2": "KG",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "laos",
+  "neName": "Laos",
+  "nameEn": "Laos",
+  "exactAliasesEn": [
+   "Lao People's Democratic Republic"
+  ],
+  "almostAliasesEn": [
+   "Lao PDR"
+  ],
+  "nameZh": "老挝",
+  "nameLocal": "ລາວ",
+  "aliasesZh": [
+   "老挝人民民主共和国"
+  ],
+  "capitalEn": "Vientiane",
+  "capitalZh": "万象",
+  "iso2": "LA",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "latvia",
+  "neName": "Latvia",
+  "nameEn": "Latvia",
+  "exactAliasesEn": [
+   "Republic of Latvia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "拉脱维亚",
+  "nameLocal": "Latvija",
+  "aliasesZh": [
+   "拉脱维亚共和国"
+  ],
+  "capitalEn": "Riga",
+  "capitalZh": "里加",
+  "iso2": "LV",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "lebanon",
+  "neName": "Lebanon",
+  "nameEn": "Lebanon",
+  "exactAliasesEn": [
+   "Lebanese Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "黎巴嫩",
+  "nameLocal": "لبنان",
+  "aliasesZh": [
+   "黎巴嫩共和国"
+  ],
+  "capitalEn": "Beirut",
+  "capitalZh": "贝鲁特",
+  "iso2": "LB",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "lesotho",
+  "neName": "Lesotho",
+  "nameEn": "Lesotho",
+  "exactAliasesEn": [
+   "Kingdom of Lesotho"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "莱索托",
+  "nameLocal": "Lesotho",
+  "aliasesZh": [
+   "莱索托王国"
+  ],
+  "capitalEn": "Maseru",
+  "capitalZh": "马塞卢",
+  "iso2": "LS",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "liberia",
+  "neName": "Liberia",
+  "nameEn": "Liberia",
+  "exactAliasesEn": [
+   "Republic of Liberia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "利比里亚",
+  "nameLocal": "Liberia",
+  "aliasesZh": [
+   "利比里亚共和国"
+  ],
+  "capitalEn": "Monrovia",
+  "capitalZh": "蒙罗维亚",
+  "iso2": "LR",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "libya",
+  "neName": "Libya",
+  "nameEn": "Libya",
+  "exactAliasesEn": [
+   "State of Libya"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "利比亚",
+  "nameLocal": "ليبيا",
+  "aliasesZh": [
+   "利比亚国"
+  ],
+  "capitalEn": "Tripoli",
+  "capitalZh": "的黎波里",
+  "iso2": "LY",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "liechtenstein",
+  "neName": "Liechtenstein",
+  "nameEn": "Liechtenstein",
+  "exactAliasesEn": [
+   "Principality of Liechtenstein"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "列支敦士登",
+  "nameLocal": "Liechtenstein",
+  "aliasesZh": [
+   "列支敦士登公国"
+  ],
+  "capitalEn": "Vaduz",
+  "capitalZh": "瓦杜兹",
+  "iso2": "LI",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "lithuania",
+  "neName": "Lithuania",
+  "nameEn": "Lithuania",
+  "exactAliasesEn": [
+   "Republic of Lithuania"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "立陶宛",
+  "nameLocal": "Lietuva",
+  "aliasesZh": [
+   "立陶宛共和国"
+  ],
+  "capitalEn": "Vilnius",
+  "capitalZh": "维尔纽斯",
+  "iso2": "LT",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "luxembourg",
+  "neName": "Luxembourg",
+  "nameEn": "Luxembourg",
+  "exactAliasesEn": [
+   "Grand Duchy of Luxembourg"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "卢森堡",
+  "nameLocal": "Lëtzebuerg",
+  "aliasesZh": [
+   "卢森堡大公国"
+  ],
+  "capitalEn": "Luxembourg City",
+  "capitalZh": "卢森堡市",
+  "iso2": "LU",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "macau",
+  "neName": "Macao",
+  "nameEn": "Macau",
+  "exactAliasesEn": [
+   "Macao"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "澳门",
+  "nameLocal": "澳門",
+  "aliasesZh": [
+   "中国澳门",
+   "澳门特别行政区"
+  ],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": "MO",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "special",
+  "parent": "China",
+  "note": "Special Administrative Region of China",
+  "noteZh": "中国特别行政区"
+ },
+ {
+  "id": "madagascar",
+  "neName": "Madagascar",
+  "nameEn": "Madagascar",
+  "exactAliasesEn": [
+   "Republic of Madagascar"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "马达加斯加",
+  "nameLocal": "Madagasikara",
+  "aliasesZh": [
+   "马达加斯加共和国"
+  ],
+  "capitalEn": "Antananarivo",
+  "capitalZh": "塔那那利佛",
+  "iso2": "MG",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "malawi",
+  "neName": "Malawi",
+  "nameEn": "Malawi",
+  "exactAliasesEn": [
+   "Republic of Malawi"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "马拉维",
+  "nameLocal": "Malaŵi",
+  "aliasesZh": [
+   "马拉维共和国"
+  ],
+  "capitalEn": "Lilongwe",
+  "capitalZh": "利隆圭",
+  "iso2": "MW",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "malaysia",
+  "neName": "Malaysia",
+  "nameEn": "Malaysia",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "马来西亚",
+  "nameLocal": "Malaysia",
+  "aliasesZh": [],
+  "capitalEn": "Kuala Lumpur (official) / Putrajaya (administrative)",
+  "capitalZh": "吉隆坡（法定）/ 布城（行政）",
+  "iso2": "MY",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "maldives",
+  "neName": "Maldives",
+  "nameEn": "Maldives",
+  "exactAliasesEn": [
+   "Republic of Maldives"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "马尔代夫",
+  "nameLocal": "ދިވެހިރާއްޖެ",
+  "aliasesZh": [
+   "马尔代夫共和国",
+   "马代"
+  ],
+  "capitalEn": "Malé",
+  "capitalZh": "马累",
+  "iso2": "MV",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "mali",
+  "neName": "Mali",
+  "nameEn": "Mali",
+  "exactAliasesEn": [
+   "Republic of Mali"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "马里",
+  "nameLocal": "Mali",
+  "aliasesZh": [
+   "马里共和国"
+  ],
+  "capitalEn": "Bamako",
+  "capitalZh": "巴马科",
+  "iso2": "ML",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "malta",
+  "neName": "Malta",
+  "nameEn": "Malta",
+  "exactAliasesEn": [
+   "Republic of Malta"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "马耳他",
+  "nameLocal": "Malta",
+  "aliasesZh": [
+   "马耳他共和国"
+  ],
+  "capitalEn": "Valletta",
+  "capitalZh": "瓦莱塔",
+  "iso2": "MT",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "marshall-islands",
+  "neName": "Marshall Is.",
+  "nameEn": "Marshall Islands",
+  "exactAliasesEn": [
+   "Republic of the Marshall Islands"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "马绍尔群岛",
+  "nameLocal": "Ṃajeḷ",
+  "aliasesZh": [
+   "马绍尔群岛共和国",
+   "马绍尔"
+  ],
+  "capitalEn": "Majuro",
+  "capitalZh": "马朱罗",
+  "iso2": "MH",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "mauritania",
+  "neName": "Mauritania",
+  "nameEn": "Mauritania",
+  "exactAliasesEn": [
+   "Islamic Republic of Mauritania"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "毛里塔尼亚",
+  "nameLocal": "موريتانيا",
+  "aliasesZh": [
+   "毛里塔尼亚伊斯兰共和国",
+   "毛塔"
+  ],
+  "capitalEn": "Nouakchott",
+  "capitalZh": "努瓦克肖特",
+  "iso2": "MR",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "mauritius",
+  "neName": "Mauritius",
+  "nameEn": "Mauritius",
+  "exactAliasesEn": [
+   "Republic of Mauritius"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "毛里求斯",
+  "nameLocal": "Maurice / Moris",
+  "aliasesZh": [
+   "毛里求斯共和国"
+  ],
+  "capitalEn": "Port Louis",
+  "capitalZh": "路易港",
+  "iso2": "MU",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "mexico",
+  "neName": "Mexico",
+  "nameEn": "Mexico",
+  "exactAliasesEn": [
+   "United Mexican States"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "墨西哥",
+  "nameLocal": "México",
+  "aliasesZh": [
+   "墨西哥合众国"
+  ],
+  "capitalEn": "Mexico City",
+  "capitalZh": "墨西哥城",
+  "iso2": "MX",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "micronesia",
+  "neName": "Micronesia",
+  "nameEn": "Micronesia",
+  "exactAliasesEn": [
+   "Federated States of Micronesia"
+  ],
+  "almostAliasesEn": [
+   "FSM"
+  ],
+  "nameZh": "密克罗尼西亚联邦",
+  "nameLocal": "Micronesia",
+  "aliasesZh": [
+   "密克罗尼西亚"
+  ],
+  "capitalEn": "Palikir",
+  "capitalZh": "帕利基尔",
+  "iso2": "FM",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "moldova",
+  "neName": "Moldova",
+  "nameEn": "Moldova",
+  "exactAliasesEn": [
+   "Republic of Moldova"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "摩尔多瓦",
+  "nameLocal": "Moldova",
+  "aliasesZh": [
+   "摩尔多瓦共和国"
+  ],
+  "capitalEn": "Chișinău",
+  "capitalZh": "基希讷乌",
+  "iso2": "MD",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "monaco",
+  "neName": "Monaco",
+  "nameEn": "Monaco",
+  "exactAliasesEn": [
+   "Principality of Monaco"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "摩纳哥",
+  "nameLocal": "Monaco",
+  "aliasesZh": [
+   "摩纳哥公国"
+  ],
+  "capitalEn": "Monaco",
+  "capitalZh": "摩纳哥",
+  "iso2": "MC",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "mongolia",
+  "neName": "Mongolia",
+  "nameEn": "Mongolia",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "蒙古国",
+  "nameLocal": "Монгол Улс",
+  "aliasesZh": [
+   "蒙古"
+  ],
+  "capitalEn": "Ulaanbaatar",
+  "capitalZh": "乌兰巴托",
+  "iso2": "MN",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "montenegro",
+  "neName": "Montenegro",
+  "nameEn": "Montenegro",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "黑山",
+  "nameLocal": "Crna Gora",
+  "aliasesZh": [],
+  "capitalEn": "Podgorica",
+  "capitalZh": "波德戈里察",
+  "iso2": "ME",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "montserrat",
+  "neName": "Montserrat",
+  "nameEn": "Montserrat",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "蒙特塞拉特",
+  "nameLocal": "Montserrat",
+  "aliasesZh": [],
+  "capitalEn": "Brades",
+  "capitalZh": "布莱兹",
+  "iso2": "MS",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "morocco",
+  "neName": "Morocco",
+  "nameEn": "Morocco",
+  "exactAliasesEn": [
+   "Kingdom of Morocco"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "摩洛哥",
+  "nameLocal": "المغرب",
+  "aliasesZh": [
+   "摩洛哥王国"
+  ],
+  "capitalEn": "Rabat",
+  "capitalZh": "拉巴特",
+  "iso2": "MA",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "mozambique",
+  "neName": "Mozambique",
+  "nameEn": "Mozambique",
+  "exactAliasesEn": [
+   "Republic of Mozambique"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "莫桑比克",
+  "nameLocal": "Moçambique",
+  "aliasesZh": [
+   "莫桑比克共和国"
+  ],
+  "capitalEn": "Maputo",
+  "capitalZh": "马普托",
+  "iso2": "MZ",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "myanmar",
+  "neName": "Myanmar",
+  "nameEn": "Myanmar",
+  "exactAliasesEn": [
+   "Burma",
+   "Republic of the Union of Myanmar"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "缅甸",
+  "nameLocal": "မြန်မာ",
+  "aliasesZh": [
+   "缅甸联邦共和国"
+  ],
+  "capitalEn": "Naypyidaw",
+  "capitalZh": "内比都",
+  "iso2": "MM",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "namibia",
+  "neName": "Namibia",
+  "nameEn": "Namibia",
+  "exactAliasesEn": [
+   "Republic of Namibia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "纳米比亚",
+  "nameLocal": "Namibia",
+  "aliasesZh": [
+   "纳米比亚共和国"
+  ],
+  "capitalEn": "Windhoek",
+  "capitalZh": "温得和克",
+  "iso2": "NA",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "nauru",
+  "neName": "Nauru",
+  "nameEn": "Nauru",
+  "exactAliasesEn": [
+   "Republic of Nauru"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "瑙鲁",
+  "nameLocal": "Naoero",
+  "aliasesZh": [
+   "瑙鲁共和国"
+  ],
+  "capitalEn": "Yaren (de facto)",
+  "capitalZh": "亚伦（事实首都）",
+  "iso2": "NR",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "nepal",
+  "neName": "Nepal",
+  "nameEn": "Nepal",
+  "exactAliasesEn": [
+   "Federal Democratic Republic of Nepal"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "尼泊尔",
+  "nameLocal": "नेपाल",
+  "aliasesZh": [
+   "尼泊尔联邦民主共和国"
+  ],
+  "capitalEn": "Kathmandu",
+  "capitalZh": "加德满都",
+  "iso2": "NP",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "netherlands",
+  "neName": "Netherlands",
+  "nameEn": "Netherlands",
+  "exactAliasesEn": [
+   "Kingdom of the Netherlands",
+   "The Netherlands"
+  ],
+  "almostAliasesEn": [
+   "Holland"
+  ],
+  "nameZh": "荷兰",
+  "nameLocal": "Nederland",
+  "aliasesZh": [
+   "荷兰王国",
+   "尼德兰"
+  ],
+  "capitalEn": "Amsterdam",
+  "capitalZh": "阿姆斯特丹",
+  "iso2": "NL",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "new-caledonia",
+  "neName": "New Caledonia",
+  "nameEn": "New Caledonia",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "新喀里多尼亚",
+  "nameLocal": "Nouvelle-Calédonie",
+  "aliasesZh": [],
+  "capitalEn": "Nouméa",
+  "capitalZh": "努美阿",
+  "iso2": "NC",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "France",
+  "note": "Sui generis collectivity of France",
+  "noteZh": "法国特殊集体"
+ },
+ {
+  "id": "new-zealand",
+  "neName": "New Zealand",
+  "nameEn": "New Zealand",
+  "exactAliasesEn": [
+   "Aotearoa"
+  ],
+  "almostAliasesEn": [
+   "NZ"
+  ],
+  "nameZh": "新西兰",
+  "nameLocal": "New Zealand / Aotearoa",
+  "aliasesZh": [],
+  "capitalEn": "Wellington",
+  "capitalZh": "惠灵顿",
+  "iso2": "NZ",
+  "continent": "Oceania",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "nicaragua",
+  "neName": "Nicaragua",
+  "nameEn": "Nicaragua",
+  "exactAliasesEn": [
+   "Republic of Nicaragua"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "尼加拉瓜",
+  "nameLocal": "Nicaragua",
+  "aliasesZh": [
+   "尼加拉瓜共和国"
+  ],
+  "capitalEn": "Managua",
+  "capitalZh": "马那瓜",
+  "iso2": "NI",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "niger",
+  "neName": "Niger",
+  "nameEn": "Niger",
+  "exactAliasesEn": [
+   "Republic of the Niger"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "尼日尔",
+  "nameLocal": "Niger",
+  "aliasesZh": [
+   "尼日尔共和国"
+  ],
+  "capitalEn": "Niamey",
+  "capitalZh": "尼亚美",
+  "iso2": "NE",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "nigeria",
+  "neName": "Nigeria",
+  "nameEn": "Nigeria",
+  "exactAliasesEn": [
+   "Federal Republic of Nigeria"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "尼日利亚",
+  "nameLocal": "Nigeria",
+  "aliasesZh": [
+   "尼日利亚联邦共和国"
+  ],
+  "capitalEn": "Abuja",
+  "capitalZh": "阿布贾",
+  "iso2": "NG",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "niue",
+  "neName": "Niue",
+  "nameEn": "Niue",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "纽埃",
+  "nameLocal": "Niuē",
+  "aliasesZh": [],
+  "capitalEn": "Alofi",
+  "capitalZh": "阿洛菲",
+  "iso2": "NU",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "New Zealand",
+  "note": "Self-governing in free association with New Zealand",
+  "noteZh": "与新西兰自由联合的自治政体"
+ },
+ {
+  "id": "norfolk-island",
+  "neName": "Norfolk Island",
+  "nameEn": "Norfolk Island",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "诺福克岛",
+  "nameLocal": "Norfolk Island",
+  "aliasesZh": [],
+  "capitalEn": "Kingston",
+  "capitalZh": "金斯敦",
+  "iso2": "NF",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Australia",
+  "note": "Australian external territory",
+  "noteZh": "澳大利亚海外领地"
+ },
+ {
+  "id": "north-korea",
+  "neName": "Dem. Rep. Korea",
+  "nameEn": "North Korea",
+  "exactAliasesEn": [
+   "Democratic People's Republic of Korea"
+  ],
+  "almostAliasesEn": [
+   "DPRK"
+  ],
+  "nameZh": "朝鲜",
+  "nameLocal": "조선",
+  "aliasesZh": [
+   "朝鲜民主主义人民共和国"
+  ],
+  "capitalEn": "Pyongyang",
+  "capitalZh": "平壤",
+  "iso2": "KP",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "north-macedonia",
+  "neName": "North Macedonia",
+  "nameEn": "North Macedonia",
+  "exactAliasesEn": [
+   "Republic of North Macedonia"
+  ],
+  "almostAliasesEn": [
+   "Macedonia"
+  ],
+  "nameZh": "北马其顿",
+  "nameLocal": "Северна Македонија",
+  "aliasesZh": [
+   "北马其顿共和国",
+   "马其顿"
+  ],
+  "capitalEn": "Skopje",
+  "capitalZh": "斯科普里",
+  "iso2": "MK",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "northern-cyprus",
+  "neName": "N. Cyprus",
+  "nameEn": "Northern Cyprus",
+  "exactAliasesEn": [
+   "North Cyprus",
+   "Turkish Republic of Northern Cyprus"
+  ],
+  "almostAliasesEn": [
+   "TRNC"
+  ],
+  "nameZh": "北塞浦路斯",
+  "nameLocal": "Kuzey Kıbrıs",
+  "aliasesZh": [
+   "北塞浦路斯土耳其共和国"
+  ],
+  "capitalEn": "North Nicosia",
+  "capitalZh": "北尼科西亚",
+  "iso2": null,
+  "continent": "Asia",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "Cyprus",
+  "note": "De facto independent, recognized only by Turkey; claimed by Cyprus",
+  "noteZh": "事实独立，仅获土耳其承认；塞浦路斯声索其主权"
+ },
+ {
+  "id": "northern-mariana-islands",
+  "neName": "N. Mariana Is.",
+  "nameEn": "Northern Mariana Islands",
+  "exactAliasesEn": [
+   "Commonwealth of the Northern Mariana Islands"
+  ],
+  "almostAliasesEn": [
+   "CNMI",
+   "Northern Marianas"
+  ],
+  "nameZh": "北马里亚纳群岛",
+  "nameLocal": "Northern Mariana Islands",
+  "aliasesZh": [
+   "北马里亚纳"
+  ],
+  "capitalEn": "Saipan",
+  "capitalZh": "塞班",
+  "iso2": "MP",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United States",
+  "note": "US commonwealth territory",
+  "noteZh": "美国自由邦领土"
+ },
+ {
+  "id": "norway",
+  "neName": "Norway",
+  "nameEn": "Norway",
+  "exactAliasesEn": [
+   "Kingdom of Norway"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "挪威",
+  "nameLocal": "Norge",
+  "aliasesZh": [
+   "挪威王国"
+  ],
+  "capitalEn": "Oslo",
+  "capitalZh": "奥斯陆",
+  "iso2": "NO",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "oman",
+  "neName": "Oman",
+  "nameEn": "Oman",
+  "exactAliasesEn": [
+   "Sultanate of Oman"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "阿曼",
+  "nameLocal": "عمان",
+  "aliasesZh": [
+   "阿曼苏丹国"
+  ],
+  "capitalEn": "Muscat",
+  "capitalZh": "马斯喀特",
+  "iso2": "OM",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "pakistan",
+  "neName": "Pakistan",
+  "nameEn": "Pakistan",
+  "exactAliasesEn": [
+   "Islamic Republic of Pakistan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴基斯坦",
+  "nameLocal": "پاکستان",
+  "aliasesZh": [
+   "巴基斯坦伊斯兰共和国"
+  ],
+  "capitalEn": "Islamabad",
+  "capitalZh": "伊斯兰堡",
+  "iso2": "PK",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "palau",
+  "neName": "Palau",
+  "nameEn": "Palau",
+  "exactAliasesEn": [
+   "Republic of Palau"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "帕劳",
+  "nameLocal": "Belau",
+  "aliasesZh": [
+   "帕劳共和国"
+  ],
+  "capitalEn": "Ngerulmud",
+  "capitalZh": "恩吉鲁穆德",
+  "iso2": "PW",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "palestine",
+  "neName": "Palestine",
+  "nameEn": "Palestine",
+  "exactAliasesEn": [
+   "State of Palestine"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴勒斯坦",
+  "nameLocal": "فلسطين",
+  "aliasesZh": [
+   "巴勒斯坦国"
+  ],
+  "capitalEn": "Ramallah (administrative) / East Jerusalem (claimed)",
+  "capitalZh": "拉姆安拉（行政）/ 东耶路撒冷（宣称）",
+  "iso2": "PS",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "observer",
+  "parent": null,
+  "note": "UN observer state",
+  "noteZh": "联合国观察员国"
+ },
+ {
+  "id": "panama",
+  "neName": "Panama",
+  "nameEn": "Panama",
+  "exactAliasesEn": [
+   "Republic of Panama"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴拿马",
+  "nameLocal": "Panamá",
+  "aliasesZh": [
+   "巴拿马共和国"
+  ],
+  "capitalEn": "Panama City",
+  "capitalZh": "巴拿马城",
+  "iso2": "PA",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "papua-new-guinea",
+  "neName": "Papua New Guinea",
+  "nameEn": "Papua New Guinea",
+  "exactAliasesEn": [
+   "Independent State of Papua New Guinea"
+  ],
+  "almostAliasesEn": [
+   "PNG"
+  ],
+  "nameZh": "巴布亚新几内亚",
+  "nameLocal": "Papua Niugini",
+  "aliasesZh": [
+   "巴布亚新几内亚独立国",
+   "巴新"
+  ],
+  "capitalEn": "Port Moresby",
+  "capitalZh": "莫尔兹比港",
+  "iso2": "PG",
+  "continent": "Oceania",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "paraguay",
+  "neName": "Paraguay",
+  "nameEn": "Paraguay",
+  "exactAliasesEn": [
+   "Republic of Paraguay"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "巴拉圭",
+  "nameLocal": "Paraguay",
+  "aliasesZh": [
+   "巴拉圭共和国"
+  ],
+  "capitalEn": "Asunción",
+  "capitalZh": "亚松森",
+  "iso2": "PY",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "peru",
+  "neName": "Peru",
+  "nameEn": "Peru",
+  "exactAliasesEn": [
+   "Republic of Peru"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "秘鲁",
+  "nameLocal": "Perú",
+  "aliasesZh": [
+   "秘鲁共和国"
+  ],
+  "capitalEn": "Lima",
+  "capitalZh": "利马",
+  "iso2": "PE",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "philippines",
+  "neName": "Philippines",
+  "nameEn": "Philippines",
+  "exactAliasesEn": [
+   "The Philippines",
+   "Republic of the Philippines"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "菲律宾",
+  "nameLocal": "Pilipinas",
+  "aliasesZh": [
+   "菲律宾共和国"
+  ],
+  "capitalEn": "Manila",
+  "capitalZh": "马尼拉",
+  "iso2": "PH",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "pitcairn-islands",
+  "neName": "Pitcairn Is.",
+  "nameEn": "Pitcairn Islands",
+  "exactAliasesEn": [
+   "Pitcairn"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "皮特凯恩群岛",
+  "nameLocal": "Pitcairn Islands",
+  "aliasesZh": [
+   "皮特凯恩"
+  ],
+  "capitalEn": "Adamstown",
+  "capitalZh": "亚当斯敦",
+  "iso2": "PN",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "poland",
+  "neName": "Poland",
+  "nameEn": "Poland",
+  "exactAliasesEn": [
+   "Republic of Poland"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "波兰",
+  "nameLocal": "Polska",
+  "aliasesZh": [
+   "波兰共和国"
+  ],
+  "capitalEn": "Warsaw",
+  "capitalZh": "华沙",
+  "iso2": "PL",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "portugal",
+  "neName": "Portugal",
+  "nameEn": "Portugal",
+  "exactAliasesEn": [
+   "Portuguese Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "葡萄牙",
+  "nameLocal": "Portugal",
+  "aliasesZh": [
+   "葡萄牙共和国"
+  ],
+  "capitalEn": "Lisbon",
+  "capitalZh": "里斯本",
+  "iso2": "PT",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "puerto-rico",
+  "neName": "Puerto Rico",
+  "nameEn": "Puerto Rico",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "波多黎各",
+  "nameLocal": "Puerto Rico",
+  "aliasesZh": [],
+  "capitalEn": "San Juan",
+  "capitalZh": "圣胡安",
+  "iso2": "PR",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United States",
+  "note": "Unincorporated territory of the United States (commonwealth)",
+  "noteZh": "美国非建制领土（自由邦）"
+ },
+ {
+  "id": "qatar",
+  "neName": "Qatar",
+  "nameEn": "Qatar",
+  "exactAliasesEn": [
+   "State of Qatar"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "卡塔尔",
+  "nameLocal": "قطر",
+  "aliasesZh": [
+   "卡塔尔国"
+  ],
+  "capitalEn": "Doha",
+  "capitalZh": "多哈",
+  "iso2": "QA",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "republic-of-the-congo",
+  "neName": "Republic of the Congo",
+  "nameEn": "Republic of the Congo",
+  "exactAliasesEn": [
+   "Congo-Brazzaville",
+   "Republic of Congo"
+  ],
+  "almostAliasesEn": [
+   "Congo"
+  ],
+  "nameZh": "刚果（布）",
+  "nameLocal": "Congo",
+  "aliasesZh": [
+   "刚果共和国",
+   "刚果布",
+   "刚果(布)"
+  ],
+  "capitalEn": "Brazzaville",
+  "capitalZh": "布拉柴维尔",
+  "iso2": "CG",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "romania",
+  "neName": "Romania",
+  "nameEn": "Romania",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "罗马尼亚",
+  "nameLocal": "România",
+  "aliasesZh": [],
+  "capitalEn": "Bucharest",
+  "capitalZh": "布加勒斯特",
+  "iso2": "RO",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "russia",
+  "neName": "Russia",
+  "nameEn": "Russia",
+  "exactAliasesEn": [
+   "Russian Federation"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "俄罗斯",
+  "nameLocal": "Россия",
+  "aliasesZh": [
+   "俄罗斯联邦",
+   "俄国"
+  ],
+  "capitalEn": "Moscow",
+  "capitalZh": "莫斯科",
+  "iso2": "RU",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "rwanda",
+  "neName": "Rwanda",
+  "nameEn": "Rwanda",
+  "exactAliasesEn": [
+   "Republic of Rwanda"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "卢旺达",
+  "nameLocal": "Rwanda",
+  "aliasesZh": [
+   "卢旺达共和国"
+  ],
+  "capitalEn": "Kigali",
+  "capitalZh": "基加利",
+  "iso2": "RW",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "saint-barthelemy",
+  "neName": "St-Barthélemy",
+  "nameEn": "Saint Barthélemy",
+  "exactAliasesEn": [
+   "Saint-Barthélemy",
+   "Saint Barthelemy"
+  ],
+  "almostAliasesEn": [
+   "St. Barts",
+   "St Barth"
+  ],
+  "nameZh": "圣巴泰勒米",
+  "nameLocal": "Saint-Barthélemy",
+  "aliasesZh": [
+   "圣巴泰勒米岛"
+  ],
+  "capitalEn": "Gustavia",
+  "capitalZh": "古斯塔维亚",
+  "iso2": "BL",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "France",
+  "note": "French overseas collectivity",
+  "noteZh": "法国海外集体"
+ },
+ {
+  "id": "saint-helena",
+  "neName": "Saint Helena",
+  "nameEn": "Saint Helena",
+  "exactAliasesEn": [
+   "Saint Helena, Ascension and Tristan da Cunha"
+  ],
+  "almostAliasesEn": [
+   "St Helena",
+   "St. Helena"
+  ],
+  "nameZh": "圣赫勒拿",
+  "nameLocal": "Saint Helena",
+  "aliasesZh": [
+   "圣赫勒拿岛",
+   "圣赫勒拿、阿森松和特里斯坦-达库尼亚"
+  ],
+  "capitalEn": "Jamestown",
+  "capitalZh": "詹姆斯敦",
+  "iso2": "SH",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "saint-kitts-and-nevis",
+  "neName": "Saint Kitts and Nevis",
+  "nameEn": "Saint Kitts and Nevis",
+  "exactAliasesEn": [
+   "St. Kitts and Nevis",
+   "Saint Christopher and Nevis",
+   "Federation of Saint Christopher and Nevis"
+  ],
+  "almostAliasesEn": [
+   "Saint Kitts",
+   "St Kitts"
+  ],
+  "nameZh": "圣基茨和尼维斯",
+  "nameLocal": "Saint Kitts and Nevis",
+  "aliasesZh": [
+   "圣基茨和尼维斯联邦",
+   "圣克里斯托弗和尼维斯"
+  ],
+  "capitalEn": "Basseterre",
+  "capitalZh": "巴斯特尔",
+  "iso2": "KN",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "saint-lucia",
+  "neName": "Saint Lucia",
+  "nameEn": "Saint Lucia",
+  "exactAliasesEn": [
+   "St. Lucia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "圣卢西亚",
+  "nameLocal": "Saint Lucia",
+  "aliasesZh": [],
+  "capitalEn": "Castries",
+  "capitalZh": "卡斯特里",
+  "iso2": "LC",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "saint-martin",
+  "neName": "Saint-Martin",
+  "nameEn": "Saint Martin",
+  "exactAliasesEn": [
+   "Saint-Martin",
+   "St. Martin",
+   "Collectivity of Saint Martin"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "法属圣马丁",
+  "nameLocal": "Saint-Martin",
+  "aliasesZh": [
+   "圣马丁"
+  ],
+  "capitalEn": "Marigot",
+  "capitalZh": "马里戈",
+  "iso2": "MF",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "France",
+  "note": "French overseas collectivity (northern half of Saint Martin island)",
+  "noteZh": "法国海外集体（圣马丁岛北半部）"
+ },
+ {
+  "id": "saint-pierre-and-miquelon",
+  "neName": "St. Pierre and Miquelon",
+  "nameEn": "Saint Pierre and Miquelon",
+  "exactAliasesEn": [
+   "St. Pierre and Miquelon",
+   "Saint-Pierre and Miquelon"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "圣皮埃尔和密克隆",
+  "nameLocal": "Saint-Pierre-et-Miquelon",
+  "aliasesZh": [
+   "圣皮埃尔和密克隆群岛"
+  ],
+  "capitalEn": "Saint-Pierre",
+  "capitalZh": "圣皮埃尔",
+  "iso2": "PM",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "France",
+  "note": "French overseas collectivity off Newfoundland",
+  "noteZh": "法国海外集体，位于纽芬兰附近"
+ },
+ {
+  "id": "saint-vincent-and-the-grenadines",
+  "neName": "St. Vin. and Gren.",
+  "nameEn": "Saint Vincent and the Grenadines",
+  "exactAliasesEn": [
+   "St. Vincent and the Grenadines"
+  ],
+  "almostAliasesEn": [
+   "Saint Vincent",
+   "St Vincent"
+  ],
+  "nameZh": "圣文森特和格林纳丁斯",
+  "nameLocal": "Saint Vincent and the Grenadines",
+  "aliasesZh": [
+   "圣文森特"
+  ],
+  "capitalEn": "Kingstown",
+  "capitalZh": "金斯敦",
+  "iso2": "VC",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "samoa",
+  "neName": "Samoa",
+  "nameEn": "Samoa",
+  "exactAliasesEn": [
+   "Independent State of Samoa"
+  ],
+  "almostAliasesEn": [
+   "Western Samoa"
+  ],
+  "nameZh": "萨摩亚",
+  "nameLocal": "Sāmoa",
+  "aliasesZh": [
+   "萨摩亚独立国",
+   "西萨摩亚"
+  ],
+  "capitalEn": "Apia",
+  "capitalZh": "阿皮亚",
+  "iso2": "WS",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "san-marino",
+  "neName": "San Marino",
+  "nameEn": "San Marino",
+  "exactAliasesEn": [
+   "Republic of San Marino"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "圣马力诺",
+  "nameLocal": "San Marino",
+  "aliasesZh": [
+   "圣马力诺共和国"
+  ],
+  "capitalEn": "San Marino",
+  "capitalZh": "圣马力诺",
+  "iso2": "SM",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "sao-tome-and-principe",
+  "neName": "Sao Tome and Principe",
+  "nameEn": "São Tomé and Príncipe",
+  "exactAliasesEn": [
+   "Sao Tome and Principe",
+   "Democratic Republic of São Tomé and Príncipe"
+  ],
+  "almostAliasesEn": [
+   "Sao Tome"
+  ],
+  "nameZh": "圣多美和普林西比",
+  "nameLocal": "São Tomé e Príncipe",
+  "aliasesZh": [
+   "圣多美和普林西比民主共和国",
+   "圣普"
+  ],
+  "capitalEn": "São Tomé",
+  "capitalZh": "圣多美",
+  "iso2": "ST",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "saudi-arabia",
+  "neName": "Saudi Arabia",
+  "nameEn": "Saudi Arabia",
+  "exactAliasesEn": [
+   "Kingdom of Saudi Arabia"
+  ],
+  "almostAliasesEn": [
+   "KSA"
+  ],
+  "nameZh": "沙特阿拉伯",
+  "nameLocal": "السعودية",
+  "aliasesZh": [
+   "沙特",
+   "沙特阿拉伯王国"
+  ],
+  "capitalEn": "Riyadh",
+  "capitalZh": "利雅得",
+  "iso2": "SA",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "scarborough-shoal",
+  "neName": "Scarborough Reef",
+  "nameEn": "Scarborough Shoal",
+  "exactAliasesEn": [
+   "Scarborough Reef",
+   "Huangyan Island"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "黄岩岛",
+  "nameLocal": "黄岩岛",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": null,
+  "continent": "Asia",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "china",
+  "category": "special",
+  "parent": "China",
+  "note": "Uninhabited reef in the South China Sea, administered by China and also claimed by the Philippines",
+  "noteZh": "南海无人居住的礁岩（黄岩岛），由中国管理，菲律宾亦提出声索"
+ },
+ {
+  "id": "senegal",
+  "neName": "Senegal",
+  "nameEn": "Senegal",
+  "exactAliasesEn": [
+   "Republic of Senegal"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "塞内加尔",
+  "nameLocal": "Sénégal",
+  "aliasesZh": [
+   "塞内加尔共和国"
+  ],
+  "capitalEn": "Dakar",
+  "capitalZh": "达喀尔",
+  "iso2": "SN",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "serbia",
+  "neName": "Serbia",
+  "nameEn": "Serbia",
+  "exactAliasesEn": [
+   "Republic of Serbia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "塞尔维亚",
+  "nameLocal": "Србија",
+  "aliasesZh": [
+   "塞尔维亚共和国"
+  ],
+  "capitalEn": "Belgrade",
+  "capitalZh": "贝尔格莱德",
+  "iso2": "RS",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "seychelles",
+  "neName": "Seychelles",
+  "nameEn": "Seychelles",
+  "exactAliasesEn": [
+   "Republic of Seychelles"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "塞舌尔",
+  "nameLocal": "Sesel",
+  "aliasesZh": [
+   "塞舌尔共和国"
+  ],
+  "capitalEn": "Victoria",
+  "capitalZh": "维多利亚",
+  "iso2": "SC",
+  "continent": "Africa",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "sierra-leone",
+  "neName": "Sierra Leone",
+  "nameEn": "Sierra Leone",
+  "exactAliasesEn": [
+   "Republic of Sierra Leone"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "塞拉利昂",
+  "nameLocal": "Sierra Leone",
+  "aliasesZh": [
+   "塞拉利昂共和国"
+  ],
+  "capitalEn": "Freetown",
+  "capitalZh": "弗里敦",
+  "iso2": "SL",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "singapore",
+  "neName": "Singapore",
+  "nameEn": "Singapore",
+  "exactAliasesEn": [
+   "Republic of Singapore"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "新加坡",
+  "nameLocal": "Singapura",
+  "aliasesZh": [
+   "新加坡共和国"
+  ],
+  "capitalEn": "Singapore",
+  "capitalZh": "新加坡",
+  "iso2": "SG",
+  "continent": "Asia",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "sint-maarten",
+  "neName": "Sint Maarten",
+  "nameEn": "Sint Maarten",
+  "exactAliasesEn": [
+   "St. Maarten"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "荷属圣马丁",
+  "nameLocal": "Sint Maarten",
+  "aliasesZh": [
+   "圣马丁"
+  ],
+  "capitalEn": "Philipsburg",
+  "capitalZh": "菲利普斯堡",
+  "iso2": "SX",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "Netherlands",
+  "note": "Constituent country of the Kingdom of the Netherlands (southern half of Saint Martin island)",
+  "noteZh": "荷兰王国构成国（圣马丁岛南半部）"
+ },
+ {
+  "id": "slovakia",
+  "neName": "Slovakia",
+  "nameEn": "Slovakia",
+  "exactAliasesEn": [
+   "Slovak Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "斯洛伐克",
+  "nameLocal": "Slovensko",
+  "aliasesZh": [
+   "斯洛伐克共和国"
+  ],
+  "capitalEn": "Bratislava",
+  "capitalZh": "布拉迪斯拉发",
+  "iso2": "SK",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "slovenia",
+  "neName": "Slovenia",
+  "nameEn": "Slovenia",
+  "exactAliasesEn": [
+   "Republic of Slovenia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "斯洛文尼亚",
+  "nameLocal": "Slovenija",
+  "aliasesZh": [
+   "斯洛文尼亚共和国"
+  ],
+  "capitalEn": "Ljubljana",
+  "capitalZh": "卢布尔雅那",
+  "iso2": "SI",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "solomon-islands",
+  "neName": "Solomon Is.",
+  "nameEn": "Solomon Islands",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "Solomons"
+  ],
+  "nameZh": "所罗门群岛",
+  "nameLocal": "Solomon Islands",
+  "aliasesZh": [
+   "所罗门"
+  ],
+  "capitalEn": "Honiara",
+  "capitalZh": "霍尼亚拉",
+  "iso2": "SB",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "somalia",
+  "neName": "Somalia",
+  "nameEn": "Somalia",
+  "exactAliasesEn": [
+   "Federal Republic of Somalia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "索马里",
+  "nameLocal": "Soomaaliya",
+  "aliasesZh": [
+   "索马里联邦共和国"
+  ],
+  "capitalEn": "Mogadishu",
+  "capitalZh": "摩加迪沙",
+  "iso2": "SO",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "somaliland",
+  "neName": "Somaliland",
+  "nameEn": "Somaliland",
+  "exactAliasesEn": [
+   "Republic of Somaliland"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "索马里兰",
+  "nameLocal": "Somaliland",
+  "aliasesZh": [],
+  "capitalEn": "Hargeisa",
+  "capitalZh": "哈尔格萨",
+  "iso2": null,
+  "continent": "Africa",
+  "microstate": false,
+  "status": "browse",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "Somalia",
+  "note": "de facto independent, claimed by Somalia",
+  "noteZh": "事实独立，索马里声索其主权"
+ },
+ {
+  "id": "south-africa",
+  "neName": "South Africa",
+  "nameEn": "South Africa",
+  "exactAliasesEn": [
+   "Republic of South Africa"
+  ],
+  "almostAliasesEn": [
+   "RSA"
+  ],
+  "nameZh": "南非",
+  "nameLocal": "South Africa",
+  "aliasesZh": [
+   "南非共和国"
+  ],
+  "capitalEn": "Pretoria (executive) / Cape Town (legislative) / Bloemfontein (judicial)",
+  "capitalZh": "比勒陀利亚（行政）/ 开普敦（立法）/ 布隆方丹（司法）",
+  "iso2": "ZA",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "south-georgia-and-the-south-sandwich-islands",
+  "neName": "S. Geo. and the Is.",
+  "nameEn": "South Georgia and the South Sandwich Islands",
+  "exactAliasesEn": [
+   "South Georgia and South Sandwich Islands"
+  ],
+  "almostAliasesEn": [
+   "South Georgia",
+   "SGSSI"
+  ],
+  "nameZh": "南乔治亚和南桑威奇群岛",
+  "nameLocal": "South Georgia and the South Sandwich Islands",
+  "aliasesZh": [
+   "南乔治亚岛和南桑威奇群岛",
+   "南乔治亚"
+  ],
+  "capitalEn": "King Edward Point",
+  "capitalZh": "爱德华国王角",
+  "iso2": "GS",
+  "continent": "South America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory; claimed by Argentina; no permanent population",
+  "noteZh": "英国海外领土；阿根廷声索其主权；无常住人口"
+ },
+ {
+  "id": "south-korea",
+  "neName": "Republic of Korea",
+  "nameEn": "South Korea",
+  "exactAliasesEn": [
+   "Republic of Korea"
+  ],
+  "almostAliasesEn": [
+   "ROK"
+  ],
+  "nameZh": "韩国",
+  "nameLocal": "한국",
+  "aliasesZh": [
+   "大韩民国"
+  ],
+  "capitalEn": "Seoul",
+  "capitalZh": "首尔",
+  "iso2": "KR",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "south-ossetia",
+  "neName": "South Ossetia",
+  "nameEn": "South Ossetia",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "南奥塞梯",
+  "nameLocal": "Хуссар Ирыстон",
+  "aliasesZh": [],
+  "capitalEn": "Tskhinvali",
+  "capitalZh": "茨欣瓦利",
+  "iso2": null,
+  "continent": "Asia",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "Georgia",
+  "note": "De facto independent, claimed by Georgia",
+  "noteZh": "事实独立，格鲁吉亚声索其主权"
+ },
+ {
+  "id": "south-sudan",
+  "neName": "S. Sudan",
+  "nameEn": "South Sudan",
+  "exactAliasesEn": [
+   "Republic of South Sudan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "南苏丹",
+  "nameLocal": "South Sudan",
+  "aliasesZh": [
+   "南苏丹共和国"
+  ],
+  "capitalEn": "Juba",
+  "capitalZh": "朱巴",
+  "iso2": "SS",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "spain",
+  "neName": "Spain",
+  "nameEn": "Spain",
+  "exactAliasesEn": [
+   "Kingdom of Spain"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "西班牙",
+  "nameLocal": "España",
+  "aliasesZh": [
+   "西班牙王国"
+  ],
+  "capitalEn": "Madrid",
+  "capitalZh": "马德里",
+  "iso2": "ES",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "sri-lanka",
+  "neName": "Sri Lanka",
+  "nameEn": "Sri Lanka",
+  "exactAliasesEn": [
+   "Democratic Socialist Republic of Sri Lanka"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "斯里兰卡",
+  "nameLocal": "ශ්‍රී ලංකාව",
+  "aliasesZh": [
+   "斯里兰卡民主社会主义共和国"
+  ],
+  "capitalEn": "Sri Jayawardenepura Kotte (official) / Colombo (de facto)",
+  "capitalZh": "斯里贾亚瓦德纳普拉科特（法定）/ 科伦坡（实际）",
+  "iso2": "LK",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "sudan",
+  "neName": "Sudan",
+  "nameEn": "Sudan",
+  "exactAliasesEn": [
+   "Republic of the Sudan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "苏丹",
+  "nameLocal": "السودان",
+  "aliasesZh": [
+   "苏丹共和国"
+  ],
+  "capitalEn": "Khartoum",
+  "capitalZh": "喀土穆",
+  "iso2": "SD",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "suriname",
+  "neName": "Suriname",
+  "nameEn": "Suriname",
+  "exactAliasesEn": [
+   "Republic of Suriname",
+   "Surinam"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "苏里南",
+  "nameLocal": "Suriname",
+  "aliasesZh": [
+   "苏里南共和国"
+  ],
+  "capitalEn": "Paramaribo",
+  "capitalZh": "帕拉马里博",
+  "iso2": "SR",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "sweden",
+  "neName": "Sweden",
+  "nameEn": "Sweden",
+  "exactAliasesEn": [
+   "Kingdom of Sweden"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "瑞典",
+  "nameLocal": "Sverige",
+  "aliasesZh": [
+   "瑞典王国"
+  ],
+  "capitalEn": "Stockholm",
+  "capitalZh": "斯德哥尔摩",
+  "iso2": "SE",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "switzerland",
+  "neName": "Switzerland",
+  "nameEn": "Switzerland",
+  "exactAliasesEn": [
+   "Swiss Confederation"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "瑞士",
+  "nameLocal": "Schweiz / Suisse",
+  "aliasesZh": [
+   "瑞士联邦"
+  ],
+  "capitalEn": "Bern",
+  "capitalZh": "伯尔尼",
+  "iso2": "CH",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "syria",
+  "neName": "Syria",
+  "nameEn": "Syria",
+  "exactAliasesEn": [
+   "Syrian Arab Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "叙利亚",
+  "nameLocal": "سوريا",
+  "aliasesZh": [
+   "阿拉伯叙利亚共和国"
+  ],
+  "capitalEn": "Damascus",
+  "capitalZh": "大马士革",
+  "iso2": "SY",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "taiwan",
+  "neName": "Taiwan",
+  "nameEn": "Taiwan",
+  "exactAliasesEn": [
+   "Republic of China"
+  ],
+  "almostAliasesEn": [
+   "ROC",
+   "Chinese Taipei"
+  ],
+  "nameZh": "台湾",
+  "nameLocal": "臺灣",
+  "aliasesZh": [
+   "中国台湾",
+   "中华民国"
+  ],
+  "capitalEn": "Taipei",
+  "capitalZh": "台北",
+  "iso2": "TW",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "China",
+  "note": "Governed separately as the Republic of China; claimed by China",
+  "noteZh": "以“中华民国”名义另行治理；中国声索其主权"
+ },
+ {
+  "id": "tajikistan",
+  "neName": "Tajikistan",
+  "nameEn": "Tajikistan",
+  "exactAliasesEn": [
+   "Republic of Tajikistan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "塔吉克斯坦",
+  "nameLocal": "Тоҷикистон",
+  "aliasesZh": [
+   "塔吉克斯坦共和国"
+  ],
+  "capitalEn": "Dushanbe",
+  "capitalZh": "杜尚别",
+  "iso2": "TJ",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "tanzania",
+  "neName": "Tanzania",
+  "nameEn": "Tanzania",
+  "exactAliasesEn": [
+   "United Republic of Tanzania"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "坦桑尼亚",
+  "nameLocal": "Tanzania",
+  "aliasesZh": [
+   "坦桑尼亚联合共和国",
+   "坦桑"
+  ],
+  "capitalEn": "Dodoma",
+  "capitalZh": "多多马",
+  "iso2": "TZ",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "thailand",
+  "neName": "Thailand",
+  "nameEn": "Thailand",
+  "exactAliasesEn": [
+   "Kingdom of Thailand"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "泰国",
+  "nameLocal": "ประเทศไทย",
+  "aliasesZh": [
+   "泰王国"
+  ],
+  "capitalEn": "Bangkok",
+  "capitalZh": "曼谷",
+  "iso2": "TH",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "togo",
+  "neName": "Togo",
+  "nameEn": "Togo",
+  "exactAliasesEn": [
+   "Togolese Republic",
+   "Republic of Togo"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "多哥",
+  "nameLocal": "Togo",
+  "aliasesZh": [
+   "多哥共和国"
+  ],
+  "capitalEn": "Lomé",
+  "capitalZh": "洛美",
+  "iso2": "TG",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "tonga",
+  "neName": "Tonga",
+  "nameEn": "Tonga",
+  "exactAliasesEn": [
+   "Kingdom of Tonga"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "汤加",
+  "nameLocal": "Tonga",
+  "aliasesZh": [
+   "汤加王国"
+  ],
+  "capitalEn": "Nuku'alofa",
+  "capitalZh": "努库阿洛法",
+  "iso2": "TO",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "transnistria",
+  "neName": "Transnistria",
+  "nameEn": "Transnistria",
+  "exactAliasesEn": [
+   "Pridnestrovie",
+   "Pridnestrovian Moldavian Republic"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "德涅斯特河沿岸",
+  "nameLocal": "Приднестровье",
+  "aliasesZh": [
+   "德左",
+   "德涅斯特河沿岸摩尔达维亚共和国"
+  ],
+  "capitalEn": "Tiraspol",
+  "capitalZh": "蒂拉斯波尔",
+  "iso2": null,
+  "continent": "Europe",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "Moldova",
+  "note": "de facto independent, claimed by Moldova",
+  "noteZh": "事实独立，摩尔多瓦声索其主权"
+ },
+ {
+  "id": "trinidad-and-tobago",
+  "neName": "Trinidad and Tobago",
+  "nameEn": "Trinidad and Tobago",
+  "exactAliasesEn": [
+   "Republic of Trinidad and Tobago"
+  ],
+  "almostAliasesEn": [
+   "Trinidad",
+   "T&T"
+  ],
+  "nameZh": "特立尼达和多巴哥",
+  "nameLocal": "Trinidad and Tobago",
+  "aliasesZh": [
+   "特立尼达和多巴哥共和国",
+   "特多"
+  ],
+  "capitalEn": "Port of Spain",
+  "capitalZh": "西班牙港",
+  "iso2": "TT",
+  "continent": "North America",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "tunisia",
+  "neName": "Tunisia",
+  "nameEn": "Tunisia",
+  "exactAliasesEn": [
+   "Republic of Tunisia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "突尼斯",
+  "nameLocal": "تونس",
+  "aliasesZh": [
+   "突尼斯共和国"
+  ],
+  "capitalEn": "Tunis",
+  "capitalZh": "突尼斯",
+  "iso2": "TN",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "turkey",
+  "neName": "Turkey",
+  "nameEn": "Turkey",
+  "exactAliasesEn": [
+   "Türkiye",
+   "Turkiye",
+   "Republic of Turkey"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "土耳其",
+  "nameLocal": "Türkiye",
+  "aliasesZh": [
+   "土耳其共和国"
+  ],
+  "capitalEn": "Ankara",
+  "capitalZh": "安卡拉",
+  "iso2": "TR",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "turkmenistan",
+  "neName": "Turkmenistan",
+  "nameEn": "Turkmenistan",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "土库曼斯坦",
+  "nameLocal": "Türkmenistan",
+  "aliasesZh": [],
+  "capitalEn": "Ashgabat",
+  "capitalZh": "阿什哈巴德",
+  "iso2": "TM",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "turks-and-caicos-islands",
+  "neName": "Turks and Caicos Is.",
+  "nameEn": "Turks and Caicos Islands",
+  "exactAliasesEn": [
+   "Turks and Caicos"
+  ],
+  "almostAliasesEn": [
+   "TCI"
+  ],
+  "nameZh": "特克斯和凯科斯群岛",
+  "nameLocal": "Turks and Caicos Islands",
+  "aliasesZh": [
+   "特克斯和凯科斯"
+  ],
+  "capitalEn": "Cockburn Town",
+  "capitalZh": "科伯恩城",
+  "iso2": "TC",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United Kingdom",
+  "note": "British Overseas Territory",
+  "noteZh": "英国海外领土"
+ },
+ {
+  "id": "tuvalu",
+  "neName": "Tuvalu",
+  "nameEn": "Tuvalu",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "图瓦卢",
+  "nameLocal": "Tuvalu",
+  "aliasesZh": [],
+  "capitalEn": "Funafuti",
+  "capitalZh": "富纳富提",
+  "iso2": "TV",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "uganda",
+  "neName": "Uganda",
+  "nameEn": "Uganda",
+  "exactAliasesEn": [
+   "Republic of Uganda"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "乌干达",
+  "nameLocal": "Uganda",
+  "aliasesZh": [
+   "乌干达共和国"
+  ],
+  "capitalEn": "Kampala",
+  "capitalZh": "坎帕拉",
+  "iso2": "UG",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "ukraine",
+  "neName": "Ukraine",
+  "nameEn": "Ukraine",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [],
+  "nameZh": "乌克兰",
+  "nameLocal": "Україна",
+  "aliasesZh": [],
+  "capitalEn": "Kyiv",
+  "capitalZh": "基辅",
+  "iso2": "UA",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "united-arab-emirates",
+  "neName": "United Arab Emirates",
+  "nameEn": "United Arab Emirates",
+  "exactAliasesEn": [],
+  "almostAliasesEn": [
+   "UAE"
+  ],
+  "nameZh": "阿联酋",
+  "nameLocal": "الإمارات",
+  "aliasesZh": [
+   "阿拉伯联合酋长国"
+  ],
+  "capitalEn": "Abu Dhabi",
+  "capitalZh": "阿布扎比",
+  "iso2": "AE",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "united-kingdom",
+  "neName": "United Kingdom",
+  "nameEn": "United Kingdom",
+  "exactAliasesEn": [
+   "United Kingdom of Great Britain and Northern Ireland"
+  ],
+  "almostAliasesEn": [
+   "UK",
+   "Britain",
+   "Great Britain"
+  ],
+  "nameZh": "英国",
+  "nameLocal": "United Kingdom",
+  "aliasesZh": [
+   "大不列颠及北爱尔兰联合王国",
+   "联合王国"
+  ],
+  "capitalEn": "London",
+  "capitalZh": "伦敦",
+  "iso2": "GB",
+  "continent": "Europe",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "united-states",
+  "neName": "United States",
+  "nameEn": "United States",
+  "exactAliasesEn": [
+   "United States of America"
+  ],
+  "almostAliasesEn": [
+   "USA",
+   "US",
+   "America"
+  ],
+  "nameZh": "美国",
+  "nameLocal": "United States",
+  "aliasesZh": [
+   "美利坚合众国"
+  ],
+  "capitalEn": "Washington, D.C.",
+  "capitalZh": "华盛顿",
+  "iso2": "US",
+  "continent": "North America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "uruguay",
+  "neName": "Uruguay",
+  "nameEn": "Uruguay",
+  "exactAliasesEn": [
+   "Oriental Republic of Uruguay"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "乌拉圭",
+  "nameLocal": "Uruguay",
+  "aliasesZh": [
+   "乌拉圭东岸共和国"
+  ],
+  "capitalEn": "Montevideo",
+  "capitalZh": "蒙得维的亚",
+  "iso2": "UY",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "us-minor-outlying-islands",
+  "neName": "U.S. Minor Outlying Is.",
+  "nameEn": "United States Minor Outlying Islands",
+  "exactAliasesEn": [
+   "U.S. Minor Outlying Islands"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "美国本土外小岛屿",
+  "nameLocal": "United States Minor Outlying Islands",
+  "aliasesZh": [],
+  "capitalEn": null,
+  "capitalZh": null,
+  "iso2": "UM",
+  "continent": "Other",
+  "microstate": true,
+  "status": "fold",
+  "foldInto": "united-states",
+  "category": "dependency",
+  "parent": "United States",
+  "note": "Scattered uninhabited US islands (Midway, Wake, Navassa, etc.); counts as United States",
+  "noteZh": "美国零散无人岛屿（中途岛、威克岛、纳瓦萨岛等）；作答时算作美国"
+ },
+ {
+  "id": "us-virgin-islands",
+  "neName": "U.S. Virgin Is.",
+  "nameEn": "U.S. Virgin Islands",
+  "exactAliasesEn": [
+   "United States Virgin Islands",
+   "Virgin Islands of the United States"
+  ],
+  "almostAliasesEn": [
+   "USVI"
+  ],
+  "nameZh": "美属维尔京群岛",
+  "nameLocal": "U.S. Virgin Islands",
+  "aliasesZh": [
+   "美属维京群岛"
+  ],
+  "capitalEn": "Charlotte Amalie",
+  "capitalZh": "夏洛特阿马利亚",
+  "iso2": "VI",
+  "continent": "North America",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "United States",
+  "note": "Unincorporated territory of the United States",
+  "noteZh": "美国非建制领土"
+ },
+ {
+  "id": "uzbekistan",
+  "neName": "Uzbekistan",
+  "nameEn": "Uzbekistan",
+  "exactAliasesEn": [
+   "Republic of Uzbekistan"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "乌兹别克斯坦",
+  "nameLocal": "Oʻzbekiston",
+  "aliasesZh": [
+   "乌兹别克斯坦共和国"
+  ],
+  "capitalEn": "Tashkent",
+  "capitalZh": "塔什干",
+  "iso2": "UZ",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "vanuatu",
+  "neName": "Vanuatu",
+  "nameEn": "Vanuatu",
+  "exactAliasesEn": [
+   "Republic of Vanuatu"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "瓦努阿图",
+  "nameLocal": "Vanuatu",
+  "aliasesZh": [
+   "瓦努阿图共和国"
+  ],
+  "capitalEn": "Port Vila",
+  "capitalZh": "维拉港",
+  "iso2": "VU",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "vatican-city",
+  "neName": "Vatican",
+  "nameEn": "Vatican City",
+  "exactAliasesEn": [
+   "Vatican",
+   "Vatican City State",
+   "Holy See"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "梵蒂冈",
+  "nameLocal": "Città del Vaticano",
+  "aliasesZh": [
+   "梵蒂冈城国",
+   "教廷"
+  ],
+  "capitalEn": "Vatican City",
+  "capitalZh": "梵蒂冈城",
+  "iso2": "VA",
+  "continent": "Europe",
+  "microstate": true,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "observer",
+  "parent": null,
+  "note": "UN observer state; world's smallest country",
+  "noteZh": "联合国观察员国；世界上最小的国家"
+ },
+ {
+  "id": "venezuela",
+  "neName": "Venezuela",
+  "nameEn": "Venezuela",
+  "exactAliasesEn": [
+   "Bolivarian Republic of Venezuela"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "委内瑞拉",
+  "nameLocal": "Venezuela",
+  "aliasesZh": [
+   "委内瑞拉玻利瓦尔共和国"
+  ],
+  "capitalEn": "Caracas",
+  "capitalZh": "加拉加斯",
+  "iso2": "VE",
+  "continent": "South America",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "vietnam",
+  "neName": "Vietnam",
+  "nameEn": "Vietnam",
+  "exactAliasesEn": [
+   "Viet Nam",
+   "Socialist Republic of Vietnam"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "越南",
+  "nameLocal": "Việt Nam",
+  "aliasesZh": [
+   "越南社会主义共和国"
+  ],
+  "capitalEn": "Hanoi",
+  "capitalZh": "河内",
+  "iso2": "VN",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "wallis-and-futuna",
+  "neName": "Wallis and Futuna Islands",
+  "nameEn": "Wallis and Futuna",
+  "exactAliasesEn": [
+   "Wallis and Futuna Islands"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "瓦利斯和富图纳",
+  "nameLocal": "Wallis-et-Futuna",
+  "aliasesZh": [
+   "瓦利斯和富图纳群岛"
+  ],
+  "capitalEn": "Mata-Utu",
+  "capitalZh": "马塔乌图",
+  "iso2": "WF",
+  "continent": "Oceania",
+  "microstate": true,
+  "status": "browse",
+  "foldInto": null,
+  "category": "dependency",
+  "parent": "France",
+  "note": "Overseas collectivity of France",
+  "noteZh": "法国海外集体"
+ },
+ {
+  "id": "western-sahara",
+  "neName": "W. Sahara",
+  "nameEn": "Western Sahara",
+  "exactAliasesEn": [
+   "Sahrawi Arab Democratic Republic"
+  ],
+  "almostAliasesEn": [
+   "SADR"
+  ],
+  "nameZh": "西撒哈拉",
+  "nameLocal": "الصحراء الغربية",
+  "aliasesZh": [
+   "阿拉伯撒哈拉民主共和国"
+  ],
+  "capitalEn": "Laayoune (claimed)",
+  "capitalZh": "阿尤恩（宣称）",
+  "iso2": "EH",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "browse",
+  "foldInto": null,
+  "category": "defacto",
+  "parent": "Morocco",
+  "note": "disputed territory, mostly administered by Morocco",
+  "noteZh": "争议领土，大部分由摩洛哥实际管理"
+ },
+ {
+  "id": "yemen",
+  "neName": "Yemen",
+  "nameEn": "Yemen",
+  "exactAliasesEn": [
+   "Republic of Yemen"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "也门",
+  "nameLocal": "اليمن",
+  "aliasesZh": [
+   "也门共和国"
+  ],
+  "capitalEn": "Sanaa",
+  "capitalZh": "萨那",
+  "iso2": "YE",
+  "continent": "Asia",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "zambia",
+  "neName": "Zambia",
+  "nameEn": "Zambia",
+  "exactAliasesEn": [
+   "Republic of Zambia"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "赞比亚",
+  "nameLocal": "Zambia",
+  "aliasesZh": [
+   "赞比亚共和国"
+  ],
+  "capitalEn": "Lusaka",
+  "capitalZh": "卢萨卡",
+  "iso2": "ZM",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ },
+ {
+  "id": "zimbabwe",
+  "neName": "Zimbabwe",
+  "nameEn": "Zimbabwe",
+  "exactAliasesEn": [
+   "Republic of Zimbabwe"
+  ],
+  "almostAliasesEn": [],
+  "nameZh": "津巴布韦",
+  "nameLocal": "Zimbabwe",
+  "aliasesZh": [
+   "津巴布韦共和国"
+  ],
+  "capitalEn": "Harare",
+  "capitalZh": "哈拉雷",
+  "iso2": "ZW",
+  "continent": "Africa",
+  "microstate": false,
+  "status": "quiz",
+  "foldInto": null,
+  "category": "un",
+  "parent": null,
+  "note": null
+ }
+]
