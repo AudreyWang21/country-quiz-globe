@@ -13,7 +13,7 @@ const EXPORT_FORMAT_VERSION = 2;
 
 export const defaultSettings = Object.freeze({
   lang: "en",
-  view: "flat",
+  view: "globe",
   continent: "World",
   mode: "browse",
   includeMicrostates: true,
