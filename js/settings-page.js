@@ -25,6 +25,7 @@ const elements = {
   exportButton: document.getElementById("export-button"),
   importButton: document.getElementById("import-button"),
   stashButton: document.getElementById("stash-button"),
+  clearAllButton: document.getElementById("clear-all-button"),
   importFileInput: document.getElementById("import-file-input"),
 };
 
@@ -75,8 +76,18 @@ elements.stashButton.addEventListener("click", () => {
   refreshStashButton();
 });
 
+// Permanent wipe of the live ledgers (both tracks). Unlike "Start fresh" this
+// keeps no recoverable copy — only an exported file can bring it back. The
+// stash slot and settings are left alone; "clear all" means all *progress*.
+elements.clearAllButton.addEventListener("click", () => {
+  if (!confirm(text.clearAllConfirm)) return;
+  saveProgress(blankProgress());
+  alert(text.clearAllDone);
+});
+
 elements.pageTitle.textContent = text.settingsPageTitle;
 elements.backupHint.textContent = text.settingsBackupHint;
 elements.exportButton.textContent = text.exportButton;
 elements.importButton.textContent = text.importButton;
+elements.clearAllButton.textContent = text.clearAllButton;
 refreshStashButton();

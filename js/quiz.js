@@ -11,7 +11,7 @@ export function normalizeEnglishName(text) {
   normalized = normalized.replace(/['‘’.,]/g, ""); // apostrophes, periods, commas
   normalized = normalized.replace(/\s+/g, " ").trim();
   if (normalized.startsWith("the ")) normalized = normalized.slice(4);
-  return normalized;
+  return normalized.replace(/ /g, ""); // whitespace-agnostic: spaces never matter
 }
 
 // Damerau-Levenshtein (optimal string alignment): edits + adjacent transpositions.
@@ -86,11 +86,12 @@ export function toHalfWidth(text) {
 }
 
 export function checkChineseAnswer(inputText, region) {
-  const cleanedInput = toHalfWidth(inputText).trim();
+  // whitespace-agnostic: drop all spaces (incl. ideographic) on both sides
+  const cleanedInput = toHalfWidth(inputText).replace(/\s+/g, "");
   if (!cleanedInput) return "wrong";
   const targets = [region.nameZh, ...(region.aliasesZh || [])]
     .filter(Boolean)
-    .map((target) => toHalfWidth(target).trim());
+    .map((target) => toHalfWidth(target).replace(/\s+/g, ""));
   if (targets.includes(cleanedInput)) return "exact";
   for (const target of targets) {
     if (Array.from(target).length >= 3 && levenshteinDistance(cleanedInput, target) <= 1) return "almost";

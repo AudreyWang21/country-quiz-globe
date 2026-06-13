@@ -18,11 +18,13 @@ export const uiText = {
     typeClickHint: "Click any region on the map to practice that one instead",
     reviewNoTrouble: "No trouble spots in this scope — a region joins this drill once it has been answered wrong 3+ times, in Find or in typing.",
     answerPlaceholder: "Type the name…",
+    correctionPlaceholder: "Type the correct answer…",
+    correctionPrompt: "Type the correct answer to continue",
     checkAnswer: "Check",
     showAnswer: "Show answer",
     enterToCheck: "Enter checks · Escape clears",
     verdictExact: "Correct",
-    verdictAlmost: "Close — try again or move on",
+    verdictAlmost: "Close",
     verdictWrong: "Wrong",
     masteredBadge: "Mastered",
     answerLabel: "Answer",
@@ -62,6 +64,9 @@ export const uiText = {
     resumeSavedButton: "Resume saved progress",
     startFreshConfirm: "Set current progress aside and start fresh? Bring it back anytime with “Resume saved progress”.",
     resumeSavedConfirm: "Replace current progress with the progress saved on {date}? Progress made since starting fresh will be lost.",
+    clearAllButton: "Clear all progress",
+    clearAllConfirm: "Permanently delete ALL progress in both tracks? This cannot be undone. Export a backup first if you want to keep it.",
+    clearAllDone: "All progress cleared",
     dataLoadFailed: "Could not load map data. Is the server running?",
     legendUntouched: "Untouched",
     legendWrong: "Wrong",
@@ -96,11 +101,13 @@ export const uiText = {
     typeClickHint: "点击地图上的任意地区可改为练习该地区",
     reviewNoTrouble: "该范围内暂无易错地区——在寻找或拼写中答错 3 次以上的地区会进入此练习。",
     answerPlaceholder: "输入名称…",
+    correctionPlaceholder: "输入正确答案…",
+    correctionPrompt: "输入正确答案以继续",
     checkAnswer: "检查",
     showAnswer: "显示答案",
     enterToCheck: "Enter 检查 · Esc 清除",
     verdictExact: "正确",
-    verdictAlmost: "接近——可重试",
+    verdictAlmost: "接近",
     verdictWrong: "错误",
     masteredBadge: "已掌握",
     answerLabel: "答案",
@@ -140,6 +147,9 @@ export const uiText = {
     resumeSavedButton: "恢复存档进度",
     startFreshConfirm: "把当前进度存起来并重新开始？随时可用“恢复存档进度”找回。",
     resumeSavedConfirm: "用 {date} 存档的进度替换当前进度？重新开始后的进度将丢失。",
+    clearAllButton: "清除所有进度",
+    clearAllConfirm: "永久删除两个练习轨道的所有进度？此操作无法撤销。如需保留，请先导出备份。",
+    clearAllDone: "所有进度已清除",
     dataLoadFailed: "地图数据加载失败。服务器在运行吗？",
     legendUntouched: "未练习",
     legendWrong: "错误",
@@ -206,14 +216,6 @@ function bilingualName(region) {
     ? `${escapeHtml(region.nameEn)} · ${escapeHtml(region.nameZh)}`
     : escapeHtml(region.nameEn);
 }
-
-function bothNames(region, language) {
-  const primary = escapeHtml(regionDisplayName(region, language));
-  const secondary = language === "zh" ? region.nameEn : region.nameZh;
-  return secondary && secondary !== regionDisplayName(region, language)
-    ? `<strong>${primary}</strong> · ${escapeHtml(secondary)}`
-    : `<strong>${primary}</strong>`;
-  }
 
 function bothCapitals(region, language) {
   const first = language === "zh" ? region.capitalZh : region.capitalEn;
@@ -289,7 +291,10 @@ export function createSidePanel({ contentElement, actions }) {
       if (event.key !== "Enter") return;
       if (event.isComposing || event.keyCode === 229) return;
       event.preventDefault();
-      actions.submitAnswer(answerInput.value);
+      // Enter on a blank box gives up (same as Show answer) — you don't know it;
+      // with text it checks the answer.
+      if (answerInput.value.trim()) actions.submitAnswer(answerInput.value);
+      else actions.revealAnswer();
     });
     if (checkButton) {
       checkButton.addEventListener("click", () => actions.submitAnswer(answerInput.value));
@@ -413,34 +418,20 @@ export function createSidePanel({ contentElement, actions }) {
     wireSpeakButtons();
   }
 
-  // ----- shared verdict block -----
+  // ----- verdict label -----
 
-  function verdictBlock(region, language, verdict, newlyMastered) {
+  // Just the ✓/≈/✗ line; the full region card (regionInfoMarkup) is rendered
+  // beneath it on a resolved naming round, so the answer reveal needs no
+  // separate simplified block.
+  function verdictLabelMarkup(verdict, newlyMastered) {
     const text = uiText.en;
-    const capitals = bothCapitals(region, language);
     const verdictLabel =
       verdict === "exact" ? `✓ ${text.verdictExact}` :
       verdict === "almost" ? `≈ ${text.verdictAlmost}` :
       `✗ ${text.verdictWrong}`;
-    // "almost" keeps the round open for another try, so it must NOT reveal
-    // the answer — that would let the revealed name be typed back for a free
-    // exact. exact/wrong end the round, so showing the answer is safe.
-    const answerReveal =
-      verdict === "almost"
-        ? ""
-        : `<div class="answer-reveal">
-        <span class="region-flag">${flagMarkup(region.iso2)}</span>
-        <div class="answer-reveal-text">
-          <p class="answer-names">${bothNames(region, language)}</p>
-          ${capitals ? `<p class="answer-capital">${escapeHtml(text.capitalLabel)}: ${capitals}</p>` : ""}
-        </div>
-      </div>`;
-    return `
-      <p class="verdict verdict-${verdict}">${escapeHtml(verdictLabel)}${
-        newlyMastered ? ` <span class="mastered-badge">${escapeHtml(text.masteredBadge)}</span>` : ""
-      }</p>
-      ${answerReveal}
-    `;
+    return `<p class="verdict verdict-${verdict}">${escapeHtml(verdictLabel)}${
+      newlyMastered ? ` <span class="mastered-badge">${escapeHtml(text.masteredBadge)}</span>` : ""
+    }</p>`;
   }
 
   // ----- find -----
@@ -503,10 +494,11 @@ export function createSidePanel({ contentElement, actions }) {
 
   // ----- naming rounds (Type, and Review's naming-track rounds) -----
 
-  // round: { target, verdict, inputText, newlyMastered, answerRevealed } or
-  // null when the mode has nothing to quiz (emptyMessage says why).
-  // promptHint: extra hint line under "Enter checks…" (Type's click-override).
-  function renderNamingRound(round, language, { emptyMessage, promptHint } = {}) {
+  // round: { target, verdict, inputText, newlyMastered, corrected } or null
+  // when the mode has nothing to quiz (emptyMessage says why). promptHint: extra
+  // hint under "Enter checks…" (Type's click-override). regionByName: parent
+  // lookup for the resolved card's "Part of" fact.
+  function renderNamingRound(round, language, { emptyMessage, promptHint, regionByName } = {}) {
     const text = uiText.en;
     if (!round || !round.target) {
       setContent(`
@@ -522,30 +514,39 @@ export function createSidePanel({ contentElement, actions }) {
       wireLanguageToggle();
       return;
     }
-    // exact solves the round; wrong ends it too (its verdict block reveals
-    // the answer — a re-submit would credit a fake exact). Both disable
-    // (don't remove) the input and Check. "almost" stays open.
-    const solved = round.verdict === "exact" || round.verdict === "wrong";
+    // Single attempt: exact solves the round; any non-exact answer (or giving
+    // up) reveals the full region card and starts a correction step — you must
+    // type the correct spelling to continue (ungraded; the first attempt was
+    // already recorded). Only an exact first try or a completed correction lets
+    // you advance, and only then are the input and Check disabled.
+    const hasVerdict = Boolean(round.verdict);
+    const needsCorrection = (round.verdict === "almost" || round.verdict === "wrong") && !round.corrected;
+    const canAdvance = round.verdict === "exact" || round.corrected;
+    // once the correction is typed right, the label flips to ✓ Correct — purely
+    // visual; the ledger keeps the original wrong/almost (graded on attempt 1).
+    const displayVerdict = round.corrected ? "exact" : round.verdict;
     setContent(`
       <article class="quiz-card">
         ${kickerRowMarkup(text.namingPrompt, language)}
         <div class="answer-row" id="answer-row">
           <input id="answer-input" class="answer-input" type="text"
                  autocomplete="off" autocapitalize="off" spellcheck="false"
-                 placeholder="${escapeHtml(text.answerPlaceholder)}"
-                 value="${escapeHtml(round.inputText || "")}"${solved ? " disabled" : ""}>
-          <button id="check-answer-button" class="action-button" type="button"${solved ? " disabled" : ""}>${escapeHtml(text.checkAnswer)}</button>
-          ${showAnswerButtonMarkup(solved)}
+                 placeholder="${escapeHtml(needsCorrection ? text.correctionPlaceholder : text.answerPlaceholder)}"
+                 value="${escapeHtml(round.inputText || "")}"${canAdvance ? " disabled" : ""}>
+          <button id="check-answer-button" class="action-button" type="button"${canAdvance ? " disabled" : ""}>${escapeHtml(text.checkAnswer)}</button>
+          ${showAnswerButtonMarkup(hasVerdict)}
         </div>
         <div class="verdict-area">
-          ${round.verdict
-            ? verdictBlock(round.target, language, round.verdict, round.newlyMastered)
+          ${hasVerdict
+            ? `${verdictLabelMarkup(displayVerdict, round.newlyMastered)}
+               ${regionInfoMarkup(round.target, regionByName || (() => null))}
+               ${needsCorrection ? `<p class="correction-prompt">${escapeHtml(text.correctionPrompt)}</p>` : ""}`
             : `<p class="verdict-hint">${escapeHtml(text.enterToCheck)}${
                 promptHint ? ` · ${escapeHtml(promptHint)}` : ""
               }</p>`}
         </div>
         <div class="round-actions">
-          <button id="next-round-button" class="action-button" type="button">${escapeHtml(text.nextButton)}</button>
+          <button id="next-round-button" class="action-button" type="button"${needsCorrection ? " disabled" : ""}>${escapeHtml(text.nextButton)}</button>
         </div>
       </article>
     `);
@@ -553,14 +554,12 @@ export function createSidePanel({ contentElement, actions }) {
     wireShowAnswerButton();
     wireNextButton();
     wireLanguageToggle();
-    if (round.verdict === "wrong" && !round.answerRevealed) {
-      contentElement.querySelector("#answer-row").classList.add("shake");
-    }
-    if (solved) {
+    if (hasVerdict) wireSpeakButtons(); // the resolved card carries pronounce buttons
+    if (canAdvance) {
       const nextButton = contentElement.querySelector("#next-round-button");
       if (nextButton) nextButton.focus();
     } else {
-      focusAnswerInput({ selectExisting: Boolean(round.verdict) });
+      focusAnswerInput();
     }
   }
 

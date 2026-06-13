@@ -28,7 +28,7 @@ const state = {
   mapEngine: null,
   panel: null,
   selectedRegionId: null, // pinned region in browse
-  typeRound: null, // { targetId, pickedByUser, verdict, inputText, newlyMastered, answerRevealed }
+  typeRound: null, // { targetId, pickedByUser, verdict, inputText, newlyMastered, corrected }
   typeDetourRegionId: null, // non-quiz region whose info card temporarily covers the type round
   findRound: null, // { targetId, missIds, resolved, success, firstTry, gaveUp, newlyMastered }
   // reviewRound mixes both tracks: a "locate" round is find-shaped, a "name"
@@ -71,27 +71,35 @@ function quizRegionsInScope() {
   );
 }
 
-// The progress track the current mode exercises — and the one the map shows.
-// Find trains "locate" (language-neutral: clicking the right shape is the same
-// skill in any language); Type trains "name" (per quiz language); Review's
-// trouble drill mixes both, so it follows the current round's track. Browse
-// shows whichever track was last quizzed, so leaving a quiz mode never
-// recolors the map.
-function activeTrack() {
+// The progress track the current mode exercises — also the one the map colors
+// show. Find trains "locate" (language-neutral: clicking the right shape is the
+// same skill in any language); Type trains "name" (per quiz language); Review's
+// trouble drill mixes both, so it follows the current round's track. Browse —
+// and Review before a round is picked — has no track: the map shows a neutral,
+// progress-free atlas (null).
+function currentTrack() {
   const mode = state.settings.mode;
   if (mode === "find") return "locate";
   if (mode === "type") return "name";
-  if (mode === "review" && state.reviewRound) return state.reviewRound.track;
-  return state.settings.lastQuizTrack;
+  if (mode === "review") return state.reviewRound ? state.reviewRound.track : null;
+  return null; // browse
 }
 
+// Only called from the find/type round starters and recordVerdict, where the
+// track is always concrete (never the neutral null).
 function activeLedger() {
-  return ledgerForTrack(state.progress, activeTrack(), state.settings.lang);
+  return ledgerForTrack(state.progress, currentTrack(), state.settings.lang);
 }
 
 function computeStatusByRegionId() {
-  const ledger = activeLedger();
+  const track = currentTrack();
   const statusByRegionId = {};
+  if (track === null) {
+    // neutral atlas: every region flat, no progress overlay and no hatch
+    for (const region of state.regions) statusByRegionId[region.id] = "neutral";
+    return statusByRegionId;
+  }
+  const ledger = ledgerForTrack(state.progress, track, state.settings.lang);
   for (const region of state.quizRegions) {
     statusByRegionId[region.id] = statusForStats(ledger[region.id]);
   }
@@ -109,7 +117,7 @@ function updateSetting(key, value) {
 // now live on data.html, which hears the write through its "storage" listener.
 function recordVerdict(regionId, verdict) {
   const masteredBefore = isMastered(activeLedger()[regionId]);
-  const stats = recordAttempt(state.progress, activeTrack(), state.settings.lang, regionId, verdict);
+  const stats = recordAttempt(state.progress, currentTrack(), state.settings.lang, regionId, verdict);
   const newlyMastered = !masteredBefore && isMastered(stats);
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
   if (newlyMastered) state.mapEngine.pulseRegion(regionId);
@@ -135,6 +143,7 @@ function renderCurrentPanel() {
     } else {
       state.panel.renderNamingRound(namingRoundViewModel(state.typeRound), language, {
         promptHint: text().typeClickHint,
+        regionByName,
       });
     }
   } else if (mode === "find") {
@@ -145,6 +154,7 @@ function renderCurrentPanel() {
     } else {
       state.panel.renderNamingRound(namingRoundViewModel(state.reviewRound), language, {
         emptyMessage: text().reviewNoTrouble,
+        regionByName,
       });
     }
   }
@@ -172,7 +182,7 @@ function namingRoundViewModel(round) {
     verdict: round.verdict,
     inputText: round.inputText,
     newlyMastered: round.newlyMastered,
-    answerRevealed: round.answerRevealed,
+    corrected: round.corrected,
   };
 }
 
@@ -195,7 +205,7 @@ function startTypeRound(previousTargetId, userPickedRegion = null) {
   state.typeDetourRegionId = null;
   const target = userPickedRegion || pickTypeTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
   state.typeRound = target
-    ? { targetId: target.id, pickedByUser: Boolean(userPickedRegion), verdict: null, inputText: "", newlyMastered: false }
+    ? { targetId: target.id, pickedByUser: Boolean(userPickedRegion), verdict: null, inputText: "", newlyMastered: false, corrected: false }
     : null;
   if (userPickedRegion) {
     state.mapEngine.setReviewTarget(null);
@@ -204,7 +214,9 @@ function startTypeRound(previousTargetId, userPickedRegion = null) {
     state.mapEngine.setSelectedRegion(null);
     state.mapEngine.setReviewTarget(target ? target.id : null);
     if (target) {
-      state.mapEngine.ensureRegionVisible(target.id);
+      // center the highlighted target (zoom unchanged) so a new round's region
+      // is never stranded off-screen or at the edge
+      state.mapEngine.centerRegion(target.id);
       state.mapEngine.pulseRegion(target.id);
     }
   }
@@ -226,16 +238,17 @@ function startReviewRound(previousTargetId) {
     state.mapEngine.setReviewTarget(null);
   } else if (pick) {
     state.reviewRound = {
-      track: "name", targetId: pick.region.id, verdict: null, inputText: "", newlyMastered: false,
+      track: "name", targetId: pick.region.id, verdict: null, inputText: "", newlyMastered: false, corrected: false,
     };
     state.mapEngine.setReviewTarget(pick.region.id);
-    state.mapEngine.ensureRegionVisible(pick.region.id);
+    state.mapEngine.centerRegion(pick.region.id);
     state.mapEngine.pulseRegion(pick.region.id);
   } else {
     state.reviewRound = null;
     state.mapEngine.setReviewTarget(null);
   }
-  if (pick) updateSetting("lastQuizTrack", pick.track);
+  // currentTrack() now reads reviewRound.track (set above), so the map recolors
+  // to this round's track and the legend relabels — each round shows its own.
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
   updateLegendTrackLabel();
   renderCurrentPanel();
@@ -261,17 +274,10 @@ function handleRegionHovered(regionId) {
 }
 
 // Shared click flow for find-shaped rounds (Find mode, Review's locate rounds).
-// recordVerdict routes to the right ledger via activeTrack().
+// recordVerdict routes to the right ledger via currentTrack().
 function handleFindStyleClick(round, regionId) {
-  if (round.resolved) {
-    // clicking the pulsing result acknowledges it: the pulse stops;
-    // clicking it again restarts the pulse
-    if (regionId === round.targetId) {
-      round.resultPulsePaused = !round.resultPulsePaused;
-      state.mapEngine.setSustainedPulsePaused(round.resultPulsePaused);
-    }
-    return;
-  }
+  // once resolved the target keeps pulsing until Next; map clicks do nothing
+  if (round.resolved) return;
   if (regionId === round.targetId) {
     round.resolved = true;
     round.success = true;
@@ -376,19 +382,38 @@ function activeNamingRound() {
   return null;
 }
 
+// A resolved naming card shows the full region info (with speak buttons), so
+// auto-pronounce can play the name — call once per resolution.
+function pronounceResolvedCard() {
+  if (state.settings.autoPronounce) state.panel.pronounceCurrentCard();
+}
+
 function submitAnswer(inputText) {
   const trimmedInput = inputText.trim();
   if (!trimmedInput) return;
   const round = activeNamingRound();
   if (!round) return;
-  // exact = solved; wrong = answer was revealed — either way no re-credit
-  if (round.verdict === "exact" || round.verdict === "wrong") return;
   const region = state.regionById.get(round.targetId);
+  // Correction step: after a non-exact answer you must type the correct
+  // spelling to continue. Ungraded gate — the first attempt is already
+  // recorded — so it accepts only an exact match and writes nothing.
+  if (round.verdict === "almost" || round.verdict === "wrong") {
+    if (round.corrected) return;
+    round.inputText = inputText;
+    if (checkAnswer(trimmedInput, region, state.settings.lang) === "exact") round.corrected = true;
+    renderCurrentPanel();
+    return;
+  }
+  if (round.verdict === "exact") return; // already solved
+  // First attempt: grade and record. Exact ends the round; a near-miss or
+  // wrong reveals the answer and starts the correction step (clear the box so
+  // the correct spelling is typed fresh).
   const verdict = checkAnswer(trimmedInput, region, state.settings.lang);
   round.verdict = verdict;
-  round.inputText = inputText;
+  round.inputText = verdict === "exact" ? inputText : "";
   round.newlyMastered = recordVerdict(region.id, verdict);
   renderCurrentPanel();
+  pronounceResolvedCard();
 }
 
 // Resolves a Find round as wrong and reveals the target on the map.
@@ -398,7 +423,9 @@ function revealFindTarget(round) {
   round.resolved = true;
   round.success = false;
   round.newlyMastered = recordVerdict(round.targetId, "wrong");
-  state.mapEngine.ensureRegionVisible(round.targetId);
+  // recenter (zoom unchanged) so the revealed target lands in the middle, not
+  // stranded at the edge or the globe's limb
+  state.mapEngine.centerRegion(round.targetId);
   state.mapEngine.setSustainedPulse(round.targetId);
 }
 
@@ -419,12 +446,14 @@ function revealAnswer() {
     return;
   }
   const round = activeNamingRound();
-  // an "almost" round is still open — giving up from it is allowed
-  if (!round || round.verdict === "exact" || round.verdict === "wrong") return;
+  // give up only from a fresh round; once there's a verdict the answer is
+  // already shown (you're correcting it or done)
+  if (!round || round.verdict) return;
   round.verdict = "wrong";
-  round.answerRevealed = true; // suppresses the wrong-answer shake
+  round.inputText = ""; // clear for the correction typing
   round.newlyMastered = recordVerdict(round.targetId, "wrong");
   renderCurrentPanel();
+  pronounceResolvedCard();
 }
 
 function nextRound() {
@@ -442,8 +471,6 @@ function nextRound() {
 function switchMode(mode) {
   if (mode === state.settings.mode) return;
   updateSetting("mode", mode);
-  // remember which track this quiz mode trains, so Browse keeps its colors
-  if (mode !== "browse") updateSetting("lastQuizTrack", activeTrack());
   state.selectedRegionId = null;
   state.typeRound = null;
   state.typeDetourRegionId = null;
@@ -484,7 +511,7 @@ function switchLanguage(language) {
       state.typeRound.verdict = null;
       state.typeRound.inputText = "";
       state.typeRound.newlyMastered = false;
-      state.typeRound.answerRevealed = false;
+      state.typeRound.corrected = false;
       renderCurrentPanel();
     } else {
       startTypeRound(null);
@@ -547,13 +574,17 @@ function switchMicrostatesIncluded(included) {
 // ---------- chrome text and pressed states ----------
 
 // The legend's first entry says which progress track the map colors show:
-// "Find" or "Type & Review · EN/中文" (the naming track is per quiz language).
+// "Find" or "Type & Review · EN/中文" (naming is per quiz language). When the
+// map is neutral (Browse, or Review before a round), it names the mode instead.
 function updateLegendTrackLabel() {
   const localized = text();
+  const track = currentTrack();
   elements.legendTrackLabel.textContent =
-    activeTrack() === "locate"
-      ? localized.legendTrackLocate
-      : `${localized.legendTrackName} · ${state.settings.lang === "zh" ? "中文" : "EN"}`;
+    track === null
+      ? (state.settings.mode === "review" ? localized.modeReview : localized.modeBrowse)
+      : track === "locate"
+        ? localized.legendTrackLocate
+        : `${localized.legendTrackName} · ${state.settings.lang === "zh" ? "中文" : "EN"}`;
 }
 
 function updateChromeText() {
@@ -751,18 +782,23 @@ async function boot() {
     // resolve; handling it here too would advance twice per press.
     if (event.key === "ArrowRight" || event.key === "Enter" || event.key === " ") {
       if (event.key !== "ArrowRight" && event.target instanceof Element && event.target.matches("button, a")) return;
-      // While a naming round is open, Enter means "check", never "skip" —
-      // even when focus has wandered out of the answer box (where the box's
-      // own Enter listener can't hear it). With text in the box it checks;
-      // empty, it just returns focus to the box. Without this, Enter would
-      // hit Next below and silently discard the typed answer.
+      // While a naming round is open, Enter means "check or give up", never
+      // "skip" — even when focus has wandered out of the answer box (where the
+      // box's own Enter listener can't hear it). With text in the box it
+      // checks; empty, it gives up (Show answer), mirroring the box's listener.
+      // Without this, Enter would hit Next below and silently discard the round.
       if (event.key === "Enter") {
         const checkButton = elements.panelContent.querySelector("#check-answer-button:not(:disabled)");
         const answerInput = elements.panelContent.querySelector("#answer-input");
         if (checkButton && answerInput) {
           event.preventDefault();
-          if (answerInput.value.trim()) checkButton.click();
-          else answerInput.focus();
+          if (answerInput.value.trim()) {
+            checkButton.click();
+          } else {
+            const showAnswerButton = elements.panelContent.querySelector("#show-answer-button:not(:disabled)");
+            if (showAnswerButton) showAnswerButton.click();
+            else answerInput.focus();
+          }
           return;
         }
       }

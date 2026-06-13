@@ -317,6 +317,11 @@ button:disabled {
 .country.status-untouched {
   fill: url(#untouched-hatch);
 }
+/* neutral: the progress-free Browse / pre-round Review map — flat land, no
+   hatch (matches the canvas gesture frame, which paints untouched land flat) */
+.country.status-neutral {
+  fill: var(--color-land-untouched);
+}
 /* While the map is dragged, spun, or zoomed, frames are drawn on the canvas
    overlay and the SVG content is hidden; release restores the engraved look. */
 .interaction-canvas {
@@ -422,15 +427,21 @@ button:disabled {
 /* capital dots — tiny solid ink dots, zoom-gated (map.js shows the layer only
    past CAPITAL_ZOOM_THRESHOLD). Never interactive: a dot must not steal the
    hover/click of the country it sits on. */
+/* capital marker: a small star (see CAPITAL_STAR_* in map.js). The <g> carries
+   opacity/scope; the <path> star carries the ink. The star is a unit path scaled
+   up by a transform, so the stroke must not scale with it. */
 .capital-dot {
-  fill: var(--color-coastline); /* the map's own line-work brown, not foreign black */
-  stroke: var(--color-parchment-bright);
-  stroke-width: 0.55px;
   opacity: 0.7;
   pointer-events: none;
 }
 .capital-dot.out-of-scope {
   opacity: 0.18;
+}
+.capital-star {
+  fill: var(--color-coastline); /* the map's own line-work brown, not foreign black */
+  stroke: var(--color-parchment-bright);
+  stroke-width: 0.55px;
+  vector-effect: non-scaling-stroke;
 }
 
 .microstate-marker.pulsing .marker-dot {
@@ -652,9 +663,6 @@ button:disabled {
   background: var(--color-parchment-bright);
   vertical-align: middle;
 }
-.answer-reveal .flag-image {
-  width: 28px;
-}
 .region-card-names {
   min-width: 0;
 }
@@ -783,6 +791,15 @@ button:disabled {
   font-size: 12px;
   padding: 6px 10px;
 }
+/* destructive action (permanent clear): madder-red ink and rule, faint red
+   wash on hover — reads as "careful" without shouting */
+.action-button-danger {
+  color: var(--color-status-wrong);
+  border-color: var(--color-status-wrong);
+}
+.action-button-danger:hover:not(:disabled) {
+  background: rgba(180, 96, 78, 0.12);
+}
 /* the side panel's Data/Settings links wear the same clothes as the buttons */
 a.action-button {
   text-decoration: none;
@@ -826,34 +843,12 @@ a.action-button {
   animation: badge-pop 350ms ease-out;
 }
 
-.answer-reveal {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  padding: 10px 12px;
-  border: var(--rule-hairline);
-  background: rgba(250, 244, 230, 0.65);
-}
-.answer-reveal .region-flag {
-  font-size: 23px;
-  min-width: 28px;
-}
-.answer-reveal-text {
-  min-width: 0;
-}
-.answer-names {
-  margin: 0;
-  font-size: 15px;
-}
-.answer-names strong {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 16px;
-}
-.answer-capital {
-  margin: 4px 0 0;
+/* "type the correct answer to continue" line under a resolved naming card */
+.correction-prompt {
+  margin: 12px 0 0;
   font-size: 13px;
-  color: var(--color-ink-soft);
+  font-weight: 600;
+  color: var(--color-status-wrong);
 }
 
 .shake {

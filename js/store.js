@@ -18,7 +18,6 @@ export const defaultSettings = Object.freeze({
   mode: "browse",
   includeMicrostates: true,
   autoPronounce: false,
-  lastQuizTrack: "locate",
 });
 
 // Settings values index directly into uiText and the mode/view/continent
@@ -32,7 +31,6 @@ const allowedSettingValues = Object.freeze({
   mode: ["browse", "type", "find", "review"],
   includeMicrostates: [true, false],
   autoPronounce: [true, false],
-  lastQuizTrack: ["locate", "name"],
 });
 
 const isPlainObject = (value) => Boolean(value) && typeof value === "object" && !Array.isArray(value);

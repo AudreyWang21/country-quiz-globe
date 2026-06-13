@@ -2,11 +2,35 @@
 // pan/zoom, drag-to-rotate, microstate markers, status fills, scope dimming,
 // pulses/flashes, and continent framing. Uses window.d3 (classic script tag).
 
-const FILL_STATUSES = ["untouched", "wrong", "almost", "mastered"];
+// "neutral" is the progress-free fill for Browse and pre-round Review: flat
+// land, no hatch, no status color. (statusForStats never returns it; app.js
+// injects it for every region when the map has no active track.)
+const FILL_STATUSES = ["untouched", "wrong", "almost", "mastered", "neutral"];
 const MARKER_DOT_RADIUS = 3.2;
 const MARKER_HIT_RADIUS = 6;
-const CAPITAL_DOT_RADIUS = 1.5;
-const CAPITAL_ZOOM_THRESHOLD = 2.5; // capital dots appear past this zoom-in factor
+const CAPITAL_ZOOM_THRESHOLD = 2.5; // flat: stars appear past this zoom-in factor (also the star-growth reference)
+const CAPITAL_GLOBE_ZOOM_THRESHOLD = 2.0; // globe: stars appear earlier — globe zoom reads slower than flat at the same factor
+
+// Capitals render as a small five-pointed star (the cartographic convention).
+// CAPITAL_STAR_OUTER is its outer-radius in px at the moment it appears (the
+// zoom threshold); past that it grows gently with zoom so it doesn't look lost
+// among the now-large countries when you're in close. Growth = (zoom ÷
+// threshold) ^ EXP, capped at MAX_SCALEUP — EXP 0.5 is a sqrt-gentle curve,
+// EXP 0 would be constant size, 1 would scale with the map. All tunable.
+// The unit-star points (outer radius 1, first vertex at top) are shared by the
+// SVG path and the canvas tracer; the SVG path is the unit star scaled up by a
+// transform, so its stroke needs vector-effect: non-scaling-stroke.
+const CAPITAL_STAR_OUTER = 4.5;
+const CAPITAL_STAR_GROWTH_EXP = 0.5;
+const CAPITAL_STAR_MAX_SCALEUP = 3;
+const CAPITAL_STAR_INNER_RATIO = 0.42; // inner vertex radius ÷ outer
+const CAPITAL_STAR_POINTS = Array.from({ length: 10 }, (_, i) => {
+  const angle = (-90 + i * 36) * (Math.PI / 180);
+  const radius = i % 2 === 0 ? 1 : CAPITAL_STAR_INNER_RATIO;
+  return [Math.cos(angle) * radius, Math.sin(angle) * radius];
+});
+const CAPITAL_STAR_PATH_D =
+  CAPITAL_STAR_POINTS.map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(4)},${y.toFixed(4)}`).join("") + "Z";
 const MAP_PADDING = 14;
 
 export function createMapEngine({ svgElement, geojson, regions, capitalsByRegionId, callbacks, isReducedMotion }) {
@@ -179,19 +203,48 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
   const capitalDotData = regions
     .filter((region) => !region.microstate && capitalsByRegionId[region.id])
     .map((region) => ({ id: region.id, lngLat: capitalsByRegionId[region.id] }));
+  // Each capital is a positioned <g> (translated to the projected point) holding
+  // a star <path> (scaled to the screen size). Splitting position from size lets
+  // renderProjectedShapes own the translate and compensateZoomScale own the
+  // scale without the two clobbering a shared transform attribute.
   const capitalsGroup = zoomLayer.append("g").attr("class", "capital-dots");
   const capitalDots = capitalsGroup
-    .selectAll("circle")
+    .selectAll("g.capital-dot")
     .data(capitalDotData)
-    .join("circle")
-    .attr("class", "capital-dot")
-    .attr("r", CAPITAL_DOT_RADIUS)
-    .attr("vector-effect", "non-scaling-stroke");
+    .join("g")
+    .attr("class", "capital-dot");
+  capitalDots
+    .append("path")
+    .attr("class", "capital-star")
+    .attr("d", CAPITAL_STAR_PATH_D)
+    .attr("transform", `scale(${CAPITAL_STAR_OUTER})`);
 
   function capitalDotsVisible() {
     return activeView === "flat"
       ? currentZoomTransform.k >= CAPITAL_ZOOM_THRESHOLD
-      : globeProjection.scale() >= baseGlobeScale * CAPITAL_ZOOM_THRESHOLD;
+      : globeProjection.scale() >= baseGlobeScale * CAPITAL_GLOBE_ZOOM_THRESHOLD;
+  }
+
+  // Desired on-screen outer radius (px) of the capital star at a given zoom
+  // factor (flat: the transform k; globe: scale ÷ base). Grows gently past the
+  // appearance threshold, capped — see the constant block.
+  function capitalStarScreenRadius(zoomFactor) {
+    const grow = Math.min(
+      CAPITAL_STAR_MAX_SCALEUP,
+      (zoomFactor / CAPITAL_ZOOM_THRESHOLD) ** CAPITAL_STAR_GROWTH_EXP
+    );
+    return CAPITAL_STAR_OUTER * grow;
+  }
+
+  // How far the SVG star path is scaled. On flat the zoom layer is already
+  // scaled by k, so divide the screen radius back out; the globe reprojects each
+  // frame and isn't layer-scaled, so the screen radius is the scale directly.
+  function capitalStarScale() {
+    if (activeView === "flat") {
+      const k = currentZoomTransform.k;
+      return capitalStarScreenRadius(k) / k;
+    }
+    return capitalStarScreenRadius(globeProjection.scale() / baseGlobeScale);
   }
 
   function updateCapitalDotsDisplay() {
@@ -307,7 +360,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
   function compensateZoomScale(zoomScale) {
     markerGroups.select(".marker-dot").attr("r", MARKER_DOT_RADIUS / zoomScale);
     markerGroups.select(".marker-halo").attr("r", MARKER_HIT_RADIUS / zoomScale);
-    capitalDots.attr("r", CAPITAL_DOT_RADIUS / zoomScale);
+    capitalDots.select(".capital-star").attr("transform", `scale(${capitalStarScreenRadius(zoomScale) / zoomScale})`);
     updateCapitalDotsDisplay();
     clearTimeout(hatchRescaleTimer);
     hatchRescaleTimer = setTimeout(() => {
@@ -382,6 +435,19 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     return canvasColors.fillByStatus[status] || canvasColors.fillByStatus.untouched;
   }
 
+  // Traces the capital star (outer radius `radius`) at (cx, cy) onto the path —
+  // the canvas twin of the SVG star, sharing the same unit points. Caller owns
+  // beginPath/fill/stroke so the per-dot alpha can vary.
+  function traceCapitalStar(ctx, cx, cy, radius) {
+    for (let i = 0; i < CAPITAL_STAR_POINTS.length; i++) {
+      const x = cx + CAPITAL_STAR_POINTS[i][0] * radius;
+      const y = cy + CAPITAL_STAR_POINTS[i][1] * radius;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+  }
+
   function drawInteractionFrame() {
     if (activeView === "globe") drawGlobeFrame();
     else drawFlatFrame();
@@ -437,7 +503,8 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     if (capitalDotsVisible()) {
       ctx.fillStyle = canvasColors.coastline;
       ctx.strokeStyle = canvasColors.capitalHalo;
-      ctx.lineWidth = 0.55; // matches .capital-dot stroke in styles.css
+      ctx.lineWidth = 0.55; // matches .capital-star stroke in styles.css
+      const starRadius = capitalStarScreenRadius(globeProjection.scale() / baseGlobeScale);
       for (const dot of capitalDotData) {
         if (d3.geoDistance(dot.lngLat, globeCenter) >= Math.PI / 2) continue;
         const projected = globeProjection(dot.lngLat);
@@ -445,7 +512,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
         // matches .capital-dot / .capital-dot.out-of-scope opacity in styles.css
         ctx.globalAlpha = isFeatureIdOutOfScope(dot.id) ? 0.18 : 0.7;
         ctx.beginPath();
-        ctx.arc(projected[0], projected[1], CAPITAL_DOT_RADIUS, 0, 2 * Math.PI);
+        traceCapitalStar(ctx, projected[0], projected[1], starRadius);
         ctx.fill();
         ctx.stroke();
       }
@@ -503,14 +570,15 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     if (capitalDotsVisible()) {
       ctx.fillStyle = canvasColors.coastline;
       ctx.strokeStyle = canvasColors.capitalHalo;
-      ctx.lineWidth = 0.55 / scale; // matches .capital-dot stroke in styles.css
+      ctx.lineWidth = 0.55 / scale; // matches .capital-star stroke in styles.css
+      const starRadius = capitalStarScreenRadius(scale) / scale;
       for (const dot of capitalDotData) {
         const projected = flatProjection(dot.lngLat);
         if (!projected) continue;
         // matches .capital-dot / .capital-dot.out-of-scope opacity in styles.css
         ctx.globalAlpha = isFeatureIdOutOfScope(dot.id) ? 0.18 : 0.7;
         ctx.beginPath();
-        ctx.arc(projected[0], projected[1], CAPITAL_DOT_RADIUS / scale, 0, 2 * Math.PI);
+        traceCapitalStar(ctx, projected[0], projected[1], starRadius);
         ctx.fill();
         ctx.stroke();
       }
@@ -685,6 +753,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
         .attr("display", onVisibleHemisphere && projected ? null : "none")
         .attr("transform", projected ? `translate(${projected[0]},${projected[1]})` : null);
     });
+    capitalDots.select(".capital-star").attr("transform", `scale(${capitalStarScale()})`);
     updateCapitalDotsDisplay();
   }
 
@@ -805,7 +874,6 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
 
   // Sustained pulse (no timeout) — Find outcomes use this so the result
   // region keeps pulsing until the round advances. Pass null to clear.
-  // Pausable via setSustainedPulsePaused once the user has spotted it.
   let sustainedPulseRegionId = null;
 
   function setSustainedPulse(effectiveRegionId) {
@@ -820,13 +888,6 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
       paths.classed("pulsing-sustained", true);
       markers.classed("pulsing-sustained", true);
     }
-  }
-
-  function setSustainedPulsePaused(paused) {
-    if (sustainedPulseRegionId === null) return;
-    const { paths, markers } = selectionsForRegion(sustainedPulseRegionId);
-    paths.classed("pulsing-sustained", !paused);
-    markers.classed("pulsing-sustained", !paused);
   }
 
   // Frames a continent: flat view zooms to fit, globe view rotates to it.
@@ -909,18 +970,16 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     return isFinite(x0) ? [[x0, y0], [x1, y1]] : null;
   }
 
-  // Brings a region on screen: flat pans to it if off-view; globe rotates to it.
-  function ensureRegionVisible(effectiveRegionId) {
+  // Recenters a region on screen, zoom unchanged — for the quiz prompt and the
+  // revealed answer. Always centers (vs. an only-if-off-screen check), so a
+  // target stranded at the edge or near the globe's limb is brought to the
+  // middle. Flat pans (translate at the current k); globe rotates to face it.
+  function centerRegion(effectiveRegionId) {
     const anchor = anchorByRegionId.get(effectiveRegionId);
     if (!anchor) return;
     if (activeView === "flat") {
       const projected = flatProjection(anchor);
       if (!projected) return;
-      const onScreen = currentZoomTransform.apply(projected);
-      const margin = 40;
-      const visible =
-        onScreen[0] > margin && onScreen[0] < width - margin && onScreen[1] > margin && onScreen[1] < height - margin;
-      if (visible) return;
       const scale = currentZoomTransform.k;
       svg
         .transition("frame")
@@ -932,9 +991,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
           )
         );
     } else {
-      const rotation = globeProjection.rotate();
-      const distanceFromCenter = d3.geoDistance(anchor, [-rotation[0], -rotation[1]]);
-      if (distanceFromCenter > Math.PI / 3) animateGlobeRotation([-anchor[0], -anchor[1]]);
+      animateGlobeRotation([-anchor[0], -anchor[1]]);
     }
   }
 
@@ -985,9 +1042,8 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     pulseRegion,
     flashRegion,
     setSustainedPulse,
-    setSustainedPulsePaused,
     frameContinent,
-    ensureRegionVisible,
+    centerRegion,
     playFirstLoadReveal,
     setInitialView(view) {
       if (view !== activeView) {
