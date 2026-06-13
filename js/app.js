@@ -11,7 +11,7 @@ import {
   PROGRESS_STORAGE_KEY,
   SETTINGS_STORAGE_KEY,
 } from "./store.js";
-import { checkAnswer, pickFindTarget, pickTypeTarget, pickTroubleTarget } from "./quiz.js";
+import { checkAnswer, pickPriorityTarget, pickTroubleTarget } from "./quiz.js";
 import { createMapEngine } from "./map.js";
 import { createSidePanel, uiText, STAT_CONTINENTS } from "./panel.js";
 
@@ -188,9 +188,12 @@ function namingRoundViewModel(round) {
 
 // ---------- rounds ----------
 
+// Find shares Type's priority scheduler (struggling > unseen > least-recently-seen),
+// so it re-tests mastered regions in a maintenance loop rather than stopping when
+// everything in scope is mastered.
 function startFindRound(previousTargetId) {
   state.mapEngine.setSustainedPulse(null);
-  const target = pickFindTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
+  const target = pickPriorityTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
   state.findRound = target
     ? { targetId: target.id, missIds: [], resolved: false, success: false, firstTry: false, newlyMastered: false }
     : null;
@@ -203,7 +206,7 @@ function startFindRound(previousTargetId) {
 // quiz prompt; a user pick just gets the selection ring — they know where it is.
 function startTypeRound(previousTargetId, userPickedRegion = null) {
   state.typeDetourRegionId = null;
-  const target = userPickedRegion || pickTypeTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
+  const target = userPickedRegion || pickPriorityTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
   state.typeRound = target
     ? { targetId: target.id, pickedByUser: Boolean(userPickedRegion), verdict: null, inputText: "", newlyMastered: false, corrected: false }
     : null;
@@ -767,8 +770,10 @@ async function boot() {
         speakButton.click();
       }
     }
-    // A reveals the answer in Type/Review (inactive while typing in the
-    // answer box — the input guard above already returned)
+    // A reveals the answer on a find-shaped round (Find, and Review's locate
+    // track — the only cards that still render a Show-answer button; naming
+    // rounds fold give-up into Check). Inactive while typing — the input guard
+    // above already returned.
     if (key === "a") {
       const showAnswerButton = elements.panelContent.querySelector("#show-answer-button");
       if (showAnswerButton && !showAnswerButton.disabled) {
@@ -784,21 +789,15 @@ async function boot() {
       if (event.key !== "ArrowRight" && event.target instanceof Element && event.target.matches("button, a")) return;
       // While a naming round is open, Enter means "check or give up", never
       // "skip" — even when focus has wandered out of the answer box (where the
-      // box's own Enter listener can't hear it). With text in the box it
-      // checks; empty, it gives up (Show answer), mirroring the box's listener.
-      // Without this, Enter would hit Next below and silently discard the round.
+      // box's own Enter listener can't hear it). The Check button now handles
+      // both cases itself (text → check, blank → give up), so routing Enter
+      // through it covers both. Without this, Enter would hit Next below and
+      // silently discard the round.
       if (event.key === "Enter") {
         const checkButton = elements.panelContent.querySelector("#check-answer-button:not(:disabled)");
-        const answerInput = elements.panelContent.querySelector("#answer-input");
-        if (checkButton && answerInput) {
+        if (checkButton) {
           event.preventDefault();
-          if (answerInput.value.trim()) {
-            checkButton.click();
-          } else {
-            const showAnswerButton = elements.panelContent.querySelector("#show-answer-button:not(:disabled)");
-            if (showAnswerButton) showAnswerButton.click();
-            else answerInput.focus();
-          }
+          checkButton.click();
           return;
         }
       }

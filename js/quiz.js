@@ -115,15 +115,13 @@ function withoutPrevious(pool, previousRegionId) {
   return filtered.length > 0 ? filtered : pool;
 }
 
-// Find mode: a random not-yet-mastered region. Returns null when all mastered.
-export function pickFindTarget(candidateRegions, ledger, previousRegionId) {
-  const unmastered = candidateRegions.filter((region) => !isMastered(ledger[region.id]));
-  if (unmastered.length === 0) return null;
-  return randomItem(withoutPrevious(unmastered, previousRegionId));
-}
-
-// Type mode priority: struggling (recent wrong or almost) > unseen > least-recently-seen.
-export function pickTypeTarget(candidateRegions, ledger, previousRegionId) {
+// Find and Type share this scheduler. Priority buckets, random within the
+// active bucket, never the immediate repeat: struggling (recent wrong or almost)
+// > unseen > least-recently-seen — and within that last (maintenance) bucket,
+// not-yet-mastered regions come before mastered ones, so a scope is fully
+// learned before maintenance recycles it. The caller passes the right ledger —
+// locate for Find, naming for Type.
+export function pickPriorityTarget(candidateRegions, ledger, previousRegionId) {
   if (candidateRegions.length === 0) return null;
   const pool = withoutPrevious(candidateRegions, previousRegionId);
   const struggling = pool.filter((region) => {
@@ -136,9 +134,14 @@ export function pickTypeTarget(candidateRegions, ledger, previousRegionId) {
     return !stats || stats.attempts === 0;
   });
   if (unseen.length > 0) return randomItem(unseen);
-  return pool
-    .slice()
-    .sort((a, b) => (ledger[a.id].lastSeen || 0) - (ledger[b.id].lastSeen || 0))[0];
+  // Tier 3, the maintenance loop. Everyone left has been seen and last answered
+  // exact; serve those not yet mastered (a single exact, streak of 1) before
+  // re-testing mastered ones — finish learning the scope first. Each group is
+  // ordered by least-recently-seen.
+  const byLeastRecentlySeen = (a, b) => (ledger[a.id].lastSeen || 0) - (ledger[b.id].lastSeen || 0);
+  const notYetMastered = pool.filter((region) => !isMastered(ledger[region.id]));
+  const maintenancePool = notYetMastered.length > 0 ? notYetMastered : pool;
+  return maintenancePool.slice().sort(byLeastRecentlySeen)[0];
 }
 
 // Review mode: drill chronic misses from both tracks, mixed. A region

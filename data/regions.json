@@ -237,7 +237,8 @@
   "nameZh": "南极洲",
   "nameLocal": "Antarctica",
   "aliasesZh": [
-   "南极"
+   "南极",
+   "南极大陆"
   ],
   "capitalEn": null,
   "capitalZh": null,
@@ -262,7 +263,9 @@
   "nameZh": "安提瓜和巴布达",
   "nameLocal": "Antigua and Barbuda",
   "aliasesZh": [
-   "安巴"
+   "安巴",
+   "安地卡及巴布达",
+   "安地卡及巴布達"
   ],
   "capitalEn": "St. John's",
   "capitalZh": "圣约翰",
@@ -544,7 +547,10 @@
   "almostAliasesEn": [],
   "nameZh": "巴巴多斯",
   "nameLocal": "Barbados",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "巴贝多",
+   "巴貝多"
+  ],
   "capitalEn": "Bridgetown",
   "capitalZh": "布里奇敦",
   "iso2": "BB",
@@ -613,7 +619,10 @@
   "almostAliasesEn": [],
   "nameZh": "伯利兹",
   "nameLocal": "Belize",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "贝里斯",
+   "貝里斯"
+  ],
   "capitalEn": "Belmopan",
   "capitalZh": "贝尔莫潘",
   "iso2": "BZ",
@@ -636,7 +645,8 @@
   "nameZh": "贝宁",
   "nameLocal": "Bénin",
   "aliasesZh": [
-   "贝宁共和国"
+   "贝宁共和国",
+   "貝南"
   ],
   "capitalEn": "Porto-Novo (official) / Cotonou (seat of government)",
   "capitalZh": "波多诺伏（法定）/ 科托努（政府所在地）",
@@ -746,7 +756,8 @@
   "neName": "Bosnia and Herz.",
   "nameEn": "Bosnia and Herzegovina",
   "exactAliasesEn": [
-   "Bosnia-Herzegovina"
+   "Bosnia-Herzegovina",
+   "Bosnia & Herzegovina"
   ],
   "almostAliasesEn": [
    "Bosnia",
@@ -779,7 +790,8 @@
   "nameZh": "博茨瓦纳",
   "nameLocal": "Botswana",
   "aliasesZh": [
-   "博茨瓦纳共和国"
+   "博茨瓦纳共和国",
+   "波札那"
   ],
   "capitalEn": "Gaborone",
   "capitalZh": "哈博罗内",
@@ -950,7 +962,9 @@
   ],
   "nameZh": "布基纳法索",
   "nameLocal": "Burkina Faso",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "布吉納法索"
+  ],
   "capitalEn": "Ouagadougou",
   "capitalZh": "瓦加杜古",
   "iso2": "BF",
@@ -973,7 +987,8 @@
   "nameZh": "布隆迪",
   "nameLocal": "Uburundi",
   "aliasesZh": [
-   "布隆迪共和国"
+   "布隆迪共和国",
+   "蒲隆地"
   ],
   "capitalEn": "Gitega (political) / Bujumbura (economic)",
   "capitalZh": "基特加（政治）/ 布琼布拉（经济）",
@@ -993,7 +1008,9 @@
   "exactAliasesEn": [
    "Kingdom of Cambodia"
   ],
-  "almostAliasesEn": [],
+  "almostAliasesEn": [
+   "Kampuchea"
+  ],
   "nameZh": "柬埔寨",
   "nameLocal": "កម្ពុជា",
   "aliasesZh": [
@@ -1067,7 +1084,8 @@
   "nameZh": "佛得角",
   "nameLocal": "Cabo Verde",
   "aliasesZh": [
-   "佛得角共和国"
+   "佛得角共和国",
+   "維德角"
   ],
   "capitalEn": "Praia",
   "capitalZh": "普拉亚",
@@ -1140,7 +1158,8 @@
   "nameZh": "乍得",
   "nameLocal": "Tchad",
   "aliasesZh": [
-   "乍得共和国"
+   "乍得共和国",
+   "查德"
   ],
   "capitalEn": "N'Djamena",
   "capitalZh": "恩贾梅纳",
@@ -1262,7 +1281,8 @@
   "nameZh": "科摩罗",
   "nameLocal": "Komori",
   "aliasesZh": [
-   "科摩罗联盟"
+   "科摩罗联盟",
+   "葛摩"
   ],
   "capitalEn": "Moroni",
   "capitalZh": "莫罗尼",
@@ -1330,7 +1350,8 @@
   "nameZh": "哥斯达黎加",
   "nameLocal": "Costa Rica",
   "aliasesZh": [
-   "哥斯达黎加共和国"
+   "哥斯达黎加共和国",
+   "哥斯大黎加"
   ],
   "capitalEn": "San José",
   "capitalZh": "圣何塞",
@@ -1354,7 +1375,9 @@
   "nameZh": "克罗地亚",
   "nameLocal": "Hrvatska",
   "aliasesZh": [
-   "克罗地亚共和国"
+   "克罗地亚共和国",
+   "克罗埃西亚",
+   "克羅埃西亞"
   ],
   "capitalEn": "Zagreb",
   "capitalZh": "萨格勒布",
@@ -1471,7 +1494,8 @@
   "exactAliasesEn": [
    "DR Congo",
    "Democratic Republic of Congo",
-   "Congo-Kinshasa"
+   "Congo-Kinshasa",
+   "Zaire"
   ],
   "almostAliasesEn": [
    "DRC",
@@ -1555,7 +1579,8 @@
   "nameZh": "吉布提",
   "nameLocal": "Djibouti",
   "aliasesZh": [
-   "吉布提共和国"
+   "吉布提共和国",
+   "吉布地"
   ],
   "capitalEn": "Djibouti City",
   "capitalZh": "吉布提市",
@@ -1603,7 +1628,9 @@
   "nameZh": "多米尼加",
   "nameLocal": "República Dominicana",
   "aliasesZh": [
-   "多米尼加共和国"
+   "多米尼加共和国",
+   "多明尼加",
+   "多明尼加共和国"
   ],
   "capitalEn": "Santo Domingo",
   "capitalZh": "圣多明各",
@@ -1652,7 +1679,8 @@
   "nameZh": "厄瓜多尔",
   "nameLocal": "Ecuador",
   "aliasesZh": [
-   "厄瓜多尔共和国"
+   "厄瓜多尔共和国",
+   "厄瓜多"
   ],
   "capitalEn": "Quito",
   "capitalZh": "基多",
@@ -1749,7 +1777,8 @@
   "nameZh": "厄立特里亚",
   "nameLocal": "ኤርትራ",
   "aliasesZh": [
-   "厄立特里亚国"
+   "厄立特里亚国",
+   "厄利垂亞"
   ],
   "capitalEn": "Asmara",
   "capitalZh": "阿斯马拉",
@@ -1798,7 +1827,9 @@
   "nameZh": "斯威士兰",
   "nameLocal": "eSwatini",
   "aliasesZh": [
-   "斯威士兰王国"
+   "斯威士兰王国",
+   "史瓦帝尼",
+   "史瓦濟蘭"
   ],
   "capitalEn": "Mbabane (administrative) / Lobamba (royal and legislative)",
   "capitalZh": "姆巴巴内（行政）/ 洛班巴（王室和立法）",
@@ -1823,7 +1854,9 @@
   "nameLocal": "ኢትዮጵያ",
   "aliasesZh": [
    "埃塞俄比亚联邦民主共和国",
-   "埃塞"
+   "埃塞",
+   "衣索比亞",
+   "衣索匹亞"
   ],
   "capitalEn": "Addis Ababa",
   "capitalZh": "亚的斯亚贝巴",
@@ -1870,7 +1903,8 @@
   "neName": "Faeroe Islands",
   "nameEn": "Faroe Islands",
   "exactAliasesEn": [
-   "Faeroe Islands"
+   "Faeroe Islands",
+   "Faeroes"
   ],
   "almostAliasesEn": [
    "Faroes"
@@ -1992,7 +2026,8 @@
   "nameEn": "French Southern and Antarctic Lands",
   "exactAliasesEn": [
    "French Southern Territories",
-   "French Southern Lands"
+   "French Southern Lands",
+   "French Southern and Antarctic Territories"
   ],
   "almostAliasesEn": [
    "TAAF"
@@ -2027,7 +2062,8 @@
   "nameZh": "加蓬",
   "nameLocal": "Gabon",
   "aliasesZh": [
-   "加蓬共和国"
+   "加蓬共和国",
+   "加彭"
   ],
   "capitalEn": "Libreville",
   "capitalZh": "利伯维尔",
@@ -2052,7 +2088,8 @@
   "nameZh": "冈比亚",
   "nameLocal": "The Gambia",
   "aliasesZh": [
-   "冈比亚共和国"
+   "冈比亚共和国",
+   "甘比亞"
   ],
   "capitalEn": "Banjul",
   "capitalZh": "班珠尔",
@@ -2120,7 +2157,8 @@
   "nameZh": "加纳",
   "nameLocal": "Ghana",
   "aliasesZh": [
-   "加纳共和国"
+   "加纳共和国",
+   "迦納"
   ],
   "capitalEn": "Accra",
   "capitalZh": "阿克拉",
@@ -2209,7 +2247,10 @@
   "almostAliasesEn": [],
   "nameZh": "格林纳达",
   "nameLocal": "Grenada",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "格瑞那达",
+   "格瑞那達"
+  ],
   "capitalEn": "St. George's",
   "capitalZh": "圣乔治",
   "iso2": "GD",
@@ -2253,7 +2294,9 @@
   "nameZh": "危地马拉",
   "nameLocal": "Guatemala",
   "aliasesZh": [
-   "危地马拉共和国"
+   "危地马拉共和国",
+   "瓜地马拉",
+   "瓜地馬拉"
   ],
   "capitalEn": "Guatemala City",
   "capitalZh": "危地马拉城",
@@ -2330,7 +2373,8 @@
   "nameLocal": "Guiné-Bissau",
   "aliasesZh": [
    "几内亚比绍共和国",
-   "几比"
+   "几比",
+   "幾內亞比索"
   ],
   "capitalEn": "Bissau",
   "capitalZh": "比绍",
@@ -2428,7 +2472,8 @@
   "nameZh": "洪都拉斯",
   "nameLocal": "Honduras",
   "aliasesZh": [
-   "洪都拉斯共和国"
+   "洪都拉斯共和国",
+   "宏都拉斯"
   ],
   "capitalEn": "Tegucigalpa",
   "capitalZh": "特古西加尔巴",
@@ -2567,7 +2612,9 @@
   "exactAliasesEn": [
    "Islamic Republic of Iran"
   ],
-  "almostAliasesEn": [],
+  "almostAliasesEn": [
+   "Persia"
+  ],
   "nameZh": "伊朗",
   "nameLocal": "ایران",
   "aliasesZh": [
@@ -2613,7 +2660,8 @@
   "neName": "Ireland",
   "nameEn": "Ireland",
   "exactAliasesEn": [
-   "Republic of Ireland"
+   "Republic of Ireland",
+   "Éire"
   ],
   "almostAliasesEn": [],
   "nameZh": "爱尔兰",
@@ -2692,7 +2740,8 @@
   "nameZh": "意大利",
   "nameLocal": "Italia",
   "aliasesZh": [
-   "意大利共和国"
+   "意大利共和国",
+   "義大利"
   ],
   "capitalEn": "Rome",
   "capitalZh": "罗马",
@@ -2858,7 +2907,8 @@
   "nameZh": "肯尼亚",
   "nameLocal": "Kenya",
   "aliasesZh": [
-   "肯尼亚共和国"
+   "肯尼亚共和国",
+   "肯亞"
   ],
   "capitalEn": "Nairobi",
   "capitalZh": "内罗毕",
@@ -2882,7 +2932,8 @@
   "nameZh": "基里巴斯",
   "nameLocal": "Kiribati",
   "aliasesZh": [
-   "基里巴斯共和国"
+   "基里巴斯共和国",
+   "吉里巴斯"
   ],
   "capitalEn": "South Tarawa",
   "capitalZh": "南塔拉瓦",
@@ -2982,7 +3033,8 @@
   "nameZh": "老挝",
   "nameLocal": "ລາວ",
   "aliasesZh": [
-   "老挝人民民主共和国"
+   "老挝人民民主共和国",
+   "寮国"
   ],
   "capitalEn": "Vientiane",
   "capitalZh": "万象",
@@ -3054,7 +3106,8 @@
   "nameZh": "莱索托",
   "nameLocal": "Lesotho",
   "aliasesZh": [
-   "莱索托王国"
+   "莱索托王国",
+   "賴索托"
   ],
   "capitalEn": "Maseru",
   "capitalZh": "马塞卢",
@@ -3078,7 +3131,8 @@
   "nameZh": "利比里亚",
   "nameLocal": "Liberia",
   "aliasesZh": [
-   "利比里亚共和国"
+   "利比里亚共和国",
+   "賴比瑞亞"
   ],
   "capitalEn": "Monrovia",
   "capitalZh": "蒙罗维亚",
@@ -3248,7 +3302,8 @@
   "nameZh": "马拉维",
   "nameLocal": "Malaŵi",
   "aliasesZh": [
-   "马拉维共和国"
+   "马拉维共和国",
+   "馬拉威"
   ],
   "capitalEn": "Lilongwe",
   "capitalZh": "利隆圭",
@@ -3317,7 +3372,8 @@
   "nameZh": "马里",
   "nameLocal": "Mali",
   "aliasesZh": [
-   "马里共和国"
+   "马里共和国",
+   "馬利"
   ],
   "capitalEn": "Bamako",
   "capitalZh": "巴马科",
@@ -3391,7 +3447,8 @@
   "nameLocal": "موريتانيا",
   "aliasesZh": [
    "毛里塔尼亚伊斯兰共和国",
-   "毛塔"
+   "毛塔",
+   "茅利塔尼亞"
   ],
   "capitalEn": "Nouakchott",
   "capitalZh": "努瓦克肖特",
@@ -3415,7 +3472,8 @@
   "nameZh": "毛里求斯",
   "nameLocal": "Maurice / Moris",
   "aliasesZh": [
-   "毛里求斯共和国"
+   "毛里求斯共和国",
+   "模里西斯"
   ],
   "capitalEn": "Port Louis",
   "capitalZh": "路易港",
@@ -3556,7 +3614,10 @@
   "almostAliasesEn": [],
   "nameZh": "黑山",
   "nameLocal": "Crna Gora",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "蒙特內哥羅",
+   "蒙特内哥罗"
+  ],
   "capitalEn": "Podgorica",
   "capitalZh": "波德戈里察",
   "iso2": "ME",
@@ -3624,7 +3685,8 @@
   "nameZh": "莫桑比克",
   "nameLocal": "Moçambique",
   "aliasesZh": [
-   "莫桑比克共和国"
+   "莫桑比克共和国",
+   "莫三比克"
   ],
   "capitalEn": "Maputo",
   "capitalZh": "马普托",
@@ -3697,7 +3759,8 @@
   "nameZh": "瑙鲁",
   "nameLocal": "Naoero",
   "aliasesZh": [
-   "瑙鲁共和国"
+   "瑙鲁共和国",
+   "諾魯"
   ],
   "capitalEn": "Yaren (de facto)",
   "capitalZh": "亚伦（事实首都）",
@@ -3795,7 +3858,9 @@
   ],
   "nameZh": "新西兰",
   "nameLocal": "New Zealand / Aotearoa",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "紐西蘭"
+  ],
   "capitalEn": "Wellington",
   "capitalZh": "惠灵顿",
   "iso2": "NZ",
@@ -3842,7 +3907,8 @@
   "nameZh": "尼日尔",
   "nameLocal": "Niger",
   "aliasesZh": [
-   "尼日尔共和国"
+   "尼日尔共和国",
+   "尼日"
   ],
   "capitalEn": "Niamey",
   "capitalZh": "尼亚美",
@@ -3866,7 +3932,8 @@
   "nameZh": "尼日利亚",
   "nameLocal": "Nigeria",
   "aliasesZh": [
-   "尼日利亚联邦共和国"
+   "尼日利亚联邦共和国",
+   "奈及利亞"
   ],
   "capitalEn": "Abuja",
   "capitalZh": "阿布贾",
@@ -3934,7 +4001,8 @@
   "nameZh": "朝鲜",
   "nameLocal": "조선",
   "aliasesZh": [
-   "朝鲜民主主义人民共和国"
+   "朝鲜民主主义人民共和国",
+   "北韩"
   ],
   "capitalEn": "Pyongyang",
   "capitalZh": "平壤",
@@ -3955,13 +4023,15 @@
    "Republic of North Macedonia"
   ],
   "almostAliasesEn": [
-   "Macedonia"
+   "Macedonia",
+   "FYROM"
   ],
   "nameZh": "北马其顿",
   "nameLocal": "Северна Македонија",
   "aliasesZh": [
    "北马其顿共和国",
-   "马其顿"
+   "马其顿",
+   "馬其頓"
   ],
   "capitalEn": "Skopje",
   "capitalZh": "斯科普里",
@@ -4113,7 +4183,8 @@
   "nameZh": "帕劳",
   "nameLocal": "Belau",
   "aliasesZh": [
-   "帕劳共和国"
+   "帕劳共和国",
+   "帛琉"
   ],
   "capitalEn": "Ngerulmud",
   "capitalZh": "恩吉鲁穆德",
@@ -4353,7 +4424,9 @@
   "neName": "Puerto Rico",
   "nameEn": "Puerto Rico",
   "exactAliasesEn": [],
-  "almostAliasesEn": [],
+  "almostAliasesEn": [
+   "PR"
+  ],
   "nameZh": "波多黎各",
   "nameLocal": "Puerto Rico",
   "aliasesZh": [],
@@ -4380,7 +4453,8 @@
   "nameZh": "卡塔尔",
   "nameLocal": "قطر",
   "aliasesZh": [
-   "卡塔尔国"
+   "卡塔尔国",
+   "卡达"
   ],
   "capitalEn": "Doha",
   "capitalZh": "多哈",
@@ -4478,7 +4552,8 @@
   "nameZh": "卢旺达",
   "nameLocal": "Rwanda",
   "aliasesZh": [
-   "卢旺达共和国"
+   "卢旺达共和国",
+   "盧安達"
   ],
   "capitalEn": "Kigali",
   "capitalZh": "基加利",
@@ -4589,7 +4664,10 @@
   "almostAliasesEn": [],
   "nameZh": "圣卢西亚",
   "nameLocal": "Saint Lucia",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "圣露西亚",
+   "聖露西亞"
+  ],
   "capitalEn": "Castries",
   "capitalZh": "卡斯特里",
   "iso2": "LC",
@@ -4668,7 +4746,9 @@
   "nameZh": "圣文森特和格林纳丁斯",
   "nameLocal": "Saint Vincent and the Grenadines",
   "aliasesZh": [
-   "圣文森特"
+   "圣文森特",
+   "圣文森及格瑞那丁",
+   "聖文森及格瑞那丁"
   ],
   "capitalEn": "Kingstown",
   "capitalZh": "金斯敦",
@@ -4741,13 +4821,15 @@
    "Democratic Republic of São Tomé and Príncipe"
   ],
   "almostAliasesEn": [
-   "Sao Tome"
+   "Sao Tome",
+   "STP"
   ],
   "nameZh": "圣多美和普林西比",
   "nameLocal": "São Tomé e Príncipe",
   "aliasesZh": [
    "圣多美和普林西比民主共和国",
-   "圣普"
+   "圣普",
+   "聖多美普林西比"
   ],
   "capitalEn": "São Tomé",
   "capitalZh": "圣多美",
@@ -4765,7 +4847,8 @@
   "neName": "Saudi Arabia",
   "nameEn": "Saudi Arabia",
   "exactAliasesEn": [
-   "Kingdom of Saudi Arabia"
+   "Kingdom of Saudi Arabia",
+   "Saudi"
   ],
   "almostAliasesEn": [
    "KSA"
@@ -4774,7 +4857,8 @@
   "nameLocal": "السعودية",
   "aliasesZh": [
    "沙特",
-   "沙特阿拉伯王国"
+   "沙特阿拉伯王国",
+   "沙烏地阿拉伯"
   ],
   "capitalEn": "Riyadh",
   "capitalZh": "利雅得",
@@ -4870,7 +4954,8 @@
   "nameZh": "塞舌尔",
   "nameLocal": "Sesel",
   "aliasesZh": [
-   "塞舌尔共和国"
+   "塞舌尔共和国",
+   "塞席爾"
   ],
   "capitalEn": "Victoria",
   "capitalZh": "维多利亚",
@@ -4894,7 +4979,9 @@
   "nameZh": "塞拉利昂",
   "nameLocal": "Sierra Leone",
   "aliasesZh": [
-   "塞拉利昂共和国"
+   "塞拉利昂共和国",
+   "獅子山",
+   "獅子山共和國"
   ],
   "capitalEn": "Freetown",
   "capitalZh": "弗里敦",
@@ -5015,7 +5102,8 @@
   "nameZh": "所罗门群岛",
   "nameLocal": "Solomon Islands",
   "aliasesZh": [
-   "所罗门"
+   "所罗门",
+   "索羅門群島"
   ],
   "capitalEn": "Honiara",
   "capitalZh": "霍尼亚拉",
@@ -5039,7 +5127,8 @@
   "nameZh": "索马里",
   "nameLocal": "Soomaaliya",
   "aliasesZh": [
-   "索马里联邦共和国"
+   "索马里联邦共和国",
+   "索馬利亞"
   ],
   "capitalEn": "Mogadishu",
   "capitalZh": "摩加迪沙",
@@ -5232,7 +5321,9 @@
   "exactAliasesEn": [
    "Democratic Socialist Republic of Sri Lanka"
   ],
-  "almostAliasesEn": [],
+  "almostAliasesEn": [
+   "Ceylon"
+  ],
   "nameZh": "斯里兰卡",
   "nameLocal": "ශ්‍රී ලංකාව",
   "aliasesZh": [
@@ -5285,7 +5376,8 @@
   "nameZh": "苏里南",
   "nameLocal": "Suriname",
   "aliasesZh": [
-   "苏里南共和国"
+   "苏里南共和国",
+   "苏利南"
   ],
   "capitalEn": "Paramaribo",
   "capitalZh": "帕拉马里博",
@@ -5379,7 +5471,8 @@
   ],
   "almostAliasesEn": [
    "ROC",
-   "Chinese Taipei"
+   "Chinese Taipei",
+   "Formosa"
   ],
   "nameZh": "台湾",
   "nameLocal": "臺灣",
@@ -5435,7 +5528,8 @@
   "nameLocal": "Tanzania",
   "aliasesZh": [
    "坦桑尼亚联合共和国",
-   "坦桑"
+   "坦桑",
+   "坦尚尼亞"
   ],
   "capitalEn": "Dodoma",
   "capitalZh": "多多马",
@@ -5455,7 +5549,9 @@
   "exactAliasesEn": [
    "Kingdom of Thailand"
   ],
-  "almostAliasesEn": [],
+  "almostAliasesEn": [
+   "Siam"
+  ],
   "nameZh": "泰国",
   "nameLocal": "ประเทศไทย",
   "aliasesZh": [
@@ -5508,7 +5604,8 @@
   "nameZh": "汤加",
   "nameLocal": "Tonga",
   "aliasesZh": [
-   "汤加王国"
+   "汤加王国",
+   "東加"
   ],
   "capitalEn": "Nuku'alofa",
   "capitalZh": "努库阿洛法",
@@ -5563,7 +5660,10 @@
   "nameLocal": "Trinidad and Tobago",
   "aliasesZh": [
    "特立尼达和多巴哥共和国",
-   "特多"
+   "特多",
+   "千里达及托巴哥",
+   "千里達及托巴哥",
+   "千里达"
   ],
   "capitalEn": "Port of Spain",
   "capitalZh": "西班牙港",
@@ -5681,7 +5781,9 @@
   "almostAliasesEn": [],
   "nameZh": "图瓦卢",
   "nameLocal": "Tuvalu",
-  "aliasesZh": [],
+  "aliasesZh": [
+   "吐瓦魯"
+  ],
   "capitalEn": "Funafuti",
   "capitalZh": "富纳富提",
   "iso2": "TV",
@@ -5748,7 +5850,8 @@
   "nameZh": "阿联酋",
   "nameLocal": "الإمارات",
   "aliasesZh": [
-   "阿拉伯联合酋长国"
+   "阿拉伯联合酋长国",
+   "阿拉伯联合大公国"
   ],
   "capitalEn": "Abu Dhabi",
   "capitalZh": "阿布扎比",
@@ -5771,13 +5874,16 @@
   "almostAliasesEn": [
    "UK",
    "Britain",
-   "Great Britain"
+   "Great Britain",
+   "England",
+   "GB"
   ],
   "nameZh": "英国",
   "nameLocal": "United Kingdom",
   "aliasesZh": [
    "大不列颠及北爱尔兰联合王国",
-   "联合王国"
+   "联合王国",
+   "英國"
   ],
   "capitalEn": "London",
   "capitalZh": "伦敦",
@@ -5805,7 +5911,8 @@
   "nameZh": "美国",
   "nameLocal": "United States",
   "aliasesZh": [
-   "美利坚合众国"
+   "美利坚合众国",
+   "美利坚"
   ],
   "capitalEn": "Washington, D.C.",
   "capitalZh": "华盛顿",
@@ -5928,7 +6035,8 @@
   "nameZh": "瓦努阿图",
   "nameLocal": "Vanuatu",
   "aliasesZh": [
-   "瓦努阿图共和国"
+   "瓦努阿图共和国",
+   "萬那杜"
   ],
   "capitalEn": "Port Vila",
   "capitalZh": "维拉港",
@@ -5955,7 +6063,8 @@
   "nameLocal": "Città del Vaticano",
   "aliasesZh": [
    "梵蒂冈城国",
-   "教廷"
+   "教廷",
+   "聖座"
   ],
   "capitalEn": "Vatican City",
   "capitalZh": "梵蒂冈城",
@@ -6081,7 +6190,8 @@
   "nameZh": "也门",
   "nameLocal": "اليمن",
   "aliasesZh": [
-   "也门共和国"
+   "也门共和国",
+   "葉門"
   ],
   "capitalEn": "Sanaa",
   "capitalZh": "萨那",
@@ -6105,7 +6215,8 @@
   "nameZh": "赞比亚",
   "nameLocal": "Zambia",
   "aliasesZh": [
-   "赞比亚共和国"
+   "赞比亚共和国",
+   "尚比亞"
   ],
   "capitalEn": "Lusaka",
   "capitalZh": "卢萨卡",
@@ -6129,7 +6240,8 @@
   "nameZh": "津巴布韦",
   "nameLocal": "Zimbabwe",
   "aliasesZh": [
-   "津巴布韦共和国"
+   "津巴布韦共和国",
+   "辛巴威"
   ],
   "capitalEn": "Harare",
   "capitalZh": "哈拉雷",

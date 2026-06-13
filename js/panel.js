@@ -297,7 +297,13 @@ export function createSidePanel({ contentElement, actions }) {
       else actions.revealAnswer();
     });
     if (checkButton) {
-      checkButton.addEventListener("click", () => actions.submitAnswer(answerInput.value));
+      // Check mirrors the Enter key: with text it grades the answer, on a blank
+      // box it gives up (reveals the answer) — it absorbs what the removed
+      // "Show answer" button used to do.
+      checkButton.addEventListener("click", () => {
+        if (answerInput.value.trim()) actions.submitAnswer(answerInput.value);
+        else actions.revealAnswer();
+      });
     }
   }
 
@@ -534,7 +540,6 @@ export function createSidePanel({ contentElement, actions }) {
                  placeholder="${escapeHtml(needsCorrection ? text.correctionPlaceholder : text.answerPlaceholder)}"
                  value="${escapeHtml(round.inputText || "")}"${canAdvance ? " disabled" : ""}>
           <button id="check-answer-button" class="action-button" type="button"${canAdvance ? " disabled" : ""}>${escapeHtml(text.checkAnswer)}</button>
-          ${showAnswerButtonMarkup(hasVerdict)}
         </div>
         <div class="verdict-area">
           ${hasVerdict
@@ -551,7 +556,6 @@ export function createSidePanel({ contentElement, actions }) {
       </article>
     `);
     wireAnswerInput();
-    wireShowAnswerButton();
     wireNextButton();
     wireLanguageToggle();
     if (hasVerdict) wireSpeakButtons(); // the resolved card carries pronounce buttons
