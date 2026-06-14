@@ -135,9 +135,9 @@ export function pickPriorityTarget(candidateRegions, ledger, previousRegionId) {
   });
   if (unseen.length > 0) return randomItem(unseen);
   // Tier 3, the maintenance loop. Everyone left has been seen and last answered
-  // exact; serve those not yet mastered (a single exact, streak of 1) before
-  // re-testing mastered ones — finish learning the scope first. Each group is
-  // ordered by least-recently-seen.
+  // exact; serve those not yet mastered (stage 1 — one exact, still climbing)
+  // before re-testing mastered ones — finish learning the scope first. Each
+  // group is ordered by least-recently-seen.
   const byLeastRecentlySeen = (a, b) => (ledger[a.id].lastSeen || 0) - (ledger[b.id].lastSeen || 0);
   const notYetMastered = pool.filter((region) => !isMastered(ledger[region.id]));
   const maintenancePool = notYetMastered.length > 0 ? notYetMastered : pool;

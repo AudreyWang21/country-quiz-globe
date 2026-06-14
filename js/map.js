@@ -872,22 +872,17 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
   const pulseRegion = (effectiveRegionId) => addTimedClass(effectiveRegionId, "pulsing", 1800);
   const flashRegion = (effectiveRegionId) => addTimedClass(effectiveRegionId, "flashing", 700);
 
-  // Sustained pulse (no timeout) — Find outcomes use this so the result
-  // region keeps pulsing until the round advances. Pass null to clear.
-  let sustainedPulseRegionId = null;
-
-  function setSustainedPulse(effectiveRegionId) {
-    if (sustainedPulseRegionId !== null) {
-      const { paths, markers } = selectionsForRegion(sustainedPulseRegionId);
-      paths.classed("pulsing-sustained", false);
-      markers.classed("pulsing-sustained", false);
+  // Cancels any in-flight pulse outright (timer + class), so a result highlight
+  // can't bleed into the next round — called when the round advances.
+  function clearPulse() {
+    for (const [key, timer] of timedClassTimers) {
+      if (key.endsWith("|pulsing")) {
+        clearTimeout(timer);
+        timedClassTimers.delete(key);
+      }
     }
-    sustainedPulseRegionId = effectiveRegionId;
-    if (effectiveRegionId !== null) {
-      const { paths, markers } = selectionsForRegion(effectiveRegionId);
-      paths.classed("pulsing-sustained", true);
-      markers.classed("pulsing-sustained", true);
-    }
+    countryPaths.classed("pulsing", false);
+    markerGroups.classed("pulsing", false);
   }
 
   // Frames a continent: flat view zooms to fit, globe view rotates to it.
@@ -1041,7 +1036,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     setReviewTarget,
     pulseRegion,
     flashRegion,
-    setSustainedPulse,
+    clearPulse,
     frameContinent,
     centerRegion,
     playFirstLoadReveal,

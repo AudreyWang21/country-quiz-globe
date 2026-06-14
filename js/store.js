@@ -73,8 +73,14 @@ function sanitizeSettings(rawSettings) {
 function sanitizeRegionStats(value) {
   if (!isPlainObject(value)) return null;
   const stats = blankRegionStats();
-  for (const key of ["attempts", "exact", "almost", "wrong", "streak"]) {
+  for (const key of ["attempts", "exact", "almost", "wrong"]) {
     if (typeof value[key] === "number" && Number.isFinite(value[key])) stats[key] = value[key];
+  }
+  // `stage` replaced `streak` (2026-06-13); an older save's streak value carries
+  // over directly (both count 0 = start … 2 = mastered), clamped into range.
+  const stageValue = typeof value.stage === "number" ? value.stage : value.streak;
+  if (typeof stageValue === "number" && Number.isFinite(stageValue)) {
+    stats.stage = Math.max(0, Math.min(MASTERY_STAGE, stageValue));
   }
   if (["exact", "almost", "wrong"].includes(value.lastResult)) stats.lastResult = value.lastResult;
   if (typeof value.lastSeen === "number" && Number.isFinite(value.lastSeen)) stats.lastSeen = value.lastSeen;
@@ -130,7 +136,7 @@ function isLegacyProgressShape(value) {
 
 // Pre-split history becomes the locate track (it was mostly Find rounds) and
 // naming starts fresh — the user's migration ruling, 2026-06-12. The two old
-// language ledgers merge: counters sum, streak/lastResult come from whichever
+// language ledgers merge: counters sum, stage/lastResult come from whichever
 // entry was seen more recently.
 function migrateLegacyProgress(legacy) {
   const locate = sanitizeLedger(legacy.en);
@@ -146,7 +152,7 @@ function migrateLegacyProgress(legacy) {
       exact: enStats.exact + zhStats.exact,
       almost: enStats.almost + zhStats.almost,
       wrong: enStats.wrong + zhStats.wrong,
-      streak: newer.streak,
+      stage: newer.stage,
       lastResult: newer.lastResult,
       lastSeen: Math.max(enStats.lastSeen || 0, zhStats.lastSeen || 0) || null,
     };
@@ -171,7 +177,7 @@ export function saveProgress(progress) {
 }
 
 export function blankRegionStats() {
-  return { attempts: 0, exact: 0, almost: 0, wrong: 0, streak: 0, lastResult: null, lastSeen: null };
+  return { attempts: 0, exact: 0, almost: 0, wrong: 0, stage: 0, lastResult: null, lastSeen: null };
 }
 
 // track is 'locate' (Find) or 'name' (Type/Review). language picks the naming
@@ -180,14 +186,31 @@ export function ledgerForTrack(progress, track, language) {
   return track === "locate" ? progress.locate : progress.name[language];
 }
 
+// The mastery ladder: 0 (start) → 1 (partial, shows yellow) → MASTERY_STAGE
+// (mastered, shows green). A clean first-ever try mints mastery outright; after
+// that each exact climbs a stage and each miss — wrong OR near-miss — drops one
+// (2026-06-13, the user's "sticky mastery" rule). Clamped to [0, MASTERY_STAGE].
+export const MASTERY_STAGE = 2;
+
+function nextStage(stage, verdict, isFirstAttempt) {
+  if (isFirstAttempt) {
+    if (verdict === "exact") return MASTERY_STAGE; // nailed it cold → green now
+    if (verdict === "almost") return 1; // near-miss → partial (yellow)
+    return 0; // wrong → start
+  }
+  if (verdict === "exact") return Math.min(MASTERY_STAGE, stage + 1);
+  return Math.max(0, stage - 1); // wrong or repeat near-miss: down a stage
+}
+
 // verdict is 'exact' | 'almost' | 'wrong'. Writes through to localStorage.
 export function recordAttempt(progress, track, language, regionId, verdict) {
   const ledger = ledgerForTrack(progress, track, language);
+  const isFirstAttempt = !ledger[regionId] || ledger[regionId].attempts === 0;
   if (!ledger[regionId]) ledger[regionId] = blankRegionStats();
   const stats = ledger[regionId];
   stats.attempts += 1;
   stats[verdict] += 1;
-  stats.streak = verdict === "exact" ? stats.streak + 1 : 0;
+  stats.stage = nextStage(stats.stage, verdict, isFirstAttempt);
   stats.lastResult = verdict;
   stats.lastSeen = Date.now();
   saveProgress(progress);
@@ -195,7 +218,7 @@ export function recordAttempt(progress, track, language, regionId, verdict) {
 }
 
 export function isMastered(stats) {
-  return Boolean(stats) && stats.lastResult === "exact" && stats.streak >= 2;
+  return Boolean(stats) && stats.stage >= MASTERY_STAGE;
 }
 
 // A region is a trouble spot once its lifetime wrong count in a ledger passes

@@ -30,7 +30,7 @@ const state = {
   selectedRegionId: null, // pinned region in browse
   typeRound: null, // { targetId, pickedByUser, verdict, inputText, newlyMastered, corrected }
   typeDetourRegionId: null, // non-quiz region whose info card temporarily covers the type round
-  findRound: null, // { targetId, missIds, resolved, success, firstTry, gaveUp, newlyMastered }
+  findRound: null, // { targetId, resolved, success, gaveUp, newlyMastered, wrongClickId }
   // reviewRound mixes both tracks: a "locate" round is find-shaped, a "name"
   // round is typing-shaped — `track` says which.
   reviewRound: null, // { track, targetId, ...find-shaped or typing-shaped fields }
@@ -165,10 +165,9 @@ function findStyleViewModel(round) {
   if (!round) return null;
   return {
     target: state.regionById.get(round.targetId),
-    missRegions: round.missIds.map((missId) => state.regionById.get(missId)),
+    wrongClick: round.wrongClickId ? state.regionById.get(round.wrongClickId) : null,
     resolved: round.resolved,
     success: round.success,
-    firstTry: round.firstTry,
     gaveUp: round.gaveUp,
     newlyMastered: round.newlyMastered,
   };
@@ -192,10 +191,9 @@ function namingRoundViewModel(round) {
 // so it re-tests mastered regions in a maintenance loop rather than stopping when
 // everything in scope is mastered.
 function startFindRound(previousTargetId) {
-  state.mapEngine.setSustainedPulse(null);
   const target = pickPriorityTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
   state.findRound = target
-    ? { targetId: target.id, missIds: [], resolved: false, success: false, firstTry: false, newlyMastered: false }
+    ? { targetId: target.id, resolved: false, success: false, gaveUp: false, newlyMastered: false, wrongClickId: null }
     : null;
   renderCurrentPanel();
   if (target && state.settings.autoPronounce) state.panel.pronounceCurrentCard();
@@ -230,13 +228,12 @@ function startTypeRound(previousTargetId, userPickedRegion = null) {
 // Find round flow; a name pick replays the typing flow. The map recolors per
 // round because the track can change between rounds.
 function startReviewRound(previousTargetId) {
-  state.mapEngine.setSustainedPulse(null);
   const pick = pickTroubleTarget(quizRegionsInScope(), state.progress, state.settings.lang, previousTargetId);
   if (pick && pick.track === "locate") {
     state.reviewRound = {
       track: "locate",
       targetId: pick.region.id,
-      missIds: [], resolved: false, success: false, firstTry: false, gaveUp: false, newlyMastered: false,
+      resolved: false, success: false, gaveUp: false, newlyMastered: false, wrongClickId: null,
     };
     state.mapEngine.setReviewTarget(null);
   } else if (pick) {
@@ -284,21 +281,15 @@ function handleFindStyleClick(round, regionId) {
   if (regionId === round.targetId) {
     round.resolved = true;
     round.success = true;
-    round.firstTry = round.missIds.length === 0;
-    // only a clean first click earns the exact; a find after misses leaves
-    // the ledger untouched (progress neither gained nor lost)
-    if (round.firstTry) {
-      round.newlyMastered = recordVerdict(round.targetId, "exact");
-    }
-    state.mapEngine.setSustainedPulse(round.targetId);
+    round.newlyMastered = recordVerdict(round.targetId, "exact");
+    state.mapEngine.pulseRegion(round.targetId);
     renderCurrentPanel();
   } else {
-    // a region already missed costs no extra try — just re-flash it
-    if (!round.missIds.includes(regionId)) round.missIds.push(regionId);
+    // single chance (2026-06-13): the first wrong click ends the round as a miss
+    // and reveals the target — no second/third tries.
+    round.wrongClickId = regionId;
     state.mapEngine.flashRegion(regionId);
-    if (round.missIds.length >= 3) {
-      revealFindTarget(round);
-    }
+    revealFindTarget(round);
     renderCurrentPanel();
   }
 }
@@ -429,11 +420,11 @@ function revealFindTarget(round) {
   // recenter (zoom unchanged) so the revealed target lands in the middle, not
   // stranded at the edge or the globe's limb
   state.mapEngine.centerRegion(round.targetId);
-  state.mapEngine.setSustainedPulse(round.targetId);
+  state.mapEngine.pulseRegion(round.targetId);
 }
 
-// Give up on the current round: records a wrong (giving up is a wrong, and
-// the streak should reset) and reveals the answer — in the verdict block for
+// Give up on the current round: records a wrong (giving up is a wrong — it
+// drops a mastery stage) and reveals the answer — in the verdict block for
 // typing rounds, on the map for find-shaped rounds.
 function revealAnswer() {
   const findStyleRound =
@@ -460,6 +451,8 @@ function revealAnswer() {
 }
 
 function nextRound() {
+  // clear the resolved round's pulse so it can't bleed into the new round
+  state.mapEngine.clearPulse();
   if (state.settings.mode === "find") {
     startFindRound(state.findRound ? state.findRound.targetId : null);
   } else if (state.settings.mode === "type") {
@@ -481,7 +474,6 @@ function switchMode(mode) {
   state.reviewRound = null;
   state.mapEngine.setSelectedRegion(null);
   state.mapEngine.setReviewTarget(null);
-  state.mapEngine.setSustainedPulse(null);
   // the new mode may read a different track — recolor and relabel
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
   updateLegendTrackLabel();
@@ -667,7 +659,6 @@ function applyAllSettings() {
   state.reviewRound = null;
   state.mapEngine.setSelectedRegion(null);
   state.mapEngine.setReviewTarget(null);
-  state.mapEngine.setSustainedPulse(null);
   updateChromeText();
   updateChromePressedStates();
   state.mapEngine.setView(state.settings.view);

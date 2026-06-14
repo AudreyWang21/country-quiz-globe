@@ -375,15 +375,6 @@ button:disabled {
 .country.pulsing.status-just-changed {
   animation: ink-fill 750ms ease-out, region-pulse 600ms ease-in-out 3;
 }
-/* sustained variant — Find outcomes keep pulsing until the round advances,
-   so looking away during a 3-blink pulse can't hide the result. Clicking the
-   pulsing region pauses/resumes the animation (app.js). */
-.country.pulsing-sustained {
-  animation: region-pulse 600ms ease-in-out infinite;
-}
-.country.pulsing-sustained.status-just-changed {
-  animation: ink-fill 750ms ease-out, region-pulse 600ms ease-in-out infinite;
-}
 .country.first-reveal {
   animation: country-appear 650ms ease-out both;
 }
@@ -446,9 +437,6 @@ button:disabled {
 
 .microstate-marker.pulsing .marker-dot {
   animation: marker-pulse 600ms ease-in-out 3;
-}
-.microstate-marker.pulsing-sustained .marker-dot {
-  animation: marker-pulse 600ms ease-in-out infinite;
 }
 .microstate-marker.flashing .marker-dot {
   animation: marker-pulse 650ms ease-in-out 1;
@@ -857,24 +845,9 @@ a.action-button {
 
 /* ---------- find card ---------- */
 
-.find-miss-list {
-  margin: 14px 0 0;
-  padding: 0;
-  list-style: none;
-  min-height: 75px;
-  font-size: 13.5px;
-}
-.find-miss {
-  padding: 2px 0;
-  color: var(--color-verdict-wrong);
-}
-.find-miss-empty {
-  color: rgba(60, 47, 35, 0.25);
-}
-
 .find-outcome {
   min-height: 38px;
-  margin: 10px 0 4px;
+  margin: 14px 0 4px;
 }
 .find-outcome .verdict {
   margin: 0;

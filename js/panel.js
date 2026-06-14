@@ -35,8 +35,6 @@ export const uiText = {
     findInstruction: "Find on the map",
     findMissPrefix: "That was",
     findFound: "Found it",
-    findFoundLate: "Found — only a first-try find counts as progress",
-    findRevealed: "Out of tries — it is pulsing on the map",
     findShownOnMap: "The answer is pulsing on the map",
     findAllMastered: "Every region in this scope is mastered. Pick another continent.",
     noQuizRegions: "No quiz regions in this scope.",
@@ -118,8 +116,6 @@ export const uiText = {
     findInstruction: "在地图上找到",
     findMissPrefix: "这是",
     findFound: "找到了",
-    findFoundLate: "找到了——只有第一次就找对才计入进度",
-    findRevealed: "机会用完——目标正在地图上闪烁",
     findShownOnMap: "答案正在地图上闪烁",
     findAllMastered: "该范围内的地区已全部掌握。换个大洲试试。",
     noQuizRegions: "该范围内没有可测验的地区。",
@@ -442,7 +438,7 @@ export function createSidePanel({ contentElement, actions }) {
 
   // ----- find -----
 
-  // round: { target, missRegions: [..], resolved, success, firstTry, gaveUp, newlyMastered }
+  // round: { target, wrongClick, resolved, success, gaveUp, newlyMastered }
   // or null when no candidates remain in scope.
   function renderFindRound(round, language, regionByName) {
     const text = uiText.en;
@@ -459,36 +455,29 @@ export function createSidePanel({ contentElement, actions }) {
       wireNextButton();
       return;
     }
-    const missSlots = [0, 1, 2]
-      .map((slot) => {
-        const missRegion = round.missRegions[slot];
-        return missRegion
-          ? `<li class="find-miss">✗ ${escapeHtml(text.findMissPrefix)} ${bilingualName(missRegion)}</li>`
-          : `<li class="find-miss find-miss-empty">·</li>`;
-      })
-      .join("");
     let outcomeHtml = "";
     if (round.resolved) {
-      if (round.success && round.firstTry) {
+      if (round.success) {
         outcomeHtml = `<p class="verdict verdict-exact">✓ ${escapeHtml(text.findFound)}${
-          round.newlyMastered ? ` <span class="mastered-badge">${escapeHtml(uiText.en.masteredBadge)}</span>` : ""
+          round.newlyMastered ? ` <span class="mastered-badge">${escapeHtml(text.masteredBadge)}</span>` : ""
         }</p>`;
-      } else if (round.success) {
-        // found after misses: no ledger write happened, and the text says why
-        outcomeHtml = `<p class="verdict verdict-almost">✓ ${escapeHtml(text.findFoundLate)}</p>`;
       } else {
-        outcomeHtml = `<p class="verdict verdict-wrong">${escapeHtml(round.gaveUp ? text.findShownOnMap : text.findRevealed)}</p>`;
+        // single chance: a wrong click (or give-up) reveals the target on the map
+        const missPrefix = round.wrongClick
+          ? `${escapeHtml(text.findMissPrefix)} ${bilingualName(round.wrongClick)} — `
+          : "";
+        outcomeHtml = `<p class="verdict verdict-wrong">✗ ${missPrefix}${escapeHtml(text.findShownOnMap)}</p>`;
       }
     }
     setContent(`
       <article class="find-card">
         <p class="panel-kicker">${escapeHtml(text.findInstruction)}</p>
         ${regionInfoMarkup(round.target, regionByName)}
-        <ol class="find-miss-list">${missSlots}</ol>
         <div class="find-outcome">${outcomeHtml}</div>
         <div class="round-actions">
-          ${showAnswerButtonMarkup(round.resolved)}
-          <button id="next-round-button" class="action-button" type="button" ${round.resolved ? "" : "disabled"}>${escapeHtml(text.nextButton)}</button>
+          ${round.resolved
+            ? `<button id="next-round-button" class="action-button" type="button">${escapeHtml(text.nextButton)}</button>`
+            : showAnswerButtonMarkup(false)}
         </div>
       </article>
     `);
