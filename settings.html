@@ -16,13 +16,43 @@
     </div>
   </header>
   <main class="doc-main">
-    <p class="doc-ledger-note" id="backup-hint"></p>
+    <section class="doc-section doc-display">
+      <h2 class="panel-section-title" id="display-section-title"></h2>
+      <div class="doc-control-row">
+        <span class="doc-control-label" id="ui-lang-label"></span>
+        <div class="segmented-control" id="ui-lang-toggle" role="group" aria-label="Interface language">
+          <button class="segment" type="button" data-ui-lang="en">EN</button>
+          <button class="segment" type="button" data-ui-lang="zh">中文</button>
+        </div>
+      </div>
+      <div class="doc-control-row">
+        <span class="doc-control-label" id="font-size-label"></span>
+        <div class="segmented-control" id="font-size-toggle" role="group" aria-label="Card text size">
+          <button class="segment" type="button" data-font-scale="1.15">S</button>
+          <button class="segment" type="button" data-font-scale="1.3">M</button>
+          <button class="segment" type="button" data-font-scale="1.45">L</button>
+        </div>
+      </div>
+      <div class="doc-control-row">
+        <span class="doc-control-label" id="flag-size-label"></span>
+        <div class="segmented-control" id="flag-size-toggle" role="group" aria-label="Flag size">
+          <button class="segment" type="button" data-flag-size="140">S</button>
+          <button class="segment" type="button" data-flag-size="190">M</button>
+          <button class="segment" type="button" data-flag-size="240">L</button>
+        </div>
+      </div>
+      <div class="doc-control-row">
+        <span class="doc-control-label" id="cjk-font-label"></span>
+        <div class="segmented-control" id="cjk-font-toggle" role="group" aria-label="Chinese font">
+          <button class="segment" type="button" data-cjk-font="serif-web">Noto</button>
+          <button class="segment" type="button" data-cjk-font="serif-system">宋体</button>
+          <button class="segment" type="button" data-cjk-font="sans">黑体</button>
+        </div>
+      </div>
+    </section>
     <section class="doc-section doc-controls">
-      <button id="export-button" class="action-button action-button-quiet" type="button"></button>
-      <button id="import-button" class="action-button action-button-quiet" type="button"></button>
-      <button id="stash-button" class="action-button action-button-quiet" type="button"></button>
+      <p class="doc-ledger-note" id="backup-hint"></p>
       <button id="clear-all-button" class="action-button action-button-quiet action-button-danger" type="button"></button>
-      <input type="file" id="import-file-input" accept="application/json,.json" hidden>
     </section>
   </main>
 </body>

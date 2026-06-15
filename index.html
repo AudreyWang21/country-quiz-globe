@@ -37,7 +37,6 @@
     <nav class="mode-tabs" aria-label="Game mode">
       <button class="mode-tab" type="button" data-mode="find" aria-pressed="false"></button>
       <button class="mode-tab" type="button" data-mode="type" aria-pressed="false"></button>
-      <button class="mode-tab" type="button" data-mode="review" aria-pressed="false"></button>
       <button class="mode-tab" type="button" data-mode="browse" aria-pressed="false"></button>
     </nav>
 
@@ -52,11 +51,9 @@
         <button class="segment" type="button" data-view="flat" aria-pressed="false"></button>
       </div>
       <div class="segmented-control">
-        <button class="segment segment-microstates" type="button" id="microstate-toggle" aria-pressed="false"></button>
-      </div>
-      <div class="segmented-control">
         <button class="segment segment-auto-pronounce" type="button" id="auto-pronounce-toggle" aria-pressed="false"></button>
       </div>
+      <select id="microstate-mode" class="continent-filter" aria-label="Microstates"></select>
       <select id="continent-filter" class="continent-filter" aria-label="Continent"></select>
     </div>
   </header>
@@ -64,18 +61,15 @@
   <main class="app-layout">
     <section class="map-area">
       <svg id="world-map" class="world-map"></svg>
-      <div class="map-legend">
-        <span class="legend-item legend-track" id="legend-track-label"></span>
-        <span class="legend-item"><span class="legend-swatch legend-swatch-untouched"></span><span data-legend="untouched"></span></span>
-        <span class="legend-item"><span class="legend-swatch legend-swatch-wrong"></span><span data-legend="wrong"></span></span>
-        <span class="legend-item"><span class="legend-swatch legend-swatch-almost"></span><span data-legend="almost"></span></span>
-        <span class="legend-item"><span class="legend-swatch legend-swatch-mastered"></span><span data-legend="mastered"></span></span>
-        <span class="legend-item"><span class="legend-swatch legend-swatch-microstate"></span><span data-legend="microstate"></span></span>
-        <span class="legend-item"><span class="legend-swatch legend-swatch-capital"></span><span data-legend="capital"></span></span>
-      </div>
     </section>
 
     <aside class="side-panel">
+      <div class="browse-search" id="browse-search" hidden>
+        <input id="browse-search-input" class="browse-search-input" type="text"
+               autocomplete="off" autocapitalize="off" spellcheck="false"
+               aria-label="Search regions">
+        <ul id="browse-search-results" class="browse-search-results" hidden></ul>
+      </div>
       <div class="panel-content" id="panel-content"></div>
       <section class="panel-data-controls">
         <a id="data-page-link" class="action-button action-button-quiet" href="data.html" target="_blank" rel="noopener"></a>

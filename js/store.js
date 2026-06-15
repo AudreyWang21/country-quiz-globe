@@ -2,35 +2,47 @@
 
 // Exported so other tabs (the game vs the settings page) can recognize each
 // other's writes via "storage" events.
-export const PROGRESS_STORAGE_KEY = "atlas-progress-v2";
-// v1 held one ledger per language with all modes mixed together; v2 splits
-// progress into two skill tracks. The v1 key is read once for migration and
-// then left in place as a backup — never written again.
-const LEGACY_PROGRESS_STORAGE_KEY = "atlas-progress-v1";
+export const PROGRESS_STORAGE_KEY = "atlas-progress-v3";
+// Each older shape is read once for migration, then left in place as a backup —
+// never written again. v1: one ledger per language, all modes mixed. v2: split
+// into two tracks (locate + name), with name itself split per quiz language
+// (name.en / name.zh). v3 drops the quiz language: the typing quiz accepts
+// either language, so the two naming ledgers merge into one (2026-06-14, §6).
+const LEGACY_PROGRESS_STORAGE_KEY_V2 = "atlas-progress-v2";
+const LEGACY_PROGRESS_STORAGE_KEY_V1 = "atlas-progress-v1";
 export const SETTINGS_STORAGE_KEY = "atlas-settings-v1";
 const STASH_STORAGE_KEY = "atlas-stash-v1";
-const EXPORT_FORMAT_VERSION = 2;
+const EXPORT_FORMAT_VERSION = 3;
 
 export const defaultSettings = Object.freeze({
-  lang: "en",
+  uiLang: "en", // interface language (chrome); the typing quiz has no language (accepts either)
   view: "globe",
   continent: "World",
   mode: "browse",
-  includeMicrostates: true,
+  microstateMode: "include", // "include" | "exclude" | "only" — microstates in the quiz pool
   autoPronounce: false,
+  // Live-tuning knobs (Settings page): card text scale + flag banner width (px).
+  // Discrete S/M/L presets so the whitelist validation below still applies; the
+  // defaults are the user's locked picks, sitting in the M slot of each.
+  fontScale: 1.3,
+  flagSize: 190,
+  cjkFont: "serif-web", // which Chinese face: serif-web (Noto) / serif-system / sans
 });
 
 // Settings values index directly into uiText and the mode/view/continent
 // switches, so anything outside these sets falls back to the default.
-// includeMicrostates must be a real boolean; saved settings from before the
-// toggle existed lack the key and fall back to the default (true).
+// microstateMode replaced the old boolean includeMicrostates (2026-06-14);
+// sanitizeSettings migrates an old save's boolean to the enum.
 const allowedSettingValues = Object.freeze({
-  lang: ["en", "zh"],
+  uiLang: ["en", "zh"],
   view: ["flat", "globe"],
   continent: ["World", "Africa", "Asia", "Europe", "North America", "South America", "Oceania"],
-  mode: ["browse", "type", "find", "review"],
-  includeMicrostates: [true, false],
+  mode: ["browse", "type", "find"],
+  microstateMode: ["include", "exclude", "only"],
   autoPronounce: [true, false],
+  fontScale: [1.15, 1.3, 1.45],
+  flagSize: [140, 190, 240],
+  cjkFont: ["serif-web", "serif-system", "sans"],
 });
 
 const isPlainObject = (value) => Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -64,6 +76,14 @@ function sanitizeSettings(rawSettings) {
   if (isPlainObject(rawSettings)) {
     for (const key of Object.keys(defaultSettings)) {
       if (allowedSettingValues[key].includes(rawSettings[key])) settings[key] = rawSettings[key];
+    }
+    // Migrate the pre-2026-06-14 boolean includeMicrostates → microstateMode enum
+    // (only when no valid microstateMode was stored, so it never overrides a new save).
+    if (
+      !allowedSettingValues.microstateMode.includes(rawSettings.microstateMode) &&
+      typeof rawSettings.includeMicrostates === "boolean"
+    ) {
+      settings.microstateMode = rawSettings.includeMicrostates ? "include" : "exclude";
     }
   }
   return settings;
@@ -104,15 +124,27 @@ export function saveSettings(settings) {
   writeStoredJson(SETTINGS_STORAGE_KEY, settings);
 }
 
-// Progress holds two skill tracks: "locate" (Find mode — one language-neutral
-// ledger; clicking the right shape is the same skill in any language) and
-// "name" (Type and Review — one ledger per quiz language, since the accepted
-// answers differ).
+// Progress holds two skill tracks, both language-neutral: "locate" (Find mode —
+// clicking the right shape is the same skill in any language) and "name" (Type
+// mode — the typing quiz accepts either English or Chinese, so naming is one
+// ledger, not one per language; 2026-06-14, §6).
 export function blankProgress() {
-  return { locate: {}, name: { en: {}, zh: {} } };
+  return { locate: {}, name: {} };
 }
 
+// v3 shape: both tracks are flat regionId→stats ledgers.
 function isProgressShape(value) {
+  return isPlainObject(value) && isPlainObject(value.locate) && isPlainObject(value.name);
+}
+
+function sanitizeProgress(raw) {
+  return { locate: sanitizeLedger(raw.locate), name: sanitizeLedger(raw.name) };
+}
+
+// v2 shape: name was split per quiz language. Checked before isProgressShape
+// (which a v2 object also satisfies, name being a plain object) so v2 payloads
+// migrate instead of being read as a malformed v3.
+function isV2ProgressShape(value) {
   return (
     isPlainObject(value) &&
     isPlainObject(value.locate) &&
@@ -122,52 +154,68 @@ function isProgressShape(value) {
   );
 }
 
-function sanitizeProgress(raw) {
-  return {
-    locate: sanitizeLedger(raw.locate),
-    name: { en: sanitizeLedger(raw.name.en), zh: sanitizeLedger(raw.name.zh) },
-  };
-}
-
-// The pre-split shape: one ledger per language, all modes mixed.
+// v1 shape: one ledger per language, all modes mixed.
 function isLegacyProgressShape(value) {
   return isPlainObject(value) && isPlainObject(value.en) && isPlainObject(value.zh);
 }
 
-// Pre-split history becomes the locate track (it was mostly Find rounds) and
-// naming starts fresh — the user's migration ruling, 2026-06-12. The two old
-// language ledgers merge: counters sum, stage/lastResult come from whichever
-// entry was seen more recently.
-function migrateLegacyProgress(legacy) {
-  const locate = sanitizeLedger(legacy.en);
-  for (const [regionId, zhStats] of Object.entries(sanitizeLedger(legacy.zh))) {
-    const enStats = locate[regionId];
-    if (!enStats) {
-      locate[regionId] = zhStats;
+// Merge two ledgers into one: counters sum, stage/lastResult come from whichever
+// entry was seen more recently, lastSeen is the max. Shared by both migration
+// paths (v1's en+zh → locate, v2's name.en+name.zh → name).
+function mergeLedgers(rawA, rawB) {
+  const merged = sanitizeLedger(rawA);
+  for (const [regionId, statsB] of Object.entries(sanitizeLedger(rawB))) {
+    const statsA = merged[regionId];
+    if (!statsA) {
+      merged[regionId] = statsB;
       continue;
     }
-    const newer = (zhStats.lastSeen || 0) >= (enStats.lastSeen || 0) ? zhStats : enStats;
-    locate[regionId] = {
-      attempts: enStats.attempts + zhStats.attempts,
-      exact: enStats.exact + zhStats.exact,
-      almost: enStats.almost + zhStats.almost,
-      wrong: enStats.wrong + zhStats.wrong,
+    const newer = (statsB.lastSeen || 0) >= (statsA.lastSeen || 0) ? statsB : statsA;
+    merged[regionId] = {
+      attempts: statsA.attempts + statsB.attempts,
+      exact: statsA.exact + statsB.exact,
+      almost: statsA.almost + statsB.almost,
+      wrong: statsA.wrong + statsB.wrong,
       stage: newer.stage,
       lastResult: newer.lastResult,
-      lastSeen: Math.max(enStats.lastSeen || 0, zhStats.lastSeen || 0) || null,
+      lastSeen: Math.max(statsA.lastSeen || 0, statsB.lastSeen || 0) || null,
     };
   }
-  return { locate, name: { en: {}, zh: {} } };
+  return merged;
+}
+
+// v2 → v3: locate carries over; the two naming ledgers merge into one (§6).
+function migrateV2Progress(v2) {
+  return { locate: sanitizeLedger(v2.locate), name: mergeLedgers(v2.name.en, v2.name.zh) };
+}
+
+// v1 → v3: pre-split history becomes the locate track (it was mostly Find
+// rounds) with the two language ledgers merged; naming starts fresh — the
+// user's migration ruling, 2026-06-12.
+function migrateLegacyProgress(legacy) {
+  return { locate: mergeLedgers(legacy.en, legacy.zh), name: {} };
+}
+
+// Detects any stored progress shape and returns the v3 form, or null. Order
+// matters: v2 is checked before v3 because a v2 object also passes isProgressShape.
+function coerceStoredProgress(value) {
+  if (isV2ProgressShape(value)) return migrateV2Progress(value);
+  if (isProgressShape(value)) return sanitizeProgress(value);
+  if (isLegacyProgressShape(value)) return migrateLegacyProgress(value);
+  return null;
 }
 
 export function loadProgress() {
   const stored = readStoredJson(PROGRESS_STORAGE_KEY);
   if (isProgressShape(stored)) return sanitizeProgress(stored);
-  const legacy = readStoredJson(LEGACY_PROGRESS_STORAGE_KEY);
-  if (isLegacyProgressShape(legacy)) {
-    const migrated = migrateLegacyProgress(legacy);
-    saveProgress(migrated); // the legacy key stays untouched as a backup
-    return migrated;
+  // Older keys, newest first; the matched one migrates and the old key stays
+  // untouched as a backup.
+  for (const legacyKey of [LEGACY_PROGRESS_STORAGE_KEY_V2, LEGACY_PROGRESS_STORAGE_KEY_V1]) {
+    const migrated = coerceStoredProgress(readStoredJson(legacyKey));
+    if (migrated) {
+      saveProgress(migrated);
+      return migrated;
+    }
   }
   return blankProgress();
 }
@@ -180,10 +228,9 @@ export function blankRegionStats() {
   return { attempts: 0, exact: 0, almost: 0, wrong: 0, stage: 0, lastResult: null, lastSeen: null };
 }
 
-// track is 'locate' (Find) or 'name' (Type/Review). language picks the naming
-// ledger and is ignored for locate, which is language-neutral.
-export function ledgerForTrack(progress, track, language) {
-  return track === "locate" ? progress.locate : progress.name[language];
+// track is 'locate' (Find) or 'name' (Type). Both are language-neutral ledgers.
+export function ledgerForTrack(progress, track) {
+  return track === "locate" ? progress.locate : progress.name;
 }
 
 // The mastery ladder: 0 (start) → 1 (partial, shows yellow) → MASTERY_STAGE
@@ -203,8 +250,8 @@ function nextStage(stage, verdict, isFirstAttempt) {
 }
 
 // verdict is 'exact' | 'almost' | 'wrong'. Writes through to localStorage.
-export function recordAttempt(progress, track, language, regionId, verdict) {
-  const ledger = ledgerForTrack(progress, track, language);
+export function recordAttempt(progress, track, regionId, verdict) {
+  const ledger = ledgerForTrack(progress, track);
   const isFirstAttempt = !ledger[regionId] || ledger[regionId].attempts === 0;
   if (!ledger[regionId]) ledger[regionId] = blankRegionStats();
   const stats = ledger[regionId];
@@ -221,17 +268,16 @@ export function isMastered(stats) {
   return Boolean(stats) && stats.stage >= MASTERY_STAGE;
 }
 
-// A region is a trouble spot once its lifetime wrong count in a ledger passes
-// this — even if currently mastered (the user may revisit that rule). Shared
-// by Review mode's drill and the Data page's trouble lists.
-export const TROUBLE_WRONG_THRESHOLD = 2;
-
-// Map fill status. A region answered 'exact' once but not yet mastered shows as
-// 'almost' (partial progress) — the map palette has exactly four statuses.
+// Map fill status — mirrors the mastery stage so the color always matches real
+// progress (the palette has four statuses). Coloring by `stage`, not
+// `lastResult`, is deliberate: a near-miss is penalized like a wrong (it doesn't
+// raise the stage), so a stage-0 region answered "almost" must stay red, not
+// flip to yellow as if it had progressed. stage 0 = wrong (red) · 1 = almost
+// (yellow, partial) · 2 = mastered (green).
 export function statusForStats(stats) {
   if (!stats || stats.attempts === 0) return "untouched";
-  if (isMastered(stats)) return "mastered";
-  if (stats.lastResult === "wrong") return "wrong";
+  if (stats.stage >= MASTERY_STAGE) return "mastered";
+  if (stats.stage === 0) return "wrong";
   return "almost";
 }
 
@@ -242,12 +288,8 @@ export function statusForStats(stats) {
 export function loadStash() {
   const stored = readStoredJson(STASH_STORAGE_KEY);
   if (!isPlainObject(stored)) return null;
-  // a stash saved before the track split migrates the same way live progress does
-  const progress = isProgressShape(stored.progress)
-    ? sanitizeProgress(stored.progress)
-    : isLegacyProgressShape(stored.progress)
-      ? migrateLegacyProgress(stored.progress)
-      : null;
+  // a stash saved under an older shape migrates the same way live progress does
+  const progress = coerceStoredProgress(stored.progress);
   if (!progress) return null;
   return {
     progress,
@@ -298,12 +340,8 @@ export function parseImportPayload(fileText) {
   ) {
     throw new Error("not an Atlas export file");
   }
-  // version-1 export files (pre track split) migrate the same way live progress does
-  const progress = isProgressShape(payload.progress)
-    ? sanitizeProgress(payload.progress)
-    : isLegacyProgressShape(payload.progress)
-      ? migrateLegacyProgress(payload.progress)
-      : null;
+  // older export files (pre track split, or pre language merge) migrate the same way
+  const progress = coerceStoredProgress(payload.progress);
   if (!progress) throw new Error("not an Atlas export file");
   return {
     progress,

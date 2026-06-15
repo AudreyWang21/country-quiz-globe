@@ -11,9 +11,9 @@ import {
   PROGRESS_STORAGE_KEY,
   SETTINGS_STORAGE_KEY,
 } from "./store.js";
-import { checkAnswer, pickPriorityTarget, pickTroubleTarget } from "./quiz.js";
+import { checkAnswer, pickPriorityTarget } from "./quiz.js";
 import { createMapEngine } from "./map.js";
-import { createSidePanel, uiText, STAT_CONTINENTS } from "./panel.js";
+import { createSidePanel, uiText, STAT_CONTINENTS, setInterfaceLanguage } from "./panel.js";
 
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const isReducedMotion = () => reducedMotionQuery.matches;
@@ -31,9 +31,6 @@ const state = {
   typeRound: null, // { targetId, pickedByUser, verdict, inputText, newlyMastered, corrected }
   typeDetourRegionId: null, // non-quiz region whose info card temporarily covers the type round
   findRound: null, // { targetId, resolved, success, gaveUp, newlyMastered, wrongClickId }
-  // reviewRound mixes both tracks: a "locate" round is find-shaped, a "name"
-  // round is typing-shaped — `track` says which.
-  reviewRound: null, // { track, targetId, ...find-shaped or typing-shaped fields }
 };
 
 const elements = {
@@ -41,54 +38,56 @@ const elements = {
   panelContent: document.getElementById("panel-content"),
   modeTabs: Array.from(document.querySelectorAll(".mode-tab")),
   viewButtons: Array.from(document.querySelectorAll("#view-toggle .segment")),
-  microstateToggle: document.getElementById("microstate-toggle"),
+  microstateMode: document.getElementById("microstate-mode"),
   continentFilter: document.getElementById("continent-filter"),
   dataPageLink: document.getElementById("data-page-link"),
   settingsPageLink: document.getElementById("settings-page-link"),
-  legendLabels: Array.from(document.querySelectorAll("[data-legend]")),
-  legendTrackLabel: document.getElementById("legend-track-label"),
   autoPronounceToggle: document.getElementById("auto-pronounce-toggle"),
+  browseSearch: document.getElementById("browse-search"),
+  browseSearchInput: document.getElementById("browse-search-input"),
+  browseSearchResults: document.getElementById("browse-search-results"),
 };
 
-// UI chrome is always English; state.settings.lang only switches the QUIZ
-// language (active ledger, accepted answers, find-target display name).
-const text = () => uiText.en;
+// Chrome language follows settings.uiLang (the interface toggle). The typing
+// quiz itself has no language — it accepts English or Chinese (§6).
+const text = () => uiText[state.settings.uiLang];
 
 // ---------- derived data ----------
 
-// True when the microstate toggle is off and this region is a microstate —
-// such regions leave the quiz pool and behave like browse-only regions.
-function isExcludedMicrostate(region) {
-  return region.microstate && !state.settings.includeMicrostates;
+// True when this region is out of play under the current microstate mode:
+// "exclude" drops microstates, "only" drops the normal countries. Such regions
+// leave the quiz pool and ghost on the map; "include" keeps everything.
+function isOutOfMicrostateScope(region) {
+  const mode = state.settings.microstateMode;
+  if (mode === "exclude") return region.microstate;
+  if (mode === "only") return !region.microstate;
+  return false;
 }
 
 function quizRegionsInScope() {
   const continent = state.settings.continent;
   return state.quizRegions.filter(
     (region) =>
-      !isExcludedMicrostate(region) &&
+      !isOutOfMicrostateScope(region) &&
       (continent === "World" || region.continent === continent)
   );
 }
 
 // The progress track the current mode exercises — also the one the map colors
 // show. Find trains "locate" (language-neutral: clicking the right shape is the
-// same skill in any language); Type trains "name" (per quiz language); Review's
-// trouble drill mixes both, so it follows the current round's track. Browse —
-// and Review before a round is picked — has no track: the map shows a neutral,
-// progress-free atlas (null).
+// same skill in any language); Type trains "name" (per quiz language). Browse
+// has no track: the map shows a neutral, progress-free atlas (null).
 function currentTrack() {
   const mode = state.settings.mode;
   if (mode === "find") return "locate";
   if (mode === "type") return "name";
-  if (mode === "review") return state.reviewRound ? state.reviewRound.track : null;
   return null; // browse
 }
 
 // Only called from the find/type round starters and recordVerdict, where the
 // track is always concrete (never the neutral null).
 function activeLedger() {
-  return ledgerForTrack(state.progress, currentTrack(), state.settings.lang);
+  return ledgerForTrack(state.progress, currentTrack());
 }
 
 function computeStatusByRegionId() {
@@ -99,7 +98,7 @@ function computeStatusByRegionId() {
     for (const region of state.regions) statusByRegionId[region.id] = "neutral";
     return statusByRegionId;
   }
-  const ledger = ledgerForTrack(state.progress, track, state.settings.lang);
+  const ledger = ledgerForTrack(state.progress, track);
   for (const region of state.quizRegions) {
     statusByRegionId[region.id] = statusForStats(ledger[region.id]);
   }
@@ -117,7 +116,7 @@ function updateSetting(key, value) {
 // now live on data.html, which hears the write through its "storage" listener.
 function recordVerdict(regionId, verdict) {
   const masteredBefore = isMastered(activeLedger()[regionId]);
-  const stats = recordAttempt(state.progress, currentTrack(), state.settings.lang, regionId, verdict);
+  const stats = recordAttempt(state.progress, currentTrack(), regionId, verdict);
   const newlyMastered = !masteredBefore && isMastered(stats);
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
   if (newlyMastered) state.mapEngine.pulseRegion(regionId);
@@ -127,40 +126,30 @@ function recordVerdict(regionId, verdict) {
 // ---------- panel rendering for the current state ----------
 
 function renderCurrentPanel() {
-  const language = state.settings.lang;
   const mode = state.settings.mode;
   const regionByName = (englishName) => state.regionByEnglishName.get(englishName);
   if (mode === "browse") {
     if (state.selectedRegionId) {
-      state.panel.renderBrowseRegion(state.regionById.get(state.selectedRegionId), language, regionByName);
+      state.panel.renderBrowseRegion(state.regionById.get(state.selectedRegionId), regionByName);
     } else {
-      state.panel.renderModeIdle("browse", language);
+      state.panel.renderModeIdle("browse");
     }
   } else if (mode === "type") {
     if (state.typeDetourRegionId) {
       // a clicked non-quiz region shows its info card; Escape returns to the round
-      state.panel.renderBrowseRegion(state.regionById.get(state.typeDetourRegionId), language, regionByName);
+      state.panel.renderBrowseRegion(state.regionById.get(state.typeDetourRegionId), regionByName);
     } else {
-      state.panel.renderNamingRound(namingRoundViewModel(state.typeRound), language, {
+      state.panel.renderNamingRound(namingRoundViewModel(state.typeRound), {
         promptHint: text().typeClickHint,
         regionByName,
       });
     }
   } else if (mode === "find") {
-    state.panel.renderFindRound(findStyleViewModel(state.findRound), language, regionByName);
-  } else if (mode === "review") {
-    if (state.reviewRound && state.reviewRound.track === "locate") {
-      state.panel.renderFindRound(findStyleViewModel(state.reviewRound), language, regionByName);
-    } else {
-      state.panel.renderNamingRound(namingRoundViewModel(state.reviewRound), language, {
-        emptyMessage: text().reviewNoTrouble,
-        regionByName,
-      });
-    }
+    state.panel.renderFindRound(findStyleViewModel(state.findRound), regionByName);
   }
 }
 
-// View model for a find-shaped round (Find mode, or Review's locate rounds).
+// View model for a find-shaped round (Find mode).
 function findStyleViewModel(round) {
   if (!round) return null;
   return {
@@ -173,13 +162,14 @@ function findStyleViewModel(round) {
   };
 }
 
-// View model for a typing-shaped round (Type mode, or Review's naming rounds).
+// View model for a typing-shaped round (Type mode).
 function namingRoundViewModel(round) {
   if (!round) return null;
   return {
     target: state.regionById.get(round.targetId),
     verdict: round.verdict,
     inputText: round.inputText,
+    firstAnswer: round.firstAnswer,
     newlyMastered: round.newlyMastered,
     corrected: round.corrected,
   };
@@ -224,39 +214,6 @@ function startTypeRound(previousTargetId, userPickedRegion = null) {
   renderCurrentPanel();
 }
 
-// Review: drill a chronic miss from either track. A locate pick replays the
-// Find round flow; a name pick replays the typing flow. The map recolors per
-// round because the track can change between rounds.
-function startReviewRound(previousTargetId) {
-  const pick = pickTroubleTarget(quizRegionsInScope(), state.progress, state.settings.lang, previousTargetId);
-  if (pick && pick.track === "locate") {
-    state.reviewRound = {
-      track: "locate",
-      targetId: pick.region.id,
-      resolved: false, success: false, gaveUp: false, newlyMastered: false, wrongClickId: null,
-    };
-    state.mapEngine.setReviewTarget(null);
-  } else if (pick) {
-    state.reviewRound = {
-      track: "name", targetId: pick.region.id, verdict: null, inputText: "", newlyMastered: false, corrected: false,
-    };
-    state.mapEngine.setReviewTarget(pick.region.id);
-    state.mapEngine.centerRegion(pick.region.id);
-    state.mapEngine.pulseRegion(pick.region.id);
-  } else {
-    state.reviewRound = null;
-    state.mapEngine.setReviewTarget(null);
-  }
-  // currentTrack() now reads reviewRound.track (set above), so the map recolors
-  // to this round's track and the legend relabels — each round shows its own.
-  state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
-  updateLegendTrackLabel();
-  renderCurrentPanel();
-  // locate rounds show the find card (which has speak buttons); naming cards
-  // have none, so this stays leak-proof
-  if (state.reviewRound && state.settings.autoPronounce) state.panel.pronounceCurrentCard();
-}
-
 // ---------- map callbacks ----------
 
 function handleRegionHovered(regionId) {
@@ -264,20 +221,24 @@ function handleRegionHovered(regionId) {
   if (regionId) {
     const region = state.regionById.get(regionId);
     if (region) {
-      state.panel.renderBrowseRegion(region, state.settings.lang, (englishName) =>
+      state.panel.renderBrowseRegion(region, (englishName) =>
         state.regionByEnglishName.get(englishName)
       );
     }
   } else {
-    state.panel.renderModeIdle("browse", state.settings.lang);
+    state.panel.renderModeIdle("browse");
   }
 }
 
-// Shared click flow for find-shaped rounds (Find mode, Review's locate rounds).
+// Click flow for find-shaped rounds (Find mode).
 // recordVerdict routes to the right ledger via currentTrack().
 function handleFindStyleClick(round, regionId) {
-  // once resolved the target keeps pulsing until Next; map clicks do nothing
-  if (round.resolved) return;
+  // once resolved, a map click just re-pulses the revealed target (a few
+  // seconds) so you can re-find it if you missed the first pulse.
+  if (round.resolved) {
+    state.mapEngine.pulseRegion(round.targetId);
+    return;
+  }
   if (regionId === round.targetId) {
     round.resolved = true;
     round.success = true;
@@ -307,7 +268,10 @@ function handleRegionClicked(regionId) {
     // so this can't leak a quiz answer
     if (state.settings.autoPronounce) state.panel.pronounceCurrentCard();
   } else if (mode === "type") {
-    if (region.status === "quiz" && !isExcludedMicrostate(region)) {
+    // Locked into the correction gate: you must type the correct name — clicking
+    // another region (override or detour) can't pull you away.
+    if (typeRoundNeedsCorrection()) return;
+    if (region.status === "quiz" && !isOutOfMicrostateScope(region)) {
       // the click-override: practice the clicked region instead
       startTypeRound(null, region);
     } else {
@@ -319,11 +283,6 @@ function handleRegionClicked(regionId) {
     }
   } else if (mode === "find") {
     if (state.findRound) handleFindStyleClick(state.findRound, regionId);
-  } else if (mode === "review") {
-    if (state.reviewRound && state.reviewRound.track === "locate") {
-      handleFindStyleClick(state.reviewRound, regionId);
-    }
-    // naming rounds: the game picked the region; map clicks change nothing
   }
 }
 
@@ -344,6 +303,12 @@ function closeInfoCard() {
 }
 
 function handleBackgroundClicked() {
+  // clicking empty map (ocean/graticule, not a region) re-pulses a resolved
+  // Find target too — anywhere in the map area re-finds it.
+  if (state.settings.mode === "find" && state.findRound && state.findRound.resolved) {
+    state.mapEngine.pulseRegion(state.findRound.targetId);
+    return;
+  }
   closeInfoCard();
 }
 
@@ -355,25 +320,123 @@ function handleEscape() {
     return;
   }
   const mode = state.settings.mode;
-  const namingRound =
-    mode === "type" ? state.typeRound
-    : mode === "review" && state.reviewRound && state.reviewRound.track === "name" ? state.reviewRound
-    : null;
+  const namingRound = mode === "type" ? state.typeRound : null;
   if (namingRound && namingRound.verdict !== "exact" && namingRound.verdict !== "wrong") {
     namingRound.inputText = "";
     renderCurrentPanel();
   }
 }
 
+// ---------- browse search ----------
+
+// Fold case + accents so "cote" finds "Côte d'Ivoire"; harmless for 中文.
+function searchNormalize(value) {
+  return String(value)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .trim();
+}
+
+// Match a query against every region's names + aliases in both languages.
+// Prefix hits rank above mid-string hits; fold regions (no own geometry to
+// center on) are skipped. Capped so the dropdown stays short.
+function searchRegions(rawQuery) {
+  const query = searchNormalize(rawQuery);
+  if (!query) return [];
+  const prefixHits = [];
+  const substringHits = [];
+  for (const region of state.regions) {
+    if (region.status === "fold") continue;
+    const candidates = [
+      region.nameEn,
+      region.nameZh,
+      region.nameLocal,
+      ...(region.exactAliasesEn || []),
+      ...(region.almostAliasesEn || []),
+      ...(region.aliasesZh || []),
+    ];
+    let rank = null;
+    for (const candidate of candidates) {
+      if (!candidate) continue;
+      const normalized = searchNormalize(candidate);
+      if (normalized.startsWith(query)) { rank = "prefix"; break; }
+      if (normalized.includes(query)) rank = rank || "substring";
+    }
+    if (rank === "prefix") prefixHits.push(region);
+    else if (rank === "substring") substringHits.push(region);
+  }
+  return [...prefixHits, ...substringHits].slice(0, 8);
+}
+
+function renderSearchResults(matches) {
+  const list = elements.browseSearchResults;
+  list.innerHTML = "";
+  if (!matches.length) {
+    list.hidden = true;
+    return;
+  }
+  for (const region of matches) {
+    const item = document.createElement("li");
+    item.className = "browse-search-result";
+    item.dataset.regionId = region.id;
+    if (region.iso2 && region.iso2.length === 2) {
+      const flag = document.createElement("img");
+      flag.className = "flag-image";
+      flag.src = `vendor/flags/${region.iso2.toLowerCase()}.svg`;
+      flag.alt = "";
+      item.appendChild(flag);
+    }
+    const label = document.createElement("span");
+    label.textContent =
+      region.nameZh && region.nameZh !== region.nameEn
+        ? `${region.nameEn} · ${region.nameZh}`
+        : region.nameEn;
+    item.appendChild(label);
+    item.addEventListener("click", () => selectSearchResult(region.id));
+    list.appendChild(item);
+  }
+  list.hidden = false;
+}
+
+// Pin the chosen region in the browse card and bring it to map-center (pans
+// flat / rotates the globe), the same as clicking it — then clear the box.
+function selectSearchResult(regionId) {
+  const region = state.regionById.get(regionId);
+  if (!region) return;
+  state.selectedRegionId = regionId;
+  state.mapEngine.setSelectedRegion(regionId);
+  state.mapEngine.centerRegion(regionId);
+  renderCurrentPanel();
+  clearBrowseSearch();
+  if (state.settings.autoPronounce) state.panel.pronounceCurrentCard();
+}
+
+function clearBrowseSearch() {
+  elements.browseSearchInput.value = "";
+  elements.browseSearchResults.innerHTML = "";
+  elements.browseSearchResults.hidden = true;
+}
+
+// The box lives in Browse only; show/hide it as the mode changes.
+function updateBrowseSearchVisibility() {
+  const inBrowse = state.settings.mode === "browse";
+  elements.browseSearch.hidden = !inBrowse;
+  if (!inBrowse) clearBrowseSearch();
+}
+
 // ---------- panel actions ----------
 
-// The active typing-shaped round, if any (Type, or Review on a naming round).
+// The active typing-shaped round, if any (Type mode).
 function activeNamingRound() {
-  if (state.settings.mode === "type") return state.typeRound;
-  if (state.settings.mode === "review" && state.reviewRound && state.reviewRound.track === "name") {
-    return state.reviewRound;
-  }
-  return null;
+  return state.settings.mode === "type" ? state.typeRound : null;
+}
+
+// True while a Type round is in the correction gate — graded non-exact and not
+// yet corrected. The round locks here: map clicks can't switch regions.
+function typeRoundNeedsCorrection() {
+  const round = state.typeRound;
+  return Boolean(round) && (round.verdict === "almost" || round.verdict === "wrong") && !round.corrected;
 }
 
 // A resolved naming card shows the full region info (with speak buttons), so
@@ -390,11 +453,20 @@ function submitAnswer(inputText) {
   const region = state.regionById.get(round.targetId);
   // Correction step: after a non-exact answer you must type the correct
   // spelling to continue. Ungraded gate — the first attempt is already
-  // recorded — so it accepts only an exact match and writes nothing.
+  // recorded — so it writes nothing to the ledger. An exact match clears the
+  // gate; a *repeated* wrong attempt is handled just like the first miss —
+  // update "You typed: X" to the new attempt and clear the box to retype.
   if (round.verdict === "almost" || round.verdict === "wrong") {
     if (round.corrected) return;
-    round.inputText = inputText;
-    if (checkAnswer(trimmedInput, region, state.settings.lang) === "exact") round.corrected = true;
+    const correctionVerdict = checkAnswer(trimmedInput, region);
+    if (correctionVerdict === "exact") {
+      round.corrected = true;
+      round.inputText = inputText;
+    } else {
+      round.verdict = correctionVerdict; // display only — color the "You typed" line by this attempt
+      round.firstAnswer = trimmedInput;
+      round.inputText = "";
+    }
     renderCurrentPanel();
     return;
   }
@@ -402,17 +474,18 @@ function submitAnswer(inputText) {
   // First attempt: grade and record. Exact ends the round; a near-miss or
   // wrong reveals the answer and starts the correction step (clear the box so
   // the correct spelling is typed fresh).
-  const verdict = checkAnswer(trimmedInput, region, state.settings.lang);
+  const verdict = checkAnswer(trimmedInput, region);
   round.verdict = verdict;
+  round.firstAnswer = trimmedInput; // shown on the correction screen for comparison
   round.inputText = verdict === "exact" ? inputText : "";
   round.newlyMastered = recordVerdict(region.id, verdict);
   renderCurrentPanel();
   pronounceResolvedCard();
 }
 
-// Resolves a Find round as wrong and reveals the target on the map.
-// Sustained, not timed: the reveal must stay visible until the user notices
-// it and moves on (cleared when the next round starts).
+// Resolves a Find round as wrong and reveals the target on the map with a
+// timed pulse (clicking the map while resolved re-pulses it — handleFindStyleClick
+// / handleBackgroundClicked).
 function revealFindTarget(round) {
   round.resolved = true;
   round.success = false;
@@ -427,11 +500,7 @@ function revealFindTarget(round) {
 // drops a mastery stage) and reveals the answer — in the verdict block for
 // typing rounds, on the map for find-shaped rounds.
 function revealAnswer() {
-  const findStyleRound =
-    state.settings.mode === "find" ? state.findRound
-    : state.settings.mode === "review" && state.reviewRound && state.reviewRound.track === "locate"
-      ? state.reviewRound
-      : null;
+  const findStyleRound = state.settings.mode === "find" ? state.findRound : null;
   if (findStyleRound) {
     if (findStyleRound.resolved) return;
     findStyleRound.gaveUp = true; // "answer is pulsing" message instead of "out of tries"
@@ -457,12 +526,10 @@ function nextRound() {
     startFindRound(state.findRound ? state.findRound.targetId : null);
   } else if (state.settings.mode === "type") {
     startTypeRound(state.typeRound ? state.typeRound.targetId : null);
-  } else if (state.settings.mode === "review") {
-    startReviewRound(state.reviewRound ? state.reviewRound.targetId : null);
   }
 }
 
-// ---------- mode / language / view / continent switching ----------
+// ---------- mode / view / continent switching ----------
 
 function switchMode(mode) {
   if (mode === state.settings.mode) return;
@@ -471,48 +538,16 @@ function switchMode(mode) {
   state.typeRound = null;
   state.typeDetourRegionId = null;
   state.findRound = null;
-  state.reviewRound = null;
   state.mapEngine.setSelectedRegion(null);
   state.mapEngine.setReviewTarget(null);
-  // the new mode may read a different track — recolor and relabel
+  // the new mode may read a different track — recolor
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
-  updateLegendTrackLabel();
   updateChromePressedStates();
+  updateBrowseSearchVisibility();
   if (mode === "find") {
     startFindRound(null);
   } else if (mode === "type") {
     startTypeRound(null);
-  } else if (mode === "review") {
-    startReviewRound(null);
-  } else {
-    renderCurrentPanel();
-  }
-}
-
-function switchLanguage(language) {
-  if (language === state.settings.lang) return;
-  updateSetting("lang", language);
-  state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
-  updateChromeText();
-  updateChromePressedStates();
-  // Naming rounds were scheduled against the other language's ledger — restart
-  // them. A user-picked Type round keeps its chosen region but drops the
-  // other-ledger verdict. (Find's locate track is language-neutral and its
-  // card has no language toggle, so the find branch is just a safeguard.)
-  if (state.settings.mode === "find") {
-    startFindRound(null);
-  } else if (state.settings.mode === "type") {
-    if (state.typeRound && state.typeRound.pickedByUser) {
-      state.typeRound.verdict = null;
-      state.typeRound.inputText = "";
-      state.typeRound.newlyMastered = false;
-      state.typeRound.corrected = false;
-      renderCurrentPanel();
-    } else {
-      startTypeRound(null);
-    }
-  } else if (state.settings.mode === "review") {
-    startReviewRound(null);
   } else {
     renderCurrentPanel();
   }
@@ -538,29 +573,21 @@ function switchContinent(continent) {
   if (state.settings.mode === "type" && (!state.typeRound || !inScope(state.typeRound.targetId))) {
     startTypeRound(null);
   }
-  if (state.settings.mode === "review" && (!state.reviewRound || !inScope(state.reviewRound.targetId))) {
-    startReviewRound(null);
-  }
 }
 
-function switchMicrostatesIncluded(included) {
-  if (included === state.settings.includeMicrostates) return;
-  updateSetting("includeMicrostates", included);
-  state.mapEngine.setMicrostatesIncluded(included);
+function switchMicrostateMode(mode) {
+  if (mode === state.settings.microstateMode) return;
+  updateSetting("microstateMode", mode);
+  state.mapEngine.setMicrostateMode(mode);
   updateChromePressedStates();
-  const targetExcluded = (regionId) => isExcludedMicrostate(state.regionById.get(regionId));
-  if (state.settings.mode === "find" && (!state.findRound || targetExcluded(state.findRound.targetId))) {
+  const targetOutOfScope = (regionId) => isOutOfMicrostateScope(state.regionById.get(regionId));
+  if (state.settings.mode === "find" && (!state.findRound || targetOutOfScope(state.findRound.targetId))) {
     startFindRound(null);
   } else if (
     state.settings.mode === "type" &&
-    (!state.typeRound || targetExcluded(state.typeRound.targetId))
+    (!state.typeRound || targetOutOfScope(state.typeRound.targetId))
   ) {
     startTypeRound(null);
-  } else if (
-    state.settings.mode === "review" &&
-    (!state.reviewRound || targetExcluded(state.reviewRound.targetId))
-  ) {
-    startReviewRound(null);
   } else if (state.settings.mode === "browse") {
     renderCurrentPanel();
   }
@@ -568,34 +595,29 @@ function switchMicrostatesIncluded(included) {
 
 // ---------- chrome text and pressed states ----------
 
-// The legend's first entry says which progress track the map colors show:
-// "Find" or "Type & Review · EN/中文" (naming is per quiz language). When the
-// map is neutral (Browse, or Review before a round), it names the mode instead.
-function updateLegendTrackLabel() {
-  const localized = text();
-  const track = currentTrack();
-  elements.legendTrackLabel.textContent =
-    track === null
-      ? (state.settings.mode === "review" ? localized.modeReview : localized.modeBrowse)
-      : track === "locate"
-        ? localized.legendTrackLocate
-        : `${localized.legendTrackName} · ${state.settings.lang === "zh" ? "中文" : "EN"}`;
-}
-
 function updateChromeText() {
+  // keep the panel module's chrome language in sync before any re-render
+  setInterfaceLanguage(state.settings.uiLang);
   const localized = text();
   const modeLabels = {
     browse: localized.modeBrowse,
     type: localized.modeType,
     find: localized.modeFind,
-    review: localized.modeReview,
   };
   for (const tab of elements.modeTabs) tab.textContent = modeLabels[tab.dataset.mode];
   for (const button of elements.viewButtons) {
     button.textContent = button.dataset.view === "flat" ? localized.viewFlat : localized.viewGlobe;
   }
-  elements.microstateToggle.textContent = localized.microstatesToggle;
+  elements.microstateMode.innerHTML = ["include", "exclude", "only"]
+    .map(
+      (mode) =>
+        `<option value="${mode}"${mode === state.settings.microstateMode ? " selected" : ""}>${
+          localized.microstateModes[mode]
+        }</option>`
+    )
+    .join("");
   elements.autoPronounceToggle.textContent = localized.autoPronounceToggle;
+  elements.browseSearchInput.placeholder = localized.browseSearchPlaceholder;
   const filterContinents = ["World", ...STAT_CONTINENTS];
   elements.continentFilter.innerHTML = filterContinents
     .map(
@@ -605,21 +627,8 @@ function updateChromeText() {
         }</option>`
     )
     .join("");
-  for (const label of elements.legendLabels) {
-    const legendKey = label.dataset.legend;
-    const legendText = {
-      untouched: localized.legendUntouched,
-      wrong: localized.legendWrong,
-      almost: localized.legendAlmost,
-      mastered: localized.legendMastered,
-      microstate: localized.legendMicrostate,
-      capital: localized.legendCapital,
-    }[legendKey];
-    label.textContent = legendText;
-  }
   elements.dataPageLink.textContent = localized.dataPageLink;
   elements.settingsPageLink.textContent = localized.settingsPageLink;
-  updateLegendTrackLabel();
 }
 
 function updateChromePressedStates() {
@@ -629,8 +638,8 @@ function updateChromePressedStates() {
   for (const button of elements.viewButtons) {
     button.setAttribute("aria-pressed", String(button.dataset.view === state.settings.view));
   }
-  elements.microstateToggle.setAttribute("aria-pressed", String(state.settings.includeMicrostates));
   elements.autoPronounceToggle.setAttribute("aria-pressed", String(state.settings.autoPronounce));
+  elements.microstateMode.value = state.settings.microstateMode;
   elements.continentFilter.value = state.settings.continent;
 }
 
@@ -643,32 +652,70 @@ function updateChromePressedStates() {
 function wireCrossTabSync() {
   window.addEventListener("storage", (event) => {
     if (event.key !== PROGRESS_STORAGE_KEY && event.key !== SETTINGS_STORAGE_KEY) return;
+    const previous = state.settings;
     state.progress = loadProgress();
     state.settings = loadSettings();
-    applyAllSettings();
+    // A progress change (clear-all / import) or a structural setting change
+    // (mode / continent / view / microstate scope) gets the full re-apply, which
+    // restarts the round. Display-only changes — interface language, the size /
+    // font knobs — must NOT disturb the current round, so apply them cheaply.
+    const structural =
+      event.key === PROGRESS_STORAGE_KEY ||
+      previous.mode !== state.settings.mode ||
+      previous.continent !== state.settings.continent ||
+      previous.view !== state.settings.view ||
+      previous.microstateMode !== state.settings.microstateMode;
+    if (structural) {
+      applyAllSettings();
+      return;
+    }
+    applyDisplaySettings();
+    updateChromeText();
+    updateChromePressedStates();
+    state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
+    renderCurrentPanel();
   });
 }
 
 // Re-applies every setting to the chrome and map (used after a cross-tab
 // import / start-fresh / resume from settings.html).
+// The Chinese face for each cjkFont option. Each ends with its own generic so
+// the composed --font-display / --font-body stacks stay valid. "serif-web" uses
+// the vendored Noto Serif SC, then falls back to system serif if absent.
+const CJK_FONT_STACKS = {
+  "serif-web": '"Noto Serif SC", "Songti SC", "STSong", "SimSun", serif',
+  "serif-system": '"Songti SC", "STSong", "SimSun", serif',
+  sans: '"Microsoft YaHei", "PingFang SC", sans-serif',
+};
+
+// Font scale, flag size, and Chinese face are live-tunable from the Settings
+// page (temporary). They ride on CSS variables, so a change saved in the
+// Settings tab applies here on the next cross-tab sync without a reload.
+function applyDisplaySettings() {
+  const root = document.documentElement;
+  root.style.setProperty("--font-scale", String(state.settings.fontScale));
+  root.style.setProperty("--flag-banner-width", state.settings.flagSize + "px");
+  root.style.setProperty("--cjk-font", CJK_FONT_STACKS[state.settings.cjkFont] || CJK_FONT_STACKS.sans);
+}
+
 function applyAllSettings() {
   state.selectedRegionId = null;
   state.typeRound = null;
   state.typeDetourRegionId = null;
   state.findRound = null;
-  state.reviewRound = null;
   state.mapEngine.setSelectedRegion(null);
   state.mapEngine.setReviewTarget(null);
   updateChromeText();
   updateChromePressedStates();
+  updateBrowseSearchVisibility();
+  applyDisplaySettings();
   state.mapEngine.setView(state.settings.view);
   state.mapEngine.setContinentScope(state.settings.continent);
-  state.mapEngine.setMicrostatesIncluded(state.settings.includeMicrostates);
+  state.mapEngine.setMicrostateMode(state.settings.microstateMode);
   state.mapEngine.frameContinent(state.settings.continent);
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
   if (state.settings.mode === "find") startFindRound(null);
   else if (state.settings.mode === "type") startTypeRound(null);
-  else if (state.settings.mode === "review") startReviewRound(null);
   else renderCurrentPanel();
 }
 
@@ -676,6 +723,7 @@ function applyAllSettings() {
 
 async function boot() {
   updateChromeText();
+  applyDisplaySettings();
   updateChromePressedStates();
 
   let geojson;
@@ -716,7 +764,7 @@ async function boot() {
 
   state.panel = createSidePanel({
     contentElement: elements.panelContent,
-    actions: { submitAnswer, nextRound, switchLanguage, revealAnswer },
+    actions: { submitAnswer, nextRound, revealAnswer },
   });
 
   // chrome wiring
@@ -726,8 +774,8 @@ async function boot() {
   for (const button of elements.viewButtons) {
     button.addEventListener("click", () => switchView(button.dataset.view));
   }
-  elements.microstateToggle.addEventListener("click", () => {
-    switchMicrostatesIncluded(!state.settings.includeMicrostates);
+  elements.microstateMode.addEventListener("change", () => {
+    switchMicrostateMode(elements.microstateMode.value);
   });
   elements.autoPronounceToggle.addEventListener("click", () => {
     updateSetting("autoPronounce", !state.settings.autoPronounce);
@@ -735,6 +783,23 @@ async function boot() {
   });
   elements.continentFilter.addEventListener("change", () => {
     switchContinent(elements.continentFilter.value);
+  });
+  elements.browseSearchInput.addEventListener("input", () => {
+    renderSearchResults(searchRegions(elements.browseSearchInput.value));
+  });
+  elements.browseSearchInput.addEventListener("keydown", (event) => {
+    if (event.isComposing || event.keyCode === 229) return;
+    if (event.key === "Enter") {
+      const firstResult = elements.browseSearchResults.querySelector(".browse-search-result");
+      if (firstResult) {
+        event.preventDefault();
+        selectSearchResult(firstResult.dataset.regionId);
+      }
+    } else if (event.key === "Escape") {
+      // clear the search here, don't let the document handler close the card
+      event.stopPropagation();
+      clearBrowseSearch();
+    }
   });
   wireCrossTabSync();
 
@@ -746,7 +811,7 @@ async function boot() {
     // E / C pronounce the current card's English / Chinese name by clicking
     // its speak button — so the shortcut exists exactly where a button is
     // visible (Browse card, Find target) and never leaks the answer in
-    // Type/Review (those cards render no speak buttons). Guarded against
+    // Type (those cards render no speak buttons). Guarded against
     // typing into a field and against browser shortcuts like Ctrl+C.
     if (event.ctrlKey || event.altKey || event.metaKey) return;
     if (event.target instanceof Element && event.target.matches("input, textarea, select")) return;
@@ -761,15 +826,26 @@ async function boot() {
         speakButton.click();
       }
     }
-    // A reveals the answer on a find-shaped round (Find, and Review's locate
-    // track — the only cards that still render a Show-answer button; naming
-    // rounds fold give-up into Check). Inactive while typing — the input guard
-    // above already returned.
+    // A reveals the answer on a find-shaped round (Find — the only card that
+    // still renders a Show-answer button; naming rounds fold give-up into
+    // Check). Inactive while typing — the input guard above already returned.
     if (key === "a") {
       const showAnswerButton = elements.panelContent.querySelector("#show-answer-button");
       if (showAnswerButton && !showAnswerButton.disabled) {
         event.preventDefault();
         showAnswerButton.click();
+      }
+    }
+    // T jumps focus into the answer box of an open naming round, so you can
+    // start typing without reaching for the mouse (focus strays after a map
+    // click). The input guard above already returned when a field is focused,
+    // so T types normally once you're in the box; it acts only when the box is
+    // present and live (a resolved round disables it).
+    if (key === "t") {
+      const answerInput = elements.panelContent.querySelector("#answer-input:not(:disabled)");
+      if (answerInput) {
+        event.preventDefault();
+        answerInput.focus();
       }
     }
     // Enter / Space / → advance the round wherever an enabled Next button is
@@ -785,13 +861,18 @@ async function boot() {
       // through it covers both. Without this, Enter would hit Next below and
       // silently discard the round.
       if (event.key === "Enter") {
-        const checkButton = elements.panelContent.querySelector("#check-answer-button:not(:disabled)");
-        if (checkButton) {
+        // Enter activates whichever single action button this card shows —
+        // Check (answering), Show answer (Find give-up), or Next (resolved).
+        const actionButton = elements.panelContent.querySelector(
+          "#check-answer-button:not(:disabled), #show-answer-button:not(:disabled), #next-round-button:not(:disabled)"
+        );
+        if (actionButton) {
           event.preventDefault();
-          checkButton.click();
+          actionButton.click();
           return;
         }
       }
+      // Space / → only advance (Next), never give up or check.
       const nextButton = elements.panelContent.querySelector("#next-round-button");
       if (nextButton && !nextButton.disabled) {
         event.preventDefault();
@@ -803,7 +884,7 @@ async function boot() {
   // apply persisted settings
   state.mapEngine.setInitialView(state.settings.view);
   state.mapEngine.setContinentScope(state.settings.continent);
-  state.mapEngine.setMicrostatesIncluded(state.settings.includeMicrostates);
+  state.mapEngine.setMicrostateMode(state.settings.microstateMode);
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
   if (state.settings.continent !== "World") {
     // instant: an animated boot framing would hide the SVG behind the
@@ -812,8 +893,8 @@ async function boot() {
   }
   if (state.settings.mode === "find") startFindRound(null);
   else if (state.settings.mode === "type") startTypeRound(null);
-  else if (state.settings.mode === "review") startReviewRound(null);
   else renderCurrentPanel();
+  updateBrowseSearchVisibility();
 
   state.mapEngine.playFirstLoadReveal();
 

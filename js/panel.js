@@ -1,31 +1,28 @@
 // panel.js — side-panel rendering: region details, quiz cards, stats, UI text.
 
-import { regionDisplayName } from "./quiz.js";
-
 // ---------- UI text (English / Chinese) ----------
-// Since 2026-06-11 the chrome renders English only (uiText.en everywhere);
-// the zh table is kept in case the bilingual chrome ever comes back.
+// Chrome strings live in both languages. The active one follows the interface
+// language (settings.uiLang), applied via setInterfaceLanguage() — separate
+// from the quiz language. Defaults to English.
 
 export const uiText = {
   en: {
     modeBrowse: "Browse",
     modeType: "Type",
     modeFind: "Find",
-    modeReview: "Review",
     browseIdleTitle: "Browse the atlas",
     browseIdleBody: "Hover over a region to read about it. Click to keep it in the panel.",
     namingPrompt: "Name the highlighted region",
     typeClickHint: "Click any region on the map to practice that one instead",
-    reviewNoTrouble: "No trouble spots in this scope — a region joins this drill once it has been answered wrong 3+ times, in Find or in typing.",
-    answerPlaceholder: "Type the name…",
+    answerPlaceholder: "Type the name (T)",
     correctionPlaceholder: "Type the correct answer…",
-    correctionPrompt: "Type the correct answer to continue",
     checkAnswer: "Check",
     showAnswer: "Show answer",
     enterToCheck: "Enter checks · Escape clears",
     verdictExact: "Correct",
     verdictAlmost: "Close",
     verdictWrong: "Wrong",
+    youTyped: "You typed:",
     masteredBadge: "Mastered",
     answerLabel: "Answer",
     capitalLabel: "Capital",
@@ -35,23 +32,23 @@ export const uiText = {
     findInstruction: "Find on the map",
     findMissPrefix: "That was",
     findFound: "Found it",
-    findShownOnMap: "The answer is pulsing on the map",
+    findWrongRegion: "Wrong region",
     findAllMastered: "Every region in this scope is mastered. Pick another continent.",
     noQuizRegions: "No quiz regions in this scope.",
     nextButton: "Next",
     statsTitle: "Mastered by continent",
-    troubleTitle: "Trouble spots — wrong 3+ times",
-    troubleEmpty: "None — no region missed more than twice.",
-    legendTrackLocate: "Find",
-    legendTrackName: "Type & Review",
     dataTrackLocateTitle: "Find — locating on the map",
-    dataTrackNameTitleEn: "Type & Review — naming in English",
-    dataTrackNameTitleZh: "Type & Review — naming in 中文",
+    dataTrackNameTitle: "Type — naming the region",
     dataPageLink: "Data ↗",
     settingsPageLink: "Settings ↗",
     dataPageTitle: "Atlas — Data",
     settingsPageTitle: "Atlas — Settings",
-    settingsBackupHint: "Progress lives in this browser. Export a backup before clearing browser data.",
+    settingsBackupHint: "Progress lives only in this browser. Clearing it cannot be undone.",
+    displaySectionTitle: "Display (temporary tuning)",
+    fontSizeLabel: "Card text size",
+    flagSizeLabel: "Flag size",
+    cjkFontLabel: "Chinese font",
+    uiLangLabel: "Interface language",
     worldTotalLabel: "World",
     exportButton: "Export progress",
     importButton: "Import progress",
@@ -66,16 +63,11 @@ export const uiText = {
     clearAllConfirm: "Permanently delete ALL progress in both tracks? This cannot be undone. Export a backup first if you want to keep it.",
     clearAllDone: "All progress cleared",
     dataLoadFailed: "Could not load map data. Is the server running?",
-    legendUntouched: "Untouched",
-    legendWrong: "Wrong",
-    legendAlmost: "Almost",
-    legendMastered: "Mastered",
-    legendMicrostate: "Microstate",
-    legendCapital: "Capital (zoom in)",
     viewFlat: "Flat",
     viewGlobe: "Globe",
-    microstatesToggle: "Microstates",
+    microstateModes: { include: "Include microstates", exclude: "Exclude microstates", only: "Only microstates" },
     autoPronounceToggle: "Auto-pronounce",
+    browseSearchPlaceholder: "Search regions…",
     continents: {
       World: "World",
       Africa: "Africa",
@@ -92,21 +84,19 @@ export const uiText = {
     modeBrowse: "浏览",
     modeType: "拼写",
     modeFind: "寻找",
-    modeReview: "复习",
     browseIdleTitle: "浏览地图",
     browseIdleBody: "悬停查看地区信息，点击可固定在面板中。",
     namingPrompt: "写出高亮地区的名称",
     typeClickHint: "点击地图上的任意地区可改为练习该地区",
-    reviewNoTrouble: "该范围内暂无易错地区——在寻找或拼写中答错 3 次以上的地区会进入此练习。",
-    answerPlaceholder: "输入名称…",
+    answerPlaceholder: "输入名称 (T)",
     correctionPlaceholder: "输入正确答案…",
-    correctionPrompt: "输入正确答案以继续",
     checkAnswer: "检查",
     showAnswer: "显示答案",
     enterToCheck: "Enter 检查 · Esc 清除",
     verdictExact: "正确",
     verdictAlmost: "接近",
     verdictWrong: "错误",
+    youTyped: "你输入了：",
     masteredBadge: "已掌握",
     answerLabel: "答案",
     capitalLabel: "首都",
@@ -116,23 +106,23 @@ export const uiText = {
     findInstruction: "在地图上找到",
     findMissPrefix: "这是",
     findFound: "找到了",
-    findShownOnMap: "答案正在地图上闪烁",
+    findWrongRegion: "错误地区",
     findAllMastered: "该范围内的地区已全部掌握。换个大洲试试。",
     noQuizRegions: "该范围内没有可测验的地区。",
     nextButton: "下一题",
     statsTitle: "各大洲掌握进度",
-    troubleTitle: "易错地区——答错 3 次及以上",
-    troubleEmpty: "暂无——没有地区答错超过两次。",
-    legendTrackLocate: "寻找",
-    legendTrackName: "拼写与复习",
     dataTrackLocateTitle: "寻找——在地图上定位",
-    dataTrackNameTitleEn: "拼写与复习——英语名称",
-    dataTrackNameTitleZh: "拼写与复习——中文名称",
+    dataTrackNameTitle: "拼写——写出地区名称",
     dataPageLink: "数据 ↗",
     settingsPageLink: "设置 ↗",
     dataPageTitle: "Atlas——数据",
     settingsPageTitle: "Atlas——设置",
-    settingsBackupHint: "进度保存在当前浏览器中。清除浏览器数据前请先导出备份。",
+    settingsBackupHint: "进度仅保存在当前浏览器中。清除后无法恢复。",
+    displaySectionTitle: "显示（临时调整）",
+    fontSizeLabel: "卡片文字大小",
+    flagSizeLabel: "国旗大小",
+    cjkFontLabel: "中文字体",
+    uiLangLabel: "界面语言",
     worldTotalLabel: "世界",
     exportButton: "导出进度",
     importButton: "导入进度",
@@ -147,16 +137,11 @@ export const uiText = {
     clearAllConfirm: "永久删除两个练习轨道的所有进度？此操作无法撤销。如需保留，请先导出备份。",
     clearAllDone: "所有进度已清除",
     dataLoadFailed: "地图数据加载失败。服务器在运行吗？",
-    legendUntouched: "未练习",
-    legendWrong: "错误",
-    legendAlmost: "接近",
-    legendMastered: "已掌握",
-    legendMicrostate: "微型地区",
-    legendCapital: "首都（放大显示）",
     viewFlat: "平面",
     viewGlobe: "球面",
-    microstatesToggle: "微型地区",
+    microstateModes: { include: "全部地区", exclude: "无微型地区", only: "仅微型地区" },
     autoPronounceToggle: "自动朗读",
+    browseSearchPlaceholder: "搜索地区…",
     continents: {
       World: "世界",
       Africa: "非洲",
@@ -171,15 +156,30 @@ export const uiText = {
   },
 };
 
+// Active interface language for all chrome strings below. app.js sets this from
+// settings.uiLang before (re)rendering; every `uiText[uiLang]` read picks it up.
+let uiLang = "en";
+export function setInterfaceLanguage(language) {
+  uiLang = uiText[language] ? language : "en";
+}
+
 // ---------- helpers ----------
 
 // Real flags from the vendored flag-icons SVG set (app/vendor/flags/<cc>.svg,
 // 4x3) — identical rendering everywhere, unlike flag emoji, which Windows
 // Chrome cannot draw. Every iso2 in regions.json has a matching file
 // (verified at vendor time); regions with iso2 null get no badge.
+// Flags whose artwork isn't a filled rectangle — drop the panel background +
+// border so the parchment shows through the empty area instead of a white box.
+// Nepal is the world's only non-rectangular national flag; the rest of the 4x3
+// set fills its box, so this set has just the one entry.
+const BARE_FLAGS = new Set(["np"]);
+
 function flagMarkup(iso2) {
   if (!iso2 || iso2.length !== 2) return "";
-  return `<img class="flag-image" src="vendor/flags/${iso2.toLowerCase()}.svg" alt="${escapeHtml(iso2.toUpperCase())}">`;
+  const cc = iso2.toLowerCase();
+  const bare = BARE_FLAGS.has(cc) ? " flag-image-bare" : "";
+  return `<img class="flag-image${bare}" src="vendor/flags/${cc}.svg" alt="${escapeHtml(iso2.toUpperCase())}">`;
 }
 
 function escapeHtml(text) {
@@ -188,6 +188,14 @@ function escapeHtml(text) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+// Visible hotkey hint appended to a button label, e.g. "Show answer (A)" — so
+// shortcuts are discoverable without hovering for the title tooltip. Plain
+// parenthetical for now; the `.key-hint` span lets CSS dim it and is the seam
+// for a future Anki-style keycap look.
+function keyHint(key) {
+  return ` <span class="key-hint">(${escapeHtml(key)})</span>`;
 }
 
 // Speaker icon + button for pronouncing a name via the Web Speech API — the
@@ -200,8 +208,8 @@ function speakButtonMarkup(name, lang) {
   if (!name || !("speechSynthesis" in window)) return "";
   const shortcutKey = lang === "zh-CN" ? "C" : "E"; // app.js keydown handler
   return `<button class="speak-button" type="button"
-    aria-label="${escapeHtml(uiText.en.pronounceButton)}: ${escapeHtml(name)}"
-    title="${escapeHtml(uiText.en.pronounceButton)} (${shortcutKey})"
+    aria-label="${escapeHtml(uiText[uiLang].pronounceButton)}: ${escapeHtml(name)}"
+    title="${escapeHtml(uiText[uiLang].pronounceButton)} (${shortcutKey})"
     data-speak-text="${escapeHtml(name)}" data-speak-lang="${lang}">${SPEAKER_ICON}</button>`;
 }
 
@@ -213,12 +221,24 @@ function bilingualName(region) {
     : escapeHtml(region.nameEn);
 }
 
-function bothCapitals(region, language) {
-  const first = language === "zh" ? region.capitalZh : region.capitalEn;
-  const second = language === "zh" ? region.capitalEn : region.capitalZh;
-  if (!first && !second) return "";
-  if (first && second && first !== second) return `${escapeHtml(first)} · ${escapeHtml(second)}`;
-  return escapeHtml(first || second);
+// Capital(s) for the card, as HTML. Multi-capital countries store a
+// slash-separated list (e.g. "Pretoria (executive) / Cape Town (legislative)");
+// when English and 中文 list the same count, each capital gets its own line
+// pairing the two languages, so a three-capital country stays readable instead
+// of one long run-on. Single capital (or mismatched counts) → one "EN · 中文" line.
+function bothCapitals(region) {
+  const en = (region.capitalEn || "").trim();
+  const zh = (region.capitalZh || "").trim();
+  if (!en && !zh) return "";
+  const enParts = en.split("/").map((part) => part.trim()).filter(Boolean);
+  const zhParts = zh.split("/").map((part) => part.trim()).filter(Boolean);
+  if (enParts.length > 1 && enParts.length === zhParts.length) {
+    return enParts
+      .map((enPart, i) => `<span class="capital-line">${escapeHtml(enPart)} · ${escapeHtml(zhParts[i])}</span>`)
+      .join("");
+  }
+  if (en && zh && en !== zh) return `${escapeHtml(en)} · ${escapeHtml(zh)}`;
+  return escapeHtml(en || zh);
 }
 
 // The one region info block, shared by the Browse card and the Find target so
@@ -227,54 +247,44 @@ function bothCapitals(region, language) {
 // Language-neutral since 2026-06-11: English first, 中文 second, regardless
 // of the quiz language.
 function regionInfoMarkup(region, regionByName) {
-  const text = uiText.en;
-  const capitals = bothCapitals(region, "en");
+  const text = uiText[uiLang];
+  const flag = flagMarkup(region.iso2);
+  const capitals = bothCapitals(region);
   const parentRegion = region.parent ? regionByName(region.parent) : null;
   const parentLabel = parentRegion ? bilingualName(parentRegion) : escapeHtml(region.parent || "");
   const facts = [];
   if (capitals) facts.push(`<dt>${escapeHtml(text.capitalLabel)}</dt><dd>${capitals}</dd>`);
   if (parentLabel) facts.push(`<dt>${escapeHtml(text.partOfLabel)}</dt><dd>${parentLabel}</dd>`);
+  // Name above, full-width flag banner below it, then the facts — the
+  // geopuzzle-style layout the user asked for.
   return `
-    <header class="region-card-header">
-      <span class="region-flag">${flagMarkup(region.iso2)}</span>
-      <div class="region-card-names">
-        <h2 class="region-primary-name">${escapeHtml(region.nameEn)}${speakButtonMarkup(region.nameEn, "en-US")}</h2>
-        <p class="region-secondary-name">${escapeHtml(region.nameZh || "")}${speakButtonMarkup(region.nameZh, "zh-CN")}</p>
-        ${region.nameLocal && region.nameLocal !== region.nameEn && region.nameLocal !== region.nameZh
-          ? `<p class="region-local-name">${escapeHtml(region.nameLocal)}</p>`
-          : ""}
-      </div>
-    </header>
+    <div class="region-card-names">
+      <h2 class="region-primary-name">${escapeHtml(region.nameEn)}${speakButtonMarkup(region.nameEn, "en-US")}</h2>
+      <p class="region-secondary-name">${escapeHtml(region.nameZh || "")}${speakButtonMarkup(region.nameZh, "zh-CN")}</p>
+      ${region.nameLocal && region.nameLocal !== region.nameEn && region.nameLocal !== region.nameZh
+        ? `<p class="region-local-name">${escapeHtml(region.nameLocal)}</p>`
+        : ""}
+    </div>
+    ${flag ? `<div class="region-flag-banner">${flag}</div>` : ""}
     ${facts.length ? `<dl class="region-facts">${facts.join("")}</dl>` : ""}
     ${region.note ? `<p class="region-note">${escapeHtml(region.note)}</p>` : ""}`;
 }
 
 // ---------- panel factory ----------
 
-// elements: { content }   actions: { submitAnswer(text), nextRound(), switchLanguage(lang) }
+// elements: { content }   actions: { submitAnswer(text), nextRound() }
 export function createSidePanel({ contentElement, actions }) {
   function setContent(html) {
     contentElement.innerHTML = html;
   }
 
-  // The quiz language (active ledger + accepted answers) is chosen here, on
-  // the Type/Review cards — the header button was removed 2026-06-11; info
-  // cards and the Find target show both languages at once instead.
-  function kickerRowMarkup(kickerText, language) {
+  // The typing quiz has no language (§6) — both English and Chinese answers
+  // count — so there's no per-card language toggle, just the prompt kicker.
+  function kickerRowMarkup(kickerText) {
     return `
       <div class="panel-kicker-row">
         <p class="panel-kicker">${escapeHtml(kickerText)}</p>
-        <div class="segmented-control card-language-toggle" id="card-language-toggle" role="group" aria-label="Quiz language">
-          <button class="segment" type="button" data-lang="en" aria-pressed="${language === "en"}">EN</button>
-          <button class="segment" type="button" data-lang="zh" aria-pressed="${language === "zh"}">中文</button>
-        </div>
       </div>`;
-  }
-
-  function wireLanguageToggle() {
-    for (const button of contentElement.querySelectorAll("#card-language-toggle .segment")) {
-      button.addEventListener("click", () => actions.switchLanguage(button.dataset.lang));
-    }
   }
 
   // Wires the answer input + Check button. IME-safe: Enter during an active
@@ -283,6 +293,15 @@ export function createSidePanel({ contentElement, actions }) {
     const answerInput = contentElement.querySelector("#answer-input");
     const checkButton = contentElement.querySelector("#check-answer-button");
     if (!answerInput) return;
+    // The name placeholder carries the "(T)" cue — useful only while unfocused
+    // (once you're in the box, T types a letter) — so it hides on focus. The
+    // correction placeholder ("Type the correct answer…") is itself the
+    // instruction, so it stays visible the whole time.
+    const restPlaceholder = answerInput.placeholder;
+    if (restPlaceholder === uiText[uiLang].answerPlaceholder) {
+      answerInput.addEventListener("focus", () => { answerInput.placeholder = ""; });
+      answerInput.addEventListener("blur", () => { answerInput.placeholder = restPlaceholder; });
+    }
     answerInput.addEventListener("keydown", (event) => {
       if (event.key !== "Enter") return;
       if (event.isComposing || event.keyCode === 229) return;
@@ -322,7 +341,7 @@ export function createSidePanel({ contentElement, actions }) {
   // once the round is decided, since the answer is visible from then on.
   function showAnswerButtonMarkup(disabled) {
     return `<button id="show-answer-button" class="action-button" type="button"
-      title="${escapeHtml(uiText.en.showAnswer)} (A)"${disabled ? " disabled" : ""}>${escapeHtml(uiText.en.showAnswer)}</button>`;
+      title="${escapeHtml(uiText[uiLang].showAnswer)} (Enter)"${disabled ? " disabled" : ""}>${escapeHtml(uiText[uiLang].showAnswer)}${keyHint("Enter")}</button>`;
   }
 
   // ----- pronunciation -----
@@ -362,7 +381,7 @@ export function createSidePanel({ contentElement, actions }) {
   }
 
   // Auto-pronounce: speak the current card's English name, then its 中文 name.
-  // No-op when the current card has no speak buttons (Type/Review quiz cards),
+  // No-op when the current card has no speak buttons (the Type quiz card),
   // so callers can invoke it blindly without leaking an answer.
   function pronounceCurrentCard() {
     if (!("speechSynthesis" in window)) return;
@@ -389,8 +408,8 @@ export function createSidePanel({ contentElement, actions }) {
 
   // ----- idle screens -----
 
-  function renderModeIdle(mode, language) {
-    const text = uiText.en;
+  function renderModeIdle(mode) {
+    const text = uiText[uiLang];
     setContent(`
       <div class="panel-idle">
         <h2 class="panel-idle-title">${escapeHtml(text.browseIdleTitle)}</h2>
@@ -409,8 +428,8 @@ export function createSidePanel({ contentElement, actions }) {
 
   // ----- browse -----
 
-  function renderBrowseRegion(region, language, regionByName) {
-    const text = uiText.en;
+  function renderBrowseRegion(region, regionByName) {
+    const text = uiText[uiLang];
     setContent(`
       <article class="region-card">
         ${regionInfoMarkup(region, regionByName)}
@@ -426,12 +445,12 @@ export function createSidePanel({ contentElement, actions }) {
   // beneath it on a resolved naming round, so the answer reveal needs no
   // separate simplified block.
   function verdictLabelMarkup(verdict, newlyMastered) {
-    const text = uiText.en;
+    const text = uiText[uiLang];
     const verdictLabel =
       verdict === "exact" ? `✓ ${text.verdictExact}` :
       verdict === "almost" ? `≈ ${text.verdictAlmost}` :
       `✗ ${text.verdictWrong}`;
-    return `<p class="verdict verdict-${verdict}">${escapeHtml(verdictLabel)}${
+    return `<p class="result-line verdict-${verdict}">${escapeHtml(verdictLabel)}${
       newlyMastered ? ` <span class="mastered-badge">${escapeHtml(text.masteredBadge)}</span>` : ""
     }</p>`;
   }
@@ -440,16 +459,13 @@ export function createSidePanel({ contentElement, actions }) {
 
   // round: { target, wrongClick, resolved, success, gaveUp, newlyMastered }
   // or null when no candidates remain in scope.
-  function renderFindRound(round, language, regionByName) {
-    const text = uiText.en;
+  function renderFindRound(round, regionByName) {
+    const text = uiText[uiLang];
     if (!round || !round.target) {
       setContent(`
         <article class="find-card">
           <p class="panel-kicker">${escapeHtml(text.findInstruction)}</p>
           <p class="panel-idle-body">${escapeHtml(text.findAllMastered)}</p>
-          <div class="round-actions">
-            <button id="next-round-button" class="action-button" type="button" disabled>${escapeHtml(text.nextButton)}</button>
-          </div>
         </article>
       `);
       wireNextButton();
@@ -462,11 +478,11 @@ export function createSidePanel({ contentElement, actions }) {
           round.newlyMastered ? ` <span class="mastered-badge">${escapeHtml(text.masteredBadge)}</span>` : ""
         }</p>`;
       } else {
-        // single chance: a wrong click (or give-up) reveals the target on the map
-        const missPrefix = round.wrongClick
-          ? `${escapeHtml(text.findMissPrefix)} ${bilingualName(round.wrongClick)} — `
-          : "";
-        outcomeHtml = `<p class="verdict verdict-wrong">✗ ${missPrefix}${escapeHtml(text.findShownOnMap)}</p>`;
+        // single chance: a wrong click names what you picked; a give-up just
+        // reports the miss. Either way the target pulses on the map.
+        outcomeHtml = round.wrongClick
+          ? `<p class="verdict verdict-wrong">✗ ${escapeHtml(text.findMissPrefix)} ${bilingualName(round.wrongClick)}</p>`
+          : `<p class="verdict verdict-wrong">✗ ${escapeHtml(text.findWrongRegion)}</p>`;
       }
     }
     setContent(`
@@ -476,7 +492,7 @@ export function createSidePanel({ contentElement, actions }) {
         <div class="find-outcome">${outcomeHtml}</div>
         <div class="round-actions">
           ${round.resolved
-            ? `<button id="next-round-button" class="action-button" type="button">${escapeHtml(text.nextButton)}</button>`
+            ? `<button id="next-round-button" class="action-button" type="button">${escapeHtml(text.nextButton)}${keyHint("Enter")}</button>`
             : showAnswerButtonMarkup(false)}
         </div>
       </article>
@@ -487,26 +503,22 @@ export function createSidePanel({ contentElement, actions }) {
     if (round.resolved && nextButton) nextButton.focus();
   }
 
-  // ----- naming rounds (Type, and Review's naming-track rounds) -----
+  // ----- naming rounds (Type) -----
 
   // round: { target, verdict, inputText, newlyMastered, corrected } or null
   // when the mode has nothing to quiz (emptyMessage says why). promptHint: extra
   // hint under "Enter checks…" (Type's click-override). regionByName: parent
   // lookup for the resolved card's "Part of" fact.
-  function renderNamingRound(round, language, { emptyMessage, promptHint, regionByName } = {}) {
-    const text = uiText.en;
+  function renderNamingRound(round, { emptyMessage, promptHint, regionByName } = {}) {
+    const text = uiText[uiLang];
     if (!round || !round.target) {
       setContent(`
         <article class="quiz-card">
-          ${kickerRowMarkup(text.namingPrompt, language)}
+          ${kickerRowMarkup(text.namingPrompt)}
           <p class="panel-idle-body">${escapeHtml(emptyMessage || text.noQuizRegions)}</p>
-          <div class="round-actions">
-            <button id="next-round-button" class="action-button" type="button" disabled>${escapeHtml(text.nextButton)}</button>
-          </div>
         </article>
       `);
       wireNextButton();
-      wireLanguageToggle();
       return;
     }
     // Single attempt: exact solves the round; any non-exact answer (or giving
@@ -520,33 +532,49 @@ export function createSidePanel({ contentElement, actions }) {
     // once the correction is typed right, the label flips to ✓ Correct — purely
     // visual; the ledger keeps the original wrong/almost (graded on attempt 1).
     const displayVerdict = round.corrected ? "exact" : round.verdict;
+    const card = regionInfoMarkup(round.target, regionByName || (() => null));
+    // The correction screen (almost/wrong, not yet corrected): show what the
+    // user typed — colored yellow/red — so they can compare it to the correct
+    // name, then the "type the correct answer" prompt, then the region card. A
+    // give-up (no typed answer) keeps the plain verdict label instead.
+    let verdictAreaHtml;
+    if (!hasVerdict) {
+      verdictAreaHtml = `<p class="verdict-hint">${escapeHtml(text.enterToCheck)}${
+        promptHint ? ` · ${escapeHtml(promptHint)}` : ""
+      }</p>`;
+    } else if (needsCorrection) {
+      const typedLine = round.firstAnswer
+        ? `<p class="result-line verdict-${round.verdict}">${escapeHtml(text.youTyped)} <span class="typed-answer">${escapeHtml(round.firstAnswer)}</span></p>`
+        : verdictLabelMarkup(displayVerdict, round.newlyMastered);
+      verdictAreaHtml = `${typedLine}
+               ${card}`;
+    } else {
+      verdictAreaHtml = `${verdictLabelMarkup(displayVerdict, round.newlyMastered)}
+               ${card}`;
+    }
+    // One contextual action button, always in the answer-row slot — Check while
+    // answering, Next once solved — so the button never jumps positions and a
+    // dead/disabled button never shows.
+    const actionButton = canAdvance
+      ? `<button id="next-round-button" class="action-button" type="button">${escapeHtml(text.nextButton)}${keyHint("Enter")}</button>`
+      : `<button id="check-answer-button" class="action-button" type="button">${escapeHtml(text.checkAnswer)}${keyHint("Enter")}</button>`;
     setContent(`
       <article class="quiz-card">
-        ${kickerRowMarkup(text.namingPrompt, language)}
+        ${kickerRowMarkup(text.namingPrompt)}
         <div class="answer-row" id="answer-row">
-          <input id="answer-input" class="answer-input" type="text"
+          <input id="answer-input" class="answer-input${hasVerdict ? ` input-${displayVerdict}` : ""}" type="text"
                  autocomplete="off" autocapitalize="off" spellcheck="false"
                  placeholder="${escapeHtml(needsCorrection ? text.correctionPlaceholder : text.answerPlaceholder)}"
                  value="${escapeHtml(round.inputText || "")}"${canAdvance ? " disabled" : ""}>
-          <button id="check-answer-button" class="action-button" type="button"${canAdvance ? " disabled" : ""}>${escapeHtml(text.checkAnswer)}</button>
+          ${actionButton}
         </div>
         <div class="verdict-area">
-          ${hasVerdict
-            ? `${verdictLabelMarkup(displayVerdict, round.newlyMastered)}
-               ${regionInfoMarkup(round.target, regionByName || (() => null))}
-               ${needsCorrection ? `<p class="correction-prompt">${escapeHtml(text.correctionPrompt)}</p>` : ""}`
-            : `<p class="verdict-hint">${escapeHtml(text.enterToCheck)}${
-                promptHint ? ` · ${escapeHtml(promptHint)}` : ""
-              }</p>`}
-        </div>
-        <div class="round-actions">
-          <button id="next-round-button" class="action-button" type="button"${needsCorrection ? " disabled" : ""}>${escapeHtml(text.nextButton)}</button>
+          ${verdictAreaHtml}
         </div>
       </article>
     `);
     wireAnswerInput();
     wireNextButton();
-    wireLanguageToggle();
     if (hasVerdict) wireSpeakButtons(); // the resolved card carries pronounce buttons
     if (canAdvance) {
       const nextButton = contentElement.querySelector("#next-round-button");
@@ -571,8 +599,8 @@ export function createSidePanel({ contentElement, actions }) {
 export const STAT_CONTINENTS = ["Africa", "Asia", "Europe", "North America", "South America", "Oceania"];
 
 // rows: computed by the caller. Renders the compact per-continent list.
-export function renderStatsList(statsListElement, rows, language, activeContinent) {
-  const text = uiText.en;
+export function renderStatsList(statsListElement, rows, activeContinent) {
+  const text = uiText[uiLang];
   const rowsHtml = rows
     .map((row) => {
       const isActive = row.continent === activeContinent;

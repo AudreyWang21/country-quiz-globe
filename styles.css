@@ -24,6 +24,15 @@
   font-style: normal;
   font-display: swap;
 }
+/* Noto Serif SC (OFL), subset to Atlas's Chinese glyphs — the "Serif (Noto)"
+   Chinese-font option. Falls back to system serif until/if the file is absent. */
+@font-face {
+  font-family: "Noto Serif SC";
+  src: url("vendor/fonts/noto-serif-sc-subset.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ---------- palette and shared tokens ---------- */
 
@@ -50,8 +59,12 @@
   --color-verdict-almost: #8a6c28;
   --color-verdict-wrong: #8f3f2c;
 
-  --font-display: "Fraunces", Georgia, "Microsoft YaHei", "PingFang SC", serif;
-  --font-body: Georgia, "Times New Roman", "Microsoft YaHei", "PingFang SC", serif;
+  /* The CJK face is swappable from Settings (app.js sets --cjk-font to one of
+     the option stacks). Each option ends with its own generic, so the composed
+     display/body stacks below don't append one. */
+  --cjk-font: "Microsoft YaHei", "PingFang SC", sans-serif;
+  --font-display: "Fraunces", Georgia, var(--cjk-font);
+  --font-body: Georgia, "Times New Roman", var(--cjk-font);
 
   --rule-double: 3px double var(--color-rule);
   --rule-hairline: 1px solid rgba(122, 100, 80, 0.45);
@@ -101,7 +114,6 @@ body::after {
 .mode-tab,
 .segment,
 .action-button,
-.map-legend,
 .verdict-hint,
 .region-browse-only,
 .region-facts dt {
@@ -216,11 +228,6 @@ body::after {
 .segment[aria-pressed="true"] {
   background: var(--color-ink);
   color: var(--color-parchment);
-}
-
-/* wide enough for both "Microstates" and "微型地区" — no width jump on language switch */
-.segment-microstates {
-  min-width: 118px;
 }
 
 .continent-filter {
@@ -406,6 +413,14 @@ button:disabled {
 .microstate-marker.out-of-scope {
   opacity: 0.3;
 }
+/* §7 Exclude mode: the brown-dot variant recolors the speck brown (full
+   opacity, overriding any progress color) so every microstate stays visible;
+   the no-dot variant hides it so the tiny ones leave the map entirely. */
+/* §7: excluded microstates carry no marker — they dim into the map like any
+   other inactive region, and the sub-pixel ones simply drop off it. */
+.microstate-marker.excluded-microstate {
+  display: none;
+}
 .microstate-marker.hovered .marker-dot {
   stroke-width: 2px;
   stroke: var(--color-ink-strong);
@@ -442,74 +457,6 @@ button:disabled {
   animation: marker-pulse 650ms ease-in-out 1;
 }
 
-/* ---------- legend ---------- */
-
-.map-legend {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 8px 14px;
-  background: rgba(242, 232, 213, 0.93);
-  border: var(--rule-double);
-  font-size: 13px;
-  pointer-events: none;
-}
-
-.legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* which progress track the map colors show (Find vs Type & Review) */
-.legend-track {
-  font-weight: 600;
-  padding-right: 14px;
-  border-right: 1px solid var(--color-coastline);
-}
-
-.legend-swatch {
-  width: 13px;
-  height: 13px;
-  border: 1px solid var(--color-coastline);
-  flex: none;
-}
-.legend-swatch-untouched {
-  background: repeating-linear-gradient(
-    45deg,
-    var(--color-land-hatch) 0 1px,
-    var(--color-land-untouched) 1px 5px
-  );
-}
-.legend-swatch-wrong {
-  background: var(--color-status-wrong);
-}
-.legend-swatch-almost {
-  background: var(--color-status-almost);
-}
-.legend-swatch-mastered {
-  background: var(--color-status-mastered);
-}
-.legend-swatch-microstate {
-  width: 7px;
-  height: 7px;
-  margin: 3px;
-  border-radius: 50%;
-  background: var(--color-land-untouched);
-}
-.legend-swatch-capital {
-  width: 4px;
-  height: 4px;
-  margin: 4.5px;
-  border: none;
-  border-radius: 50%;
-  background: var(--color-coastline);
-  opacity: 0.7;
-}
-
 /* ---------- side panel ---------- */
 
 .side-panel {
@@ -541,6 +488,66 @@ button:disabled {
   padding: 12px 20px;
   display: flex;
   gap: 10px;
+}
+
+/* ---------- browse search ---------- */
+
+.browse-search {
+  flex: none;
+  position: relative;
+  padding: 16px 20px 0;
+}
+.browse-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--color-ink);
+  background: var(--color-parchment-bright);
+  border: var(--rule-hairline);
+}
+.browse-search-input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+}
+.browse-search-results {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--color-parchment-bright);
+  border: var(--rule-hairline);
+  box-shadow: 0 6px 16px rgba(60, 46, 30, 0.18);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 20;
+}
+.browse-search-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.browse-search-result:hover {
+  background: rgba(168, 137, 90, 0.18);
+}
+/* small flag in a search result row — descendant selector outranks the
+   full-width base .flag-image regardless of source order */
+.browse-search-result .flag-image {
+  width: 26px;
+  flex: none;
+}
+
+/* visible hotkey hint on a button label, e.g. "Show answer (A)" */
+.key-hint {
+  font-size: 0.82em;
+  color: var(--color-ink-soft);
+  opacity: 0.85;
 }
 
 .panel-section-title {
@@ -620,36 +627,33 @@ button:disabled {
   padding-bottom: 0;
   border-bottom: none;
 }
-.card-language-toggle {
-  flex: none;
-  background: var(--color-parchment);
-}
-.card-language-toggle .segment {
-  min-width: 42px;
-  padding: 3px 8px;
-  font-size: 12px;
-}
 
-.region-card-header {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.region-flag {
-  font-size: 27px;
-  line-height: 1.25;
-  min-width: 34px;
-}
-/* Vendored flag-icons SVGs (4x3). The hairline border keeps flags with
-   white panels (Japan, Cyprus…) visible against the parchment. */
+/* Vendored flag-icons SVGs (4x3). Fills its container (a full-width banner in
+   the region card); the hairline border keeps white-paneled flags (Japan,
+   Cyprus…) visible against the parchment. */
 .flag-image {
-  display: inline-block;
-  width: 34px;
+  display: block;
+  width: 100%;
   height: auto;
   box-sizing: border-box;
   border: 1px solid var(--color-rule);
   background: var(--color-parchment-bright);
-  vertical-align: middle;
+}
+/* non-rectangular flags (Nepal): no panel/border so the parchment shows through
+   the transparent area instead of a white box */
+.flag-image-bare {
+  background: none;
+  border: none;
+}
+/* flag banner under the region's names. Interim size pending the user's pick
+   from z-Scratch/FlagSizePrototype.html — centered, medium (not full-width). */
+.region-flag-banner {
+  margin: 14px 0 0;
+  display: flex;
+  justify-content: center;
+}
+.region-flag-banner .flag-image {
+  width: var(--flag-banner-width, 190px);
 }
 .region-card-names {
   min-width: 0;
@@ -658,20 +662,20 @@ button:disabled {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 23px;
+  font-size: calc(23px * var(--font-scale, 1));
   line-height: 1.2;
   color: var(--color-ink-strong);
 }
 .region-secondary-name {
   margin: 3px 0 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale, 1));
   color: var(--color-ink-soft);
 }
 /* endonym — the region's name in its own language, when it adds anything
    beyond the EN/ZH names above it */
 .region-local-name {
   margin: 2px 0 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-scale, 1));
   font-style: italic;
   color: var(--color-ink-soft);
 }
@@ -713,7 +717,7 @@ button:disabled {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 5px 14px;
-  font-size: 13.5px;
+  font-size: calc(13.5px * var(--font-scale, 1));
 }
 .region-facts dt {
   color: var(--color-ink-soft);
@@ -721,13 +725,17 @@ button:disabled {
 .region-facts dd {
   margin: 0;
 }
+/* one capital per line for multi-capital countries (South Africa, Bolivia…) */
+.capital-line {
+  display: block;
+}
 
 .region-note {
   margin: 14px 0 0;
   padding-left: 10px;
   border-left: 2px solid rgba(168, 137, 90, 0.55);
   font-style: italic;
-  font-size: 13px;
+  font-size: calc(13px * var(--font-scale, 1));
   color: var(--color-ink-soft);
 }
 
@@ -760,6 +768,19 @@ button:disabled {
 }
 .answer-input:focus {
   border-color: var(--color-ink-strong);
+}
+/* once a round is graded, recolor the box's frame by the result — green (right),
+   amber (near), red (wrong). Same frame as always, only the color changes (no
+   glow, no width change → no reflow). After :focus so the result color wins
+   while you correct. */
+.answer-input.input-exact {
+  border-color: var(--color-status-mastered);
+}
+.answer-input.input-almost {
+  border-color: var(--color-status-almost);
+}
+.answer-input.input-wrong {
+  border-color: var(--color-status-wrong);
 }
 
 .action-button {
@@ -795,7 +816,6 @@ a.action-button {
 }
 
 .verdict-area {
-  min-height: 118px;
   margin-top: 14px;
 }
 
@@ -820,6 +840,20 @@ a.action-button {
   color: var(--color-ink-soft);
 }
 
+/* The single status line above the naming card — "You typed: …" during
+   correction, "✓ Correct" / "✗ Wrong" when resolved. One shared size so the
+   card sits at the same height in every state and never jumps. Color comes from
+   the .verdict-* classes. */
+.result-line {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+}
+.typed-answer {
+  font-weight: 600;
+}
+
 .mastered-badge {
   display: inline-block;
   margin-left: 8px;
@@ -829,14 +863,6 @@ a.action-button {
   font-size: 12.5px;
   letter-spacing: 0.1em;
   animation: badge-pop 350ms ease-out;
-}
-
-/* "type the correct answer to continue" line under a resolved naming card */
-.correction-prompt {
-  margin: 12px 0 0;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-status-wrong);
 }
 
 .shake {
@@ -981,16 +1007,24 @@ a.action-button {
   margin-top: 18px;
 }
 
-/* trouble spots read top-to-bottom, not in the side panel's two columns */
-.trouble-list {
-  grid-template-columns: 1fr;
-}
-
 .doc-controls {
   display: flex;
   flex-direction: column;
   gap: 10px;
   max-width: 260px;
+}
+
+/* settings-page display tuning: label + segmented control on one row */
+.doc-control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.doc-control-label {
+  font-size: 14px;
+  color: var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {

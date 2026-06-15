@@ -1,6 +1,6 @@
 // quiz.js — answer normalization, two-tier checking, and target scheduling.
 
-import { isMastered, TROUBLE_WRONG_THRESHOLD } from "./store.js";
+import { isMastered } from "./store.js";
 
 // ---------- English checking ----------
 
@@ -99,8 +99,16 @@ export function checkChineseAnswer(inputText, region) {
   return "wrong";
 }
 
-export function checkAnswer(inputText, region, language) {
-  return language === "zh" ? checkChineseAnswer(inputText, region) : checkEnglishAnswer(inputText, region);
+// The typing quiz has no language (§6): "France" or "法国" both count. Grade
+// against both checkers and keep the better verdict (exact > almost > wrong).
+// Cross-language false matches don't happen — Chinese characters never fuzzy-
+// match Latin targets and vice versa — so taking the max is safe.
+const VERDICT_RANK = { exact: 2, almost: 1, wrong: 0 };
+
+export function checkAnswer(inputText, region) {
+  const en = checkEnglishAnswer(inputText, region);
+  const zh = checkChineseAnswer(inputText, region);
+  return VERDICT_RANK[zh] > VERDICT_RANK[en] ? zh : en;
 }
 
 // ---------- Target scheduling ----------
@@ -142,26 +150,4 @@ export function pickPriorityTarget(candidateRegions, ledger, previousRegionId) {
   const notYetMastered = pool.filter((region) => !isMastered(ledger[region.id]));
   const maintenancePool = notYetMastered.length > 0 ? notYetMastered : pool;
   return maintenancePool.slice().sort(byLeastRecentlySeen)[0];
-}
-
-// Review mode: drill chronic misses from both tracks, mixed. A region
-// qualifies once its lifetime wrong count passes TROUBLE_WRONG_THRESHOLD in a
-// track's ledger; it can qualify in both tracks at once (two separate
-// entries). Random among qualifiers, never the same region twice in a row.
-// Returns { region, track: 'locate'|'name' } or null when nothing qualifies.
-export function pickTroubleTarget(candidateRegions, progress, language, previousRegionId) {
-  const entries = [];
-  for (const region of candidateRegions) {
-    const locateStats = progress.locate[region.id];
-    if (locateStats && locateStats.wrong > TROUBLE_WRONG_THRESHOLD) entries.push({ region, track: "locate" });
-    const nameStats = progress.name[language][region.id];
-    if (nameStats && nameStats.wrong > TROUBLE_WRONG_THRESHOLD) entries.push({ region, track: "name" });
-  }
-  if (entries.length === 0) return null;
-  const pool = entries.filter((entry) => entry.region.id !== previousRegionId);
-  return randomItem(pool.length > 0 ? pool : entries);
-}
-
-export function regionDisplayName(region, language) {
-  return language === "zh" ? region.nameZh || region.nameEn : region.nameEn;
 }

@@ -2,9 +2,9 @@
 // pan/zoom, drag-to-rotate, microstate markers, status fills, scope dimming,
 // pulses/flashes, and continent framing. Uses window.d3 (classic script tag).
 
-// "neutral" is the progress-free fill for Browse and pre-round Review: flat
-// land, no hatch, no status color. (statusForStats never returns it; app.js
-// injects it for every region when the map has no active track.)
+// "neutral" is the progress-free fill for Browse: flat land, no hatch, no
+// status color. (statusForStats never returns it; app.js injects it for every
+// region when the map has no active track.)
 const FILL_STATUSES = ["untouched", "wrong", "almost", "mastered", "neutral"];
 const MARKER_DOT_RADIUS = 3.2;
 const MARKER_HIT_RADIUS = 6;
@@ -58,12 +58,24 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
   const effectiveIdOf = (feature) => effectiveIdByFeatureId.get(feature.properties.id);
 
   let activeContinentScope = "World";
-  let microstatesIncluded = true;
+  let microstateMode = "include"; // "include" | "exclude" | "only"
   function isFeatureIdOutOfScope(effectiveRegionId) {
     const region = regionById.get(effectiveRegionId);
-    if (!microstatesIncluded && region && region.microstate) return true;
+    if (region) {
+      if (microstateMode === "exclude" && region.microstate) return true;
+      if (microstateMode === "only" && !region.microstate) return true;
+    }
     if (activeContinentScope === "World") return false;
     return !region || region.continent !== activeContinentScope;
+  }
+
+  // §7: in Exclude mode the out-of-play microstates render like the other inactive
+  // regions — dimmed out-of-scope, no special color — and only hide their marker
+  // (no dot). This flag drives that marker hiding; the polygon dims via out-of-scope.
+  function isExcludedMicrostate(effectiveRegionId) {
+    if (microstateMode !== "exclude") return false;
+    const region = regionById.get(effectiveRegionId);
+    return Boolean(region && region.microstate);
   }
 
   // Anchor = centroid of the feature's largest polygon (by spherical area).
@@ -178,7 +190,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     .attr("vector-effect", "non-scaling-stroke");
 
   const markerData = regions.filter(
-    (region) => region.microstate && anchorByRegionId.has(region.id)
+    (region) => region.microstate && region.status !== "fold" && anchorByRegionId.has(region.id)
   );
   const markersGroup = zoomLayer.append("g").attr("class", "microstate-markers");
   const markerGroups = markersGroup
@@ -201,7 +213,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
   // meaningless at world view — and pointer-events: none in CSS, so they can
   // never steal a hover or click from the country under them.
   const capitalDotData = regions
-    .filter((region) => !region.microstate && capitalsByRegionId[region.id])
+    .filter((region) => !region.microstate && region.status !== "fold" && capitalsByRegionId[region.id])
     .map((region) => ({ id: region.id, lngLat: capitalsByRegionId[region.id] }));
   // Each capital is a positioned <g> (translated to the projected point) holding
   // a star <path> (scaled to the screen size). Splitting position from size lets
@@ -492,10 +504,12 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
       const projected = globeProjection(anchor);
       if (!projected) continue;
       const effective = resolveEffectiveRegion(region.id);
-      ctx.globalAlpha = isFeatureIdOutOfScope(effective ? effective.id : region.id) ? 0.3 : 1;
+      const effId = effective ? effective.id : region.id;
+      if (isExcludedMicrostate(effId)) continue; // excluded microstates show no marker
+      ctx.globalAlpha = isFeatureIdOutOfScope(effId) ? 0.3 : 1;
+      ctx.fillStyle = statusFillFor(region.id);
       ctx.beginPath();
       ctx.arc(projected[0], projected[1], MARKER_DOT_RADIUS, 0, 2 * Math.PI);
-      ctx.fillStyle = statusFillFor(region.id);
       ctx.fill();
       ctx.stroke();
     }
@@ -559,10 +573,12 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
       const projected = flatProjection(anchorByRegionId.get(region.id));
       if (!projected) continue;
       const effective = resolveEffectiveRegion(region.id);
-      ctx.globalAlpha = isFeatureIdOutOfScope(effective ? effective.id : region.id) ? 0.3 : 1;
+      const effId = effective ? effective.id : region.id;
+      if (isExcludedMicrostate(effId)) continue; // excluded microstates show no marker
+      ctx.globalAlpha = isFeatureIdOutOfScope(effId) ? 0.3 : 1;
+      ctx.fillStyle = statusFillFor(region.id);
       ctx.beginPath();
       ctx.arc(projected[0], projected[1], MARKER_DOT_RADIUS / scale, 0, 2 * Math.PI);
-      ctx.fillStyle = statusFillFor(region.id);
       ctx.fill();
       ctx.stroke();
     }
@@ -809,12 +825,18 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     });
   }
 
+  const markerEffectiveId = (region) => {
+    const effective = resolveEffectiveRegion(region.id);
+    return effective ? effective.id : region.id;
+  };
+
   function applyOutOfScopeClasses() {
     countryPaths.classed("out-of-scope", (feature) => isFeatureIdOutOfScope(effectiveIdOf(feature)));
-    markerGroups.classed("out-of-scope", (region) => {
-      const effective = resolveEffectiveRegion(region.id);
-      return isFeatureIdOutOfScope(effective ? effective.id : region.id);
-    });
+    // Excluded microstates dim like any out-of-scope region; the only extra is
+    // hiding their marker (the "excluded-microstate" class → display:none).
+    markerGroups
+      .classed("out-of-scope", (region) => isFeatureIdOutOfScope(markerEffectiveId(region)))
+      .classed("excluded-microstate", (region) => isExcludedMicrostate(markerEffectiveId(region)));
     capitalDots.classed("out-of-scope", (dot) => isFeatureIdOutOfScope(dot.id));
   }
 
@@ -823,8 +845,8 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     applyOutOfScopeClasses();
   }
 
-  function setMicrostatesIncluded(included) {
-    microstatesIncluded = included;
+  function setMicrostateMode(mode) {
+    microstateMode = mode;
     applyOutOfScopeClasses();
   }
 
@@ -1031,7 +1053,7 @@ export function createMapEngine({ svgElement, geojson, regions, capitalsByRegion
     setView,
     refreshRegionStatuses,
     setContinentScope,
-    setMicrostatesIncluded,
+    setMicrostateMode,
     setSelectedRegion,
     setReviewTarget,
     pulseRegion,
