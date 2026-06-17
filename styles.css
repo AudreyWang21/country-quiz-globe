@@ -655,6 +655,14 @@ button:disabled {
 .region-flag-banner .flag-image {
   width: var(--flag-banner-width, 190px);
 }
+/* the flag-mode prompt: the flag is the whole question, so give it room and a
+   little breathing space below before the answer box / outcome */
+.flag-prompt-banner {
+  margin: 8px 0 18px;
+}
+.flag-prompt-banner .flag-image {
+  width: max(var(--flag-banner-width, 190px), 240px);
+}
 .region-card-names {
   min-width: 0;
 }

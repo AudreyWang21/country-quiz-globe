@@ -1,5 +1,6 @@
 // data-page.js — the standalone Data page (data.html): one section per
-// progress track (Find / Type), each showing mastered-by-continent stats.
+// progress track (Find / Type / Flag find / Flag spell), each showing
+// mastered-by-continent stats.
 // Reads the same localStorage as the game; the "storage" listener keeps it live
 // while quizzing in the other tab (and re-labels if the interface language flips).
 
@@ -14,6 +15,12 @@ const elements = {
   nameTrackTitle: document.getElementById("name-track-title"),
   nameStatsTitle: document.getElementById("name-stats-title"),
   nameStatsList: document.getElementById("name-stats-list"),
+  flagLocateTrackTitle: document.getElementById("flag-locate-track-title"),
+  flagLocateStatsTitle: document.getElementById("flag-locate-stats-title"),
+  flagLocateStatsList: document.getElementById("flag-locate-stats-list"),
+  flagNameTrackTitle: document.getElementById("flag-name-track-title"),
+  flagNameStatsTitle: document.getElementById("flag-name-stats-title"),
+  flagNameStatsList: document.getElementById("flag-name-stats-list"),
 };
 
 let quizRegions = [];
@@ -43,14 +50,22 @@ function render() {
     return true;
   };
   const scopedRegions = quizRegions.filter(inMicrostateScope);
+  // Flag modes can only quiz regions that have a flag, so their "mastered out of
+  // N" counts against the flagged subset, not the whole pool.
+  const flagScopedRegions = scopedRegions.filter((region) => region.iso2);
 
   // labels (re-applied each render so an interface-language flip in the game tab updates here)
   elements.pageTitle.textContent = text.dataPageTitle;
   elements.locateTrackTitle.textContent = text.dataTrackLocateTitle;
   elements.locateStatsTitle.textContent = text.statsTitle;
   elements.nameStatsTitle.textContent = text.statsTitle;
-  // both tracks are language-neutral now (§6)
+  // all four tracks are language-neutral (§6); the flag tracks are separate
+  // ledgers so flag practice never mingles with Find/Type (2026-06-17)
   elements.nameTrackTitle.textContent = text.dataTrackNameTitle;
+  elements.flagLocateTrackTitle.textContent = text.dataTrackFlagLocateTitle;
+  elements.flagLocateStatsTitle.textContent = text.statsTitle;
+  elements.flagNameTrackTitle.textContent = text.dataTrackFlagNameTitle;
+  elements.flagNameStatsTitle.textContent = text.statsTitle;
 
   renderTrackSection(
     ledgerForTrack(progress, "locate"),
@@ -63,6 +78,18 @@ function render() {
     settings,
     scopedRegions,
     elements.nameStatsList
+  );
+  renderTrackSection(
+    ledgerForTrack(progress, "flagLocate"),
+    settings,
+    flagScopedRegions,
+    elements.flagLocateStatsList
+  );
+  renderTrackSection(
+    ledgerForTrack(progress, "flagName"),
+    settings,
+    flagScopedRegions,
+    elements.flagNameStatsList
   );
 }
 

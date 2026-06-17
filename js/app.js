@@ -77,11 +77,37 @@ function quizRegionsInScope() {
 // show. Find trains "locate" (language-neutral: clicking the right shape is the
 // same skill in any language); Type trains "name" (per quiz language). Browse
 // has no track: the map shows a neutral, progress-free atlas (null).
+// Flag find/type are new prompt rows (§2d): same answer skills as Find/Type
+// (click the map / spell the name), just prompted by a flag instead of a name.
+// So they reuse the find-round and naming-round machinery and the same tracks.
+function isFindLikeMode(mode = state.settings.mode) {
+  return mode === "find" || mode === "flagfind";
+}
+function isTypeLikeMode(mode = state.settings.mode) {
+  return mode === "type" || mode === "flagtype";
+}
+function isFlagMode(mode = state.settings.mode) {
+  return mode === "flagfind" || mode === "flagtype";
+}
+
+// Each mode scores onto its own ledger — the flag modes do NOT mingle with
+// Find/Type (the user's 2026-06-17 call). The find/type *machinery* is still
+// shared (same round objects + flow, via isFindLikeMode/isTypeLikeMode); only
+// the track each writes to differs.
 function currentTrack() {
   const mode = state.settings.mode;
   if (mode === "find") return "locate";
   if (mode === "type") return "name";
+  if (mode === "flagfind") return "flagLocate";
+  if (mode === "flagtype") return "flagName";
   return null; // browse
+}
+
+// The pool a round draws from. Flag modes can only quiz regions that have a
+// flag, so they prompt from a flagged subset; Find/Type keep the full pool.
+function quizPoolForMode() {
+  const pool = quizRegionsInScope();
+  return isFlagMode() ? pool.filter((region) => region.iso2) : pool;
 }
 
 // Only called from the find/type round starters and recordVerdict, where the
@@ -144,8 +170,15 @@ function renderCurrentPanel() {
         regionByName,
       });
     }
+  } else if (mode === "flagtype") {
+    state.panel.renderNamingRound(namingRoundViewModel(state.typeRound), {
+      regionByName,
+      flagPrompt: true,
+    });
   } else if (mode === "find") {
     state.panel.renderFindRound(findStyleViewModel(state.findRound), regionByName);
+  } else if (mode === "flagfind") {
+    state.panel.renderFindRound(findStyleViewModel(state.findRound), regionByName, { flagPrompt: true });
   }
 }
 
@@ -181,7 +214,7 @@ function namingRoundViewModel(round) {
 // so it re-tests mastered regions in a maintenance loop rather than stopping when
 // everything in scope is mastered.
 function startFindRound(previousTargetId) {
-  const target = pickPriorityTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
+  const target = pickPriorityTarget(quizPoolForMode(), activeLedger(), previousTargetId);
   state.findRound = target
     ? { targetId: target.id, resolved: false, success: false, gaveUp: false, newlyMastered: false, wrongClickId: null }
     : null;
@@ -194,11 +227,16 @@ function startFindRound(previousTargetId) {
 // quiz prompt; a user pick just gets the selection ring — they know where it is.
 function startTypeRound(previousTargetId, userPickedRegion = null) {
   state.typeDetourRegionId = null;
-  const target = userPickedRegion || pickPriorityTarget(quizRegionsInScope(), activeLedger(), previousTargetId);
+  const target = userPickedRegion || pickPriorityTarget(quizPoolForMode(), activeLedger(), previousTargetId);
   state.typeRound = target
     ? { targetId: target.id, pickedByUser: Boolean(userPickedRegion), verdict: null, inputText: "", newlyMastered: false, corrected: false }
     : null;
-  if (userPickedRegion) {
+  if (state.settings.mode === "flagtype") {
+    // Flag spell: the prompt is the flag in the card, so the map stays neutral —
+    // highlighting the target would give the answer away by its location.
+    state.mapEngine.setReviewTarget(null);
+    state.mapEngine.setSelectedRegion(null);
+  } else if (userPickedRegion) {
     state.mapEngine.setReviewTarget(null);
     state.mapEngine.setSelectedRegion(target.id);
   } else {
@@ -281,7 +319,9 @@ function handleRegionClicked(regionId) {
       renderCurrentPanel();
       if (state.settings.autoPronounce) state.panel.pronounceCurrentCard();
     }
-  } else if (mode === "find") {
+  } else if (isFindLikeMode(mode)) {
+    // Find and Flag find both grade a map click against the round target;
+    // Flag type ignores map clicks (you answer by typing), so it falls through.
     if (state.findRound) handleFindStyleClick(state.findRound, regionId);
   }
 }
@@ -305,7 +345,7 @@ function closeInfoCard() {
 function handleBackgroundClicked() {
   // clicking empty map (ocean/graticule, not a region) re-pulses a resolved
   // Find target too — anywhere in the map area re-finds it.
-  if (state.settings.mode === "find" && state.findRound && state.findRound.resolved) {
+  if (isFindLikeMode() && state.findRound && state.findRound.resolved) {
     state.mapEngine.pulseRegion(state.findRound.targetId);
     return;
   }
@@ -319,8 +359,7 @@ function handleEscape() {
     closeInfoCard();
     return;
   }
-  const mode = state.settings.mode;
-  const namingRound = mode === "type" ? state.typeRound : null;
+  const namingRound = isTypeLikeMode() ? state.typeRound : null;
   if (namingRound && namingRound.verdict !== "exact" && namingRound.verdict !== "wrong") {
     namingRound.inputText = "";
     renderCurrentPanel();
@@ -429,7 +468,7 @@ function updateBrowseSearchVisibility() {
 
 // The active typing-shaped round, if any (Type mode).
 function activeNamingRound() {
-  return state.settings.mode === "type" ? state.typeRound : null;
+  return isTypeLikeMode() ? state.typeRound : null;
 }
 
 // True while a Type round is in the correction gate — graded non-exact and not
@@ -500,7 +539,7 @@ function revealFindTarget(round) {
 // drops a mastery stage) and reveals the answer — in the verdict block for
 // typing rounds, on the map for find-shaped rounds.
 function revealAnswer() {
-  const findStyleRound = state.settings.mode === "find" ? state.findRound : null;
+  const findStyleRound = isFindLikeMode() ? state.findRound : null;
   if (findStyleRound) {
     if (findStyleRound.resolved) return;
     findStyleRound.gaveUp = true; // "answer is pulsing" message instead of "out of tries"
@@ -522,9 +561,9 @@ function revealAnswer() {
 function nextRound() {
   // clear the resolved round's pulse so it can't bleed into the new round
   state.mapEngine.clearPulse();
-  if (state.settings.mode === "find") {
+  if (isFindLikeMode()) {
     startFindRound(state.findRound ? state.findRound.targetId : null);
-  } else if (state.settings.mode === "type") {
+  } else if (isTypeLikeMode()) {
     startTypeRound(state.typeRound ? state.typeRound.targetId : null);
   }
 }
@@ -544,9 +583,9 @@ function switchMode(mode) {
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
   updateChromePressedStates();
   updateBrowseSearchVisibility();
-  if (mode === "find") {
+  if (isFindLikeMode(mode)) {
     startFindRound(null);
-  } else if (mode === "type") {
+  } else if (isTypeLikeMode(mode)) {
     startTypeRound(null);
   } else {
     renderCurrentPanel();
@@ -567,10 +606,10 @@ function switchContinent(continent) {
   state.mapEngine.frameContinent(continent);
   const inScope = (regionId) =>
     continent === "World" || state.regionById.get(regionId).continent === continent;
-  if (state.settings.mode === "find" && (!state.findRound || !inScope(state.findRound.targetId))) {
+  if (isFindLikeMode() && (!state.findRound || !inScope(state.findRound.targetId))) {
     startFindRound(null);
   }
-  if (state.settings.mode === "type" && (!state.typeRound || !inScope(state.typeRound.targetId))) {
+  if (isTypeLikeMode() && (!state.typeRound || !inScope(state.typeRound.targetId))) {
     startTypeRound(null);
   }
 }
@@ -581,12 +620,9 @@ function switchMicrostateMode(mode) {
   state.mapEngine.setMicrostateMode(mode);
   updateChromePressedStates();
   const targetOutOfScope = (regionId) => isOutOfMicrostateScope(state.regionById.get(regionId));
-  if (state.settings.mode === "find" && (!state.findRound || targetOutOfScope(state.findRound.targetId))) {
+  if (isFindLikeMode() && (!state.findRound || targetOutOfScope(state.findRound.targetId))) {
     startFindRound(null);
-  } else if (
-    state.settings.mode === "type" &&
-    (!state.typeRound || targetOutOfScope(state.typeRound.targetId))
-  ) {
+  } else if (isTypeLikeMode() && (!state.typeRound || targetOutOfScope(state.typeRound.targetId))) {
     startTypeRound(null);
   } else if (state.settings.mode === "browse") {
     renderCurrentPanel();
@@ -603,6 +639,8 @@ function updateChromeText() {
     browse: localized.modeBrowse,
     type: localized.modeType,
     find: localized.modeFind,
+    flagfind: localized.modeFlagFind,
+    flagtype: localized.modeFlagType,
   };
   for (const tab of elements.modeTabs) tab.textContent = modeLabels[tab.dataset.mode];
   for (const button of elements.viewButtons) {
@@ -714,8 +752,8 @@ function applyAllSettings() {
   state.mapEngine.setMicrostateMode(state.settings.microstateMode);
   state.mapEngine.frameContinent(state.settings.continent);
   state.mapEngine.refreshRegionStatuses(computeStatusByRegionId());
-  if (state.settings.mode === "find") startFindRound(null);
-  else if (state.settings.mode === "type") startTypeRound(null);
+  if (isFindLikeMode()) startFindRound(null);
+  else if (isTypeLikeMode()) startTypeRound(null);
   else renderCurrentPanel();
 }
 
@@ -872,11 +910,24 @@ async function boot() {
           return;
         }
       }
-      // Space / → only advance (Next), never give up or check.
-      const nextButton = elements.panelContent.querySelector("#next-round-button");
-      if (nextButton && !nextButton.disabled) {
+      // Space / → advance to the next round (Next). Space *also* gives up on a
+      // Find-style card — it clicks Show answer too, mirroring Enter (the user's
+      // 2026-06-17 ask) so you can reveal without reaching for Enter. It never
+      // triggers Check, so Space can't grade a typed answer; → stays advance-only.
+      // (While the answer box is focused, the input guard above already returned,
+      // so Space types a normal space there.)
+      const nextButton = elements.panelContent.querySelector("#next-round-button:not(:disabled)");
+      if (nextButton) {
         event.preventDefault();
         nextButton.click();
+        return;
+      }
+      if (event.key === " ") {
+        const showAnswerButton = elements.panelContent.querySelector("#show-answer-button:not(:disabled)");
+        if (showAnswerButton) {
+          event.preventDefault();
+          showAnswerButton.click();
+        }
       }
     }
   });
@@ -891,8 +942,8 @@ async function boot() {
     // interaction canvas during the first-load reveal
     state.mapEngine.frameContinent(state.settings.continent, { animate: false });
   }
-  if (state.settings.mode === "find") startFindRound(null);
-  else if (state.settings.mode === "type") startTypeRound(null);
+  if (isFindLikeMode()) startFindRound(null);
+  else if (isTypeLikeMode()) startTypeRound(null);
   else renderCurrentPanel();
   updateBrowseSearchVisibility();
 

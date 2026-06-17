@@ -3,8 +3,17 @@
 // (interface language + card text size + flag size + Chinese font). Every write
 // fires a "storage" event the game tab uses to re-sync itself live.
 
-import { saveProgress, blankProgress, loadSettings, saveSettings } from "./store.js";
+import { saveProgress, blankProgress, clearProgressTrack, loadSettings, saveSettings } from "./store.js";
 import { uiText } from "./panel.js";
+
+// Which uiText mode label names each track, for the per-track "Clear {mode}"
+// buttons (the data-track attribute on each button is the ledger name).
+const TRACK_MODE_LABEL = {
+  locate: "modeFind",
+  name: "modeType",
+  flagLocate: "modeFlagFind",
+  flagName: "modeFlagType",
+};
 
 // The page's own chrome follows the interface-language setting too, read fresh
 // each time so toggling it re-labels this page live.
@@ -13,6 +22,8 @@ const t = () => uiText[loadSettings().uiLang] || uiText.en;
 const elements = {
   pageTitle: document.getElementById("page-title"),
   backupHint: document.getElementById("backup-hint"),
+  clearTrackHint: document.getElementById("clear-track-hint"),
+  clearTrackButtons: [...document.querySelectorAll("[data-track]")],
   clearAllButton: document.getElementById("clear-all-button"),
   displaySectionTitle: document.getElementById("display-section-title"),
   uiLangLabel: document.getElementById("ui-lang-label"),
@@ -57,6 +68,11 @@ function applyLabels() {
   const text = t();
   elements.pageTitle.textContent = text.settingsPageTitle;
   elements.backupHint.textContent = text.settingsBackupHint;
+  elements.clearTrackHint.textContent = text.clearTrackHint;
+  for (const button of elements.clearTrackButtons) {
+    const modeLabel = text[TRACK_MODE_LABEL[button.dataset.track]];
+    button.textContent = text.clearTrackButton.replace("{mode}", modeLabel);
+  }
   elements.clearAllButton.textContent = text.clearAllButton;
   elements.displaySectionTitle.textContent = text.displaySectionTitle;
   elements.uiLangLabel.textContent = text.uiLangLabel;
@@ -73,6 +89,17 @@ elements.clearAllButton.addEventListener("click", () => {
   saveProgress(blankProgress());
   alert(text.clearAllDone);
 });
+
+// Per-mode clear: wipe just this one track's ledger (the other three stay).
+for (const button of elements.clearTrackButtons) {
+  button.addEventListener("click", () => {
+    const text = t();
+    const modeLabel = text[TRACK_MODE_LABEL[button.dataset.track]];
+    if (!confirm(text.clearTrackConfirm.replace("{mode}", modeLabel))) return;
+    clearProgressTrack(button.dataset.track);
+    alert(text.clearTrackDone.replace("{mode}", modeLabel));
+  });
+}
 
 const asString = (value) => value;
 wireToggle(elements.uiLangToggle, "uiLang", "uiLang", asString, applyLabels);

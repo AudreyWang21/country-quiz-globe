@@ -8,6 +8,8 @@ export const PROGRESS_STORAGE_KEY = "atlas-progress-v3";
 // into two tracks (locate + name), with name itself split per quiz language
 // (name.en / name.zh). v3 drops the quiz language: the typing quiz accepts
 // either language, so the two naming ledgers merge into one (2026-06-14, §6).
+// 2026-06-17: v3 additively gained two flag tracks (flagLocate / flagName) —
+// same key, since old saves load fine and just start those ledgers empty.
 const LEGACY_PROGRESS_STORAGE_KEY_V2 = "atlas-progress-v2";
 const LEGACY_PROGRESS_STORAGE_KEY_V1 = "atlas-progress-v1";
 export const SETTINGS_STORAGE_KEY = "atlas-settings-v1";
@@ -37,7 +39,7 @@ const allowedSettingValues = Object.freeze({
   uiLang: ["en", "zh"],
   view: ["flat", "globe"],
   continent: ["World", "Africa", "Asia", "Europe", "North America", "South America", "Oceania"],
-  mode: ["browse", "type", "find"],
+  mode: ["browse", "type", "find", "flagfind", "flagtype"],
   microstateMode: ["include", "exclude", "only"],
   autoPronounce: [true, false],
   fontScale: [1.15, 1.3, 1.45],
@@ -124,21 +126,32 @@ export function saveSettings(settings) {
   writeStoredJson(SETTINGS_STORAGE_KEY, settings);
 }
 
-// Progress holds two skill tracks, both language-neutral: "locate" (Find mode —
-// clicking the right shape is the same skill in any language) and "name" (Type
-// mode — the typing quiz accepts either English or Chinese, so naming is one
-// ledger, not one per language; 2026-06-14, §6).
+// Progress holds four independent skill tracks, all language-neutral. The
+// prompt and the answer-skill both vary, and the user wants each combination
+// scored on its own ledger (2026-06-17): "locate" (Find — name prompt, click
+// the map), "name" (Type — highlighted prompt, spell it), "flagLocate" (Flag
+// find — flag prompt, click the map), "flagName" (Flag spell — flag prompt,
+// spell it). Each is a flat regionId→stats ledger keyed directly on the track
+// name. The two flag tracks are additive: a pre-2026-06-17 save has only
+// locate+name, and sanitizeProgress fills the flag tracks empty — no version
+// bump, no migration (flag modes are brand new, so there's nothing to carry).
 export function blankProgress() {
-  return { locate: {}, name: {} };
+  return { locate: {}, name: {}, flagLocate: {}, flagName: {} };
 }
 
-// v3 shape: both tracks are flat regionId→stats ledgers.
+// The base tracks every valid progress object must have; the flag tracks are
+// optional-on-read (older saves predate them) and default to empty.
 function isProgressShape(value) {
   return isPlainObject(value) && isPlainObject(value.locate) && isPlainObject(value.name);
 }
 
 function sanitizeProgress(raw) {
-  return { locate: sanitizeLedger(raw.locate), name: sanitizeLedger(raw.name) };
+  return {
+    locate: sanitizeLedger(raw.locate),
+    name: sanitizeLedger(raw.name),
+    flagLocate: sanitizeLedger(isPlainObject(raw.flagLocate) ? raw.flagLocate : {}),
+    flagName: sanitizeLedger(isPlainObject(raw.flagName) ? raw.flagName : {}),
+  };
 }
 
 // v2 shape: name was split per quiz language. Checked before isProgressShape
@@ -184,16 +197,17 @@ function mergeLedgers(rawA, rawB) {
   return merged;
 }
 
-// v2 → v3: locate carries over; the two naming ledgers merge into one (§6).
+// v2 → v3: locate carries over; the two naming ledgers merge into one (§6). The
+// flag tracks start empty (they didn't exist pre-2026-06-17).
 function migrateV2Progress(v2) {
-  return { locate: sanitizeLedger(v2.locate), name: mergeLedgers(v2.name.en, v2.name.zh) };
+  return { locate: sanitizeLedger(v2.locate), name: mergeLedgers(v2.name.en, v2.name.zh), flagLocate: {}, flagName: {} };
 }
 
 // v1 → v3: pre-split history becomes the locate track (it was mostly Find
 // rounds) with the two language ledgers merged; naming starts fresh — the
-// user's migration ruling, 2026-06-12.
+// user's migration ruling, 2026-06-12. Flag tracks start empty.
 function migrateLegacyProgress(legacy) {
-  return { locate: mergeLedgers(legacy.en, legacy.zh), name: {} };
+  return { locate: mergeLedgers(legacy.en, legacy.zh), name: {}, flagLocate: {}, flagName: {} };
 }
 
 // Detects any stored progress shape and returns the v3 form, or null. Order
@@ -224,13 +238,25 @@ export function saveProgress(progress) {
   writeStoredJson(PROGRESS_STORAGE_KEY, progress);
 }
 
+// Empty one track's ledger, leaving the other three intact — the per-mode
+// "clear just this" on the Settings page (2026-06-17). Loads fresh so it can't
+// clobber an attempt the game tab recorded since this page loaded; the write
+// fires the cross-tab storage event, so an open game tab re-syncs to the cleared
+// track. `track` is one of the four ledger names.
+export function clearProgressTrack(track) {
+  const progress = loadProgress();
+  progress[track] = {};
+  saveProgress(progress);
+}
+
 export function blankRegionStats() {
   return { attempts: 0, exact: 0, almost: 0, wrong: 0, stage: 0, lastResult: null, lastSeen: null };
 }
 
-// track is 'locate' (Find) or 'name' (Type). Both are language-neutral ledgers.
+// track is one of the four ledger names: 'locate' (Find) / 'name' (Type) /
+// 'flagLocate' (Flag find) / 'flagName' (Flag spell). All are language-neutral.
 export function ledgerForTrack(progress, track) {
-  return track === "locate" ? progress.locate : progress.name;
+  return progress[track];
 }
 
 // The mastery ladder: 0 (start) → 1 (partial, shows yellow) → MASTERY_STAGE

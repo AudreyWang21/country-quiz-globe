@@ -10,6 +10,10 @@ export const uiText = {
     modeBrowse: "Browse",
     modeType: "Type",
     modeFind: "Find",
+    modeFlagFind: "Flag find",
+    modeFlagType: "Flag spell",
+    flagFindInstruction: "Whose flag is this? Click its country on the map",
+    flagTypePrompt: "Whose flag is this? Type the name",
     browseIdleTitle: "Browse the atlas",
     browseIdleBody: "Hover over a region to read about it. Click to keep it in the panel.",
     namingPrompt: "Name the highlighted region",
@@ -39,6 +43,8 @@ export const uiText = {
     statsTitle: "Mastered by continent",
     dataTrackLocateTitle: "Find — locating on the map",
     dataTrackNameTitle: "Type — naming the region",
+    dataTrackFlagLocateTitle: "Flag find — locating from the flag",
+    dataTrackFlagNameTitle: "Flag spell — naming from the flag",
     dataPageLink: "Data ↗",
     settingsPageLink: "Settings ↗",
     dataPageTitle: "Atlas — Data",
@@ -60,8 +66,12 @@ export const uiText = {
     startFreshConfirm: "Set current progress aside and start fresh? Bring it back anytime with “Resume saved progress”.",
     resumeSavedConfirm: "Replace current progress with the progress saved on {date}? Progress made since starting fresh will be lost.",
     clearAllButton: "Clear all progress",
-    clearAllConfirm: "Permanently delete ALL progress in both tracks? This cannot be undone. Export a backup first if you want to keep it.",
+    clearAllConfirm: "Permanently delete ALL progress across all four modes? This cannot be undone.",
     clearAllDone: "All progress cleared",
+    clearTrackHint: "Or clear just one mode:",
+    clearTrackButton: "Clear {mode}",
+    clearTrackConfirm: "Permanently delete all {mode} progress? This cannot be undone.",
+    clearTrackDone: "{mode} progress cleared",
     dataLoadFailed: "Could not load map data. Is the server running?",
     viewFlat: "Flat",
     viewGlobe: "Globe",
@@ -84,6 +94,10 @@ export const uiText = {
     modeBrowse: "浏览",
     modeType: "拼写",
     modeFind: "寻找",
+    modeFlagFind: "国旗寻找",
+    modeFlagType: "国旗拼写",
+    flagFindInstruction: "这是哪国国旗？在地图上点击它所属的国家",
+    flagTypePrompt: "这是哪国国旗？写出它的名称",
     browseIdleTitle: "浏览地图",
     browseIdleBody: "悬停查看地区信息，点击可固定在面板中。",
     namingPrompt: "写出高亮地区的名称",
@@ -113,6 +127,8 @@ export const uiText = {
     statsTitle: "各大洲掌握进度",
     dataTrackLocateTitle: "寻找——在地图上定位",
     dataTrackNameTitle: "拼写——写出地区名称",
+    dataTrackFlagLocateTitle: "国旗寻找——看旗在地图上定位",
+    dataTrackFlagNameTitle: "国旗拼写——看旗写出名称",
     dataPageLink: "数据 ↗",
     settingsPageLink: "设置 ↗",
     dataPageTitle: "Atlas——数据",
@@ -134,8 +150,12 @@ export const uiText = {
     startFreshConfirm: "把当前进度存起来并重新开始？随时可用“恢复存档进度”找回。",
     resumeSavedConfirm: "用 {date} 存档的进度替换当前进度？重新开始后的进度将丢失。",
     clearAllButton: "清除所有进度",
-    clearAllConfirm: "永久删除两个练习轨道的所有进度？此操作无法撤销。如需保留，请先导出备份。",
+    clearAllConfirm: "永久删除全部四个模式的所有进度？此操作无法撤销。",
     clearAllDone: "所有进度已清除",
+    clearTrackHint: "或仅清除单个模式：",
+    clearTrackButton: "清除{mode}",
+    clearTrackConfirm: "永久删除「{mode}」的所有进度？此操作无法撤销。",
+    clearTrackDone: "已清除「{mode}」进度",
     dataLoadFailed: "地图数据加载失败。服务器在运行吗？",
     viewFlat: "平面",
     viewGlobe: "球面",
@@ -180,6 +200,18 @@ function flagMarkup(iso2) {
   const cc = iso2.toLowerCase();
   const bare = BARE_FLAGS.has(cc) ? " flag-image-bare" : "";
   return `<img class="flag-image${bare}" src="vendor/flags/${cc}.svg" alt="${escapeHtml(iso2.toUpperCase())}">`;
+}
+
+// Flag-mode prompt: just the flag, no name — the whole point is to recognize
+// the country from its flag alone. Reuses the region card's banner styling
+// (centered, sized by --flag-banner-width) with a bump for the focal role.
+// Flag-mode targets are pre-filtered to regions that have a flag, so the
+// no-flag fallback should never show in practice.
+function flagPromptMarkup(region) {
+  const flag = flagMarkup(region.iso2);
+  return flag
+    ? `<div class="region-flag-banner flag-prompt-banner">${flag}</div>`
+    : "";
 }
 
 function escapeHtml(text) {
@@ -341,7 +373,7 @@ export function createSidePanel({ contentElement, actions }) {
   // once the round is decided, since the answer is visible from then on.
   function showAnswerButtonMarkup(disabled) {
     return `<button id="show-answer-button" class="action-button" type="button"
-      title="${escapeHtml(uiText[uiLang].showAnswer)} (Enter)"${disabled ? " disabled" : ""}>${escapeHtml(uiText[uiLang].showAnswer)}${keyHint("Enter")}</button>`;
+      title="${escapeHtml(uiText[uiLang].showAnswer)} (Enter / Space)"${disabled ? " disabled" : ""}>${escapeHtml(uiText[uiLang].showAnswer)}${keyHint("Enter / Space")}</button>`;
   }
 
   // ----- pronunciation -----
@@ -459,12 +491,13 @@ export function createSidePanel({ contentElement, actions }) {
 
   // round: { target, wrongClick, resolved, success, gaveUp, newlyMastered }
   // or null when no candidates remain in scope.
-  function renderFindRound(round, regionByName) {
+  function renderFindRound(round, regionByName, { flagPrompt = false } = {}) {
     const text = uiText[uiLang];
+    const kicker = flagPrompt ? text.flagFindInstruction : text.findInstruction;
     if (!round || !round.target) {
       setContent(`
         <article class="find-card">
-          <p class="panel-kicker">${escapeHtml(text.findInstruction)}</p>
+          <p class="panel-kicker">${escapeHtml(kicker)}</p>
           <p class="panel-idle-body">${escapeHtml(text.findAllMastered)}</p>
         </article>
       `);
@@ -485,10 +518,15 @@ export function createSidePanel({ contentElement, actions }) {
           : `<p class="verdict verdict-wrong">✗ ${escapeHtml(text.findWrongRegion)}</p>`;
       }
     }
+    // Flag find shows only the flag until the round resolves; revealing the
+    // target then swaps in the full region card (the answer), same as Find.
+    const promptBlock = flagPrompt && !round.resolved
+      ? flagPromptMarkup(round.target)
+      : regionInfoMarkup(round.target, regionByName);
     setContent(`
       <article class="find-card">
-        <p class="panel-kicker">${escapeHtml(text.findInstruction)}</p>
-        ${regionInfoMarkup(round.target, regionByName)}
+        <p class="panel-kicker">${escapeHtml(kicker)}</p>
+        ${promptBlock}
         <div class="find-outcome">${outcomeHtml}</div>
         <div class="round-actions">
           ${round.resolved
@@ -509,12 +547,13 @@ export function createSidePanel({ contentElement, actions }) {
   // when the mode has nothing to quiz (emptyMessage says why). promptHint: extra
   // hint under "Enter checks…" (Type's click-override). regionByName: parent
   // lookup for the resolved card's "Part of" fact.
-  function renderNamingRound(round, { emptyMessage, promptHint, regionByName } = {}) {
+  function renderNamingRound(round, { emptyMessage, promptHint, regionByName, flagPrompt = false } = {}) {
     const text = uiText[uiLang];
+    const kickerText = flagPrompt ? text.flagTypePrompt : text.namingPrompt;
     if (!round || !round.target) {
       setContent(`
         <article class="quiz-card">
-          ${kickerRowMarkup(text.namingPrompt)}
+          ${kickerRowMarkup(kickerText)}
           <p class="panel-idle-body">${escapeHtml(emptyMessage || text.noQuizRegions)}</p>
         </article>
       `);
@@ -558,9 +597,14 @@ export function createSidePanel({ contentElement, actions }) {
     const actionButton = canAdvance
       ? `<button id="next-round-button" class="action-button" type="button">${escapeHtml(text.nextButton)}${keyHint("Enter")}</button>`
       : `<button id="check-answer-button" class="action-button" type="button">${escapeHtml(text.checkAnswer)}${keyHint("Enter")}</button>`;
+    // Flag spell shows the flag above the answer box until the round resolves;
+    // the resolved card (regionInfoMarkup, in verdictAreaHtml) carries its own
+    // flag, so the prompt flag only shows while still unanswered.
+    const flagPromptBlock = flagPrompt && !hasVerdict ? flagPromptMarkup(round.target) : "";
     setContent(`
       <article class="quiz-card">
-        ${kickerRowMarkup(text.namingPrompt)}
+        ${kickerRowMarkup(kickerText)}
+        ${flagPromptBlock}
         <div class="answer-row" id="answer-row">
           <input id="answer-input" class="answer-input${hasVerdict ? ` input-${displayVerdict}` : ""}" type="text"
                  autocomplete="off" autocapitalize="off" spellcheck="false"
