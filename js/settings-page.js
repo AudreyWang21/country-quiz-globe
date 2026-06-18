@@ -13,7 +13,6 @@ const t = () => uiText[loadSettings().uiLang] || uiText.en;
 
 const elements = {
   pageTitle: document.getElementById("page-title"),
-  backupHint: document.getElementById("backup-hint"),
   clearTrackHint: document.getElementById("clear-track-hint"),
   clearTrackButtons: [...document.querySelectorAll("[data-track]")],
   clearAllButton: document.getElementById("clear-all-button"),
@@ -59,7 +58,6 @@ function wireToggle(toggle, dataAttr, settingKey, parse = Number, onChange = nul
 function applyLabels() {
   const text = t();
   elements.pageTitle.textContent = text.settingsPageTitle;
-  elements.backupHint.textContent = text.settingsBackupHint;
   elements.clearTrackHint.textContent = text.clearTrackHint;
   for (const button of elements.clearTrackButtons) {
     const modeLabel = text[MODE_LABEL_KEY_BY_TRACK[button.dataset.track]];
