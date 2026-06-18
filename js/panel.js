@@ -195,7 +195,15 @@ export function setInterfaceLanguage(language) {
 // set fills its box, so this set has just the one entry.
 const BARE_FLAGS = new Set(["np"]);
 
-function flagMarkup(iso2) {
+// Canonical "does this region have a flag we can show?" — a valid 2-letter iso2
+// with a vendored SVG. The single source of truth for flag eligibility: the
+// flag-quiz pool (app.js) and the Data page's flag stats (data-page.js) both
+// scope to this, and flagMarkup honors the same guard, so they never disagree.
+export function regionHasFlag(region) {
+  return Boolean(region.iso2) && region.iso2.length === 2;
+}
+
+export function flagMarkup(iso2) {
   if (!iso2 || iso2.length !== 2) return "";
   const cc = iso2.toLowerCase();
   const bare = BARE_FLAGS.has(cc) ? " flag-image-bare" : "";
@@ -431,6 +439,40 @@ export function createSidePanel({ contentElement, actions }) {
     }
   }
 
+  // Centralized auto-pronounce for the quiz cards (Find / Type / Flag find /
+  // Flag spell). The one rule, in one place: a region's name is spoken the
+  // moment its *named* card first becomes visible — and never before. Each quiz
+  // render calls this at its end; it self-gates so no mode can fall through a
+  // gap (the bug Flag find originally had):
+  //   - off unless auto-pronounce is enabled;
+  //   - silent unless the just-rendered card actually carries speak buttons, so
+  //     an unanswered prompt (a flag, or a highlighted-but-unnamed region) never
+  //     leaks the answer;
+  //   - `fresh` marks a new prompt (an unresolved round): it clears the dedup so
+  //     the coming reveal always speaks, even if it's the same region twice;
+  //   - otherwise the same region won't repeat, so a card re-rendered in place
+  //     (Find adding its verdict line, a correction retype, a cross-tab resync)
+  //     stays quiet.
+  // Why this unifies the four modes: Find's name *is* its prompt, so its fresh
+  // card already has buttons and it speaks at the start; the other three hide
+  // the name until the answer, so their fresh card has no buttons and they speak
+  // on reveal. Same rule, the timing just follows where the name appears.
+  // (Browse stays separate — its hover preview shows the full card without a
+  // commitment, so it pronounces on click from app.js, not on every render.)
+  let lastAnnouncedRegionId = null;
+  function announceCardName(regionId, { fresh = false } = {}) {
+    if (!(actions.isAutoPronounce && actions.isAutoPronounce())) return;
+    if (fresh) lastAnnouncedRegionId = null;
+    const hasSpeak = Boolean(contentElement.querySelector(".speak-button"));
+    if (!hasSpeak) {
+      lastAnnouncedRegionId = null; // a fresh prompt with nothing to say yet
+      return;
+    }
+    if (regionId != null && regionId === lastAnnouncedRegionId) return;
+    lastAnnouncedRegionId = regionId;
+    pronounceCurrentCard();
+  }
+
   function focusAnswerInput({ selectExisting = false } = {}) {
     const answerInput = contentElement.querySelector("#answer-input");
     if (!answerInput) return;
@@ -539,6 +581,10 @@ export function createSidePanel({ contentElement, actions }) {
     wireShowAnswerButton();
     wireSpeakButtons();
     if (round.resolved && nextButton) nextButton.focus();
+    // Find: the prompt is the named card, so this speaks at the start; Flag find:
+    // the unresolved card is flag-only (no buttons), so it stays silent until the
+    // answer is revealed here. One call, both behaviors.
+    announceCardName(round.target.id, { fresh: !round.resolved });
   }
 
   // ----- naming rounds (Type) -----
@@ -626,6 +672,9 @@ export function createSidePanel({ contentElement, actions }) {
     } else {
       focusAnswerInput();
     }
+    // The unanswered card has no speak buttons (fresh prompt), so this stays
+    // silent; once resolved, the revealed card carries them and it speaks.
+    announceCardName(round.target.id, { fresh: !hasVerdict });
   }
 
   return {

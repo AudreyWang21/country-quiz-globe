@@ -13,7 +13,8 @@ import {
 } from "./store.js";
 import { checkAnswer, pickPriorityTarget } from "./quiz.js";
 import { createMapEngine } from "./map.js";
-import { createSidePanel, uiText, STAT_CONTINENTS, setInterfaceLanguage } from "./panel.js";
+import { createSidePanel, uiText, STAT_CONTINENTS, setInterfaceLanguage, flagMarkup, regionHasFlag } from "./panel.js";
+import { MODES, QUIZ_MODE_IDS, trackForMode, modeUsesClick, modeUsesSpell, modeUsesFlag } from "./modes.js";
 
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const isReducedMotion = () => reducedMotionQuery.matches;
@@ -77,37 +78,33 @@ function quizRegionsInScope() {
 // show. Find trains "locate" (language-neutral: clicking the right shape is the
 // same skill in any language); Type trains "name" (per quiz language). Browse
 // has no track: the map shows a neutral, progress-free atlas (null).
-// Flag find/type are new prompt rows (§2d): same answer skills as Find/Type
-// (click the map / spell the name), just prompted by a flag instead of a name.
-// So they reuse the find-round and naming-round machinery and the same tracks.
+// Mode behavior derives from the catalog (modes.js) — these are thin wrappers
+// that default to the live mode. The answer family decides which round
+// machinery + map behavior a mode uses (click → find flow, spell → type flow);
+// Flag find/type just swap the prompt to a flag, so they reuse those flows.
 function isFindLikeMode(mode = state.settings.mode) {
-  return mode === "find" || mode === "flagfind";
+  return modeUsesClick(mode);
 }
 function isTypeLikeMode(mode = state.settings.mode) {
-  return mode === "type" || mode === "flagtype";
+  return modeUsesSpell(mode);
 }
 function isFlagMode(mode = state.settings.mode) {
-  return mode === "flagfind" || mode === "flagtype";
+  return modeUsesFlag(mode);
 }
 
 // Each mode scores onto its own ledger — the flag modes do NOT mingle with
 // Find/Type (the user's 2026-06-17 call). The find/type *machinery* is still
-// shared (same round objects + flow, via isFindLikeMode/isTypeLikeMode); only
-// the track each writes to differs.
+// shared (same round objects + flow); only the track each writes to differs.
+// trackForMode returns null for browse → a neutral, progress-free map.
 function currentTrack() {
-  const mode = state.settings.mode;
-  if (mode === "find") return "locate";
-  if (mode === "type") return "name";
-  if (mode === "flagfind") return "flagLocate";
-  if (mode === "flagtype") return "flagName";
-  return null; // browse
+  return trackForMode(state.settings.mode);
 }
 
 // The pool a round draws from. Flag modes can only quiz regions that have a
 // flag, so they prompt from a flagged subset; Find/Type keep the full pool.
 function quizPoolForMode() {
   const pool = quizRegionsInScope();
-  return isFlagMode() ? pool.filter((region) => region.iso2) : pool;
+  return isFlagMode() ? pool.filter(regionHasFlag) : pool;
 }
 
 // Only called from the find/type round starters and recordVerdict, where the
@@ -219,7 +216,8 @@ function startFindRound(previousTargetId) {
     ? { targetId: target.id, resolved: false, success: false, gaveUp: false, newlyMastered: false, wrongClickId: null }
     : null;
   renderCurrentPanel();
-  if (target && state.settings.autoPronounce) state.panel.pronounceCurrentCard();
+  // auto-pronounce is centralized in the panel's quiz renders (announceCardName);
+  // a fresh Find prompt speaks itself, a fresh Flag-find prompt stays silent.
 }
 
 // Type: the game picks via the priority scheduler, or the user picks by
@@ -291,6 +289,9 @@ function handleFindStyleClick(round, regionId) {
     revealFindTarget(round);
     renderCurrentPanel();
   }
+  // the resolved card's auto-pronounce is handled by the panel render
+  // (announceCardName) — Flag find speaks the revealed name, Find already spoke
+  // it at the start.
 }
 
 function handleRegionClicked(regionId) {
@@ -419,13 +420,8 @@ function renderSearchResults(matches) {
     const item = document.createElement("li");
     item.className = "browse-search-result";
     item.dataset.regionId = region.id;
-    if (region.iso2 && region.iso2.length === 2) {
-      const flag = document.createElement("img");
-      flag.className = "flag-image";
-      flag.src = `vendor/flags/${region.iso2.toLowerCase()}.svg`;
-      flag.alt = "";
-      item.appendChild(flag);
-    }
+    // reuse the canonical flag markup (handles the bare-flag case, same path)
+    if (regionHasFlag(region)) item.insertAdjacentHTML("beforeend", flagMarkup(region.iso2));
     const label = document.createElement("span");
     label.textContent =
       region.nameZh && region.nameZh !== region.nameEn
@@ -478,12 +474,6 @@ function typeRoundNeedsCorrection() {
   return Boolean(round) && (round.verdict === "almost" || round.verdict === "wrong") && !round.corrected;
 }
 
-// A resolved naming card shows the full region info (with speak buttons), so
-// auto-pronounce can play the name — call once per resolution.
-function pronounceResolvedCard() {
-  if (state.settings.autoPronounce) state.panel.pronounceCurrentCard();
-}
-
 function submitAnswer(inputText) {
   const trimmedInput = inputText.trim();
   if (!trimmedInput) return;
@@ -519,7 +509,7 @@ function submitAnswer(inputText) {
   round.inputText = verdict === "exact" ? inputText : "";
   round.newlyMastered = recordVerdict(region.id, verdict);
   renderCurrentPanel();
-  pronounceResolvedCard();
+  // the resolved card auto-pronounces itself via the panel render (announceCardName)
 }
 
 // Resolves a Find round as wrong and reveals the target on the map with a
@@ -555,7 +545,7 @@ function revealAnswer() {
   round.inputText = ""; // clear for the correction typing
   round.newlyMastered = recordVerdict(round.targetId, "wrong");
   renderCurrentPanel();
-  pronounceResolvedCard();
+  // the revealed card auto-pronounces itself via the panel render (announceCardName)
 }
 
 function nextRound() {
@@ -635,13 +625,9 @@ function updateChromeText() {
   // keep the panel module's chrome language in sync before any re-render
   setInterfaceLanguage(state.settings.uiLang);
   const localized = text();
-  const modeLabels = {
-    browse: localized.modeBrowse,
-    type: localized.modeType,
-    find: localized.modeFind,
-    flagfind: localized.modeFlagFind,
-    flagtype: localized.modeFlagType,
-  };
+  // browse is the only non-quiz tab; the rest take their label from the catalog
+  const modeLabels = { browse: localized.modeBrowse };
+  for (const id of QUIZ_MODE_IDS) modeLabels[id] = localized[MODES[id].labelKey];
   for (const tab of elements.modeTabs) tab.textContent = modeLabels[tab.dataset.mode];
   for (const button of elements.viewButtons) {
     button.textContent = button.dataset.view === "flat" ? localized.viewFlat : localized.viewGlobe;
@@ -802,7 +788,7 @@ async function boot() {
 
   state.panel = createSidePanel({
     contentElement: elements.panelContent,
-    actions: { submitAnswer, nextRound, revealAnswer },
+    actions: { submitAnswer, nextRound, revealAnswer, isAutoPronounce: () => state.settings.autoPronounce },
   });
 
   // chrome wiring

@@ -1,5 +1,7 @@
 // store.js — progress and settings persistence, plus export/import.
 
+import { ALL_MODE_IDS, PROGRESS_TRACKS } from "./modes.js";
+
 // Exported so other tabs (the game vs the settings page) can recognize each
 // other's writes via "storage" events.
 export const PROGRESS_STORAGE_KEY = "atlas-progress-v3";
@@ -39,7 +41,7 @@ const allowedSettingValues = Object.freeze({
   uiLang: ["en", "zh"],
   view: ["flat", "globe"],
   continent: ["World", "Africa", "Asia", "Europe", "North America", "South America", "Oceania"],
-  mode: ["browse", "type", "find", "flagfind", "flagtype"],
+  mode: ALL_MODE_IDS,
   microstateMode: ["include", "exclude", "only"],
   autoPronounce: [true, false],
   fontScale: [1.15, 1.3, 1.45],
@@ -136,7 +138,7 @@ export function saveSettings(settings) {
 // locate+name, and sanitizeProgress fills the flag tracks empty — no version
 // bump, no migration (flag modes are brand new, so there's nothing to carry).
 export function blankProgress() {
-  return { locate: {}, name: {}, flagLocate: {}, flagName: {} };
+  return Object.fromEntries(PROGRESS_TRACKS.map((track) => [track, {}]));
 }
 
 // The base tracks every valid progress object must have; the flag tracks are
@@ -146,12 +148,12 @@ function isProgressShape(value) {
 }
 
 function sanitizeProgress(raw) {
-  return {
-    locate: sanitizeLedger(raw.locate),
-    name: sanitizeLedger(raw.name),
-    flagLocate: sanitizeLedger(isPlainObject(raw.flagLocate) ? raw.flagLocate : {}),
-    flagName: sanitizeLedger(isPlainObject(raw.flagName) ? raw.flagName : {}),
-  };
+  return Object.fromEntries(
+    PROGRESS_TRACKS.map((track) => [
+      track,
+      sanitizeLedger(isPlainObject(raw[track]) ? raw[track] : {}),
+    ])
+  );
 }
 
 // v2 shape: name was split per quiz language. Checked before isProgressShape
@@ -197,17 +199,18 @@ function mergeLedgers(rawA, rawB) {
   return merged;
 }
 
-// v2 → v3: locate carries over; the two naming ledgers merge into one (§6). The
-// flag tracks start empty (they didn't exist pre-2026-06-17).
+// v2 → v3: locate carries over; the two naming ledgers merge into one (§6).
+// Spread blankProgress() first so any track not present in the old shape (the
+// flag tracks, and whatever modes come later) starts empty.
 function migrateV2Progress(v2) {
-  return { locate: sanitizeLedger(v2.locate), name: mergeLedgers(v2.name.en, v2.name.zh), flagLocate: {}, flagName: {} };
+  return { ...blankProgress(), locate: sanitizeLedger(v2.locate), name: mergeLedgers(v2.name.en, v2.name.zh) };
 }
 
 // v1 → v3: pre-split history becomes the locate track (it was mostly Find
 // rounds) with the two language ledgers merged; naming starts fresh — the
-// user's migration ruling, 2026-06-12. Flag tracks start empty.
+// user's migration ruling, 2026-06-12. Every other track starts empty.
 function migrateLegacyProgress(legacy) {
-  return { locate: mergeLedgers(legacy.en, legacy.zh), name: {}, flagLocate: {}, flagName: {} };
+  return { ...blankProgress(), locate: mergeLedgers(legacy.en, legacy.zh) };
 }
 
 // Detects any stored progress shape and returns the v3 form, or null. Order

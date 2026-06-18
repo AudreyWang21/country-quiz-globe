@@ -5,15 +5,7 @@
 
 import { saveProgress, blankProgress, clearProgressTrack, loadSettings, saveSettings } from "./store.js";
 import { uiText } from "./panel.js";
-
-// Which uiText mode label names each track, for the per-track "Clear {mode}"
-// buttons (the data-track attribute on each button is the ledger name).
-const TRACK_MODE_LABEL = {
-  locate: "modeFind",
-  name: "modeType",
-  flagLocate: "modeFlagFind",
-  flagName: "modeFlagType",
-};
+import { MODE_LABEL_KEY_BY_TRACK } from "./modes.js";
 
 // The page's own chrome follows the interface-language setting too, read fresh
 // each time so toggling it re-labels this page live.
@@ -70,7 +62,7 @@ function applyLabels() {
   elements.backupHint.textContent = text.settingsBackupHint;
   elements.clearTrackHint.textContent = text.clearTrackHint;
   for (const button of elements.clearTrackButtons) {
-    const modeLabel = text[TRACK_MODE_LABEL[button.dataset.track]];
+    const modeLabel = text[MODE_LABEL_KEY_BY_TRACK[button.dataset.track]];
     button.textContent = text.clearTrackButton.replace("{mode}", modeLabel);
   }
   elements.clearAllButton.textContent = text.clearAllButton;
@@ -94,7 +86,7 @@ elements.clearAllButton.addEventListener("click", () => {
 for (const button of elements.clearTrackButtons) {
   button.addEventListener("click", () => {
     const text = t();
-    const modeLabel = text[TRACK_MODE_LABEL[button.dataset.track]];
+    const modeLabel = text[MODE_LABEL_KEY_BY_TRACK[button.dataset.track]];
     if (!confirm(text.clearTrackConfirm.replace("{mode}", modeLabel))) return;
     clearProgressTrack(button.dataset.track);
     alert(text.clearTrackDone.replace("{mode}", modeLabel));

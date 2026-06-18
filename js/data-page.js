@@ -5,7 +5,8 @@
 // while quizzing in the other tab (and re-labels if the interface language flips).
 
 import { loadProgress, loadSettings, ledgerForTrack, isMastered } from "./store.js";
-import { renderStatsList, uiText, STAT_CONTINENTS, setInterfaceLanguage } from "./panel.js";
+import { renderStatsList, uiText, STAT_CONTINENTS, setInterfaceLanguage, regionHasFlag } from "./panel.js";
+import { MODES, QUIZ_MODE_IDS } from "./modes.js";
 
 const elements = {
   pageTitle: document.getElementById("page-title"),
@@ -52,45 +53,21 @@ function render() {
   const scopedRegions = quizRegions.filter(inMicrostateScope);
   // Flag modes can only quiz regions that have a flag, so their "mastered out of
   // N" counts against the flagged subset, not the whole pool.
-  const flagScopedRegions = scopedRegions.filter((region) => region.iso2);
+  const flagScopedRegions = scopedRegions.filter(regionHasFlag);
 
-  // labels (re-applied each render so an interface-language flip in the game tab updates here)
+  // labels + stats, re-applied each render (so an interface-language flip in the
+  // game tab updates here). One section per quiz mode, derived from the catalog:
+  // its long Data title, its own ledger, and — for flag modes — the flagged
+  // subset as the denominator. Element refs follow the track name by convention
+  // (`${track}TrackTitle` etc.), matching the static section ids in data.html.
   elements.pageTitle.textContent = text.dataPageTitle;
-  elements.locateTrackTitle.textContent = text.dataTrackLocateTitle;
-  elements.locateStatsTitle.textContent = text.statsTitle;
-  elements.nameStatsTitle.textContent = text.statsTitle;
-  // all four tracks are language-neutral (§6); the flag tracks are separate
-  // ledgers so flag practice never mingles with Find/Type (2026-06-17)
-  elements.nameTrackTitle.textContent = text.dataTrackNameTitle;
-  elements.flagLocateTrackTitle.textContent = text.dataTrackFlagLocateTitle;
-  elements.flagLocateStatsTitle.textContent = text.statsTitle;
-  elements.flagNameTrackTitle.textContent = text.dataTrackFlagNameTitle;
-  elements.flagNameStatsTitle.textContent = text.statsTitle;
-
-  renderTrackSection(
-    ledgerForTrack(progress, "locate"),
-    settings,
-    scopedRegions,
-    elements.locateStatsList
-  );
-  renderTrackSection(
-    ledgerForTrack(progress, "name"),
-    settings,
-    scopedRegions,
-    elements.nameStatsList
-  );
-  renderTrackSection(
-    ledgerForTrack(progress, "flagLocate"),
-    settings,
-    flagScopedRegions,
-    elements.flagLocateStatsList
-  );
-  renderTrackSection(
-    ledgerForTrack(progress, "flagName"),
-    settings,
-    flagScopedRegions,
-    elements.flagNameStatsList
-  );
+  for (const id of QUIZ_MODE_IDS) {
+    const { track, dataTitleKey, prompt } = MODES[id];
+    elements[`${track}TrackTitle`].textContent = text[dataTitleKey];
+    elements[`${track}StatsTitle`].textContent = text.statsTitle;
+    const regionsForTrack = prompt === "flag" ? flagScopedRegions : scopedRegions;
+    renderTrackSection(ledgerForTrack(progress, track), settings, regionsForTrack, elements[`${track}StatsList`]);
+  }
 }
 
 async function boot() {
